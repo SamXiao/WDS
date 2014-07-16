@@ -11,7 +11,7 @@ class SubmitButton extends Button implements ElementWithIconInterface
      * @var array
      */
     protected $attributes = array(
-        'type' => 'button',
+        'type' => 'submit',
         'class' => 'btn btn-info'
     );
 

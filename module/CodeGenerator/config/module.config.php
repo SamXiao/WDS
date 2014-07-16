@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'CodeGenerator\Controller\Index' => 'CodeGenerator\Controller\IndexController',
             'CodeGenerator\Controller\Login' => 'CodeGenerator\Controller\LoginController',
+            'CodeGenerator\Controller\Test' => 'CodeGenerator\Controller\TestController',
         ),
     ),
     // The following section is new and should be added to your file

@@ -4,8 +4,15 @@ namespace Components\Form\View\Helper;
 
 use Zend\Form\ElementInterface;
 use Zend\Form\View\Helper\FormRow as ZVHFormRow;
+use Zend\Form\LabelAwareInterface;
+use Zend\Form\Element\MonthSelect;
+use Zend\Form\Element\Button;
+
+
 class FormRow extends ZVHFormRow
 {
+    protected $warpClass = 'form-group';
+    protected $inputErrorClass = 'has-error';
 
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
@@ -31,13 +38,14 @@ class FormRow extends ZVHFormRow
                 );
             }
         }
-
+        $warpClass = $this->warpClass;
         // Does this element have errors ?
         if (count($element->getMessages()) > 0 && !empty($inputErrorClass)) {
-            $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
-            $classAttributes = $classAttributes . $inputErrorClass;
+//             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
+//             $classAttributes = $classAttributes . $inputErrorClass;
 
-            $element->setAttribute('class', $classAttributes);
+            $warpClass .= ' ' . $inputErrorClass;
+//             $element->setAttribute('class', $classAttributes);
         }
 
         if ($this->partial) {
@@ -84,6 +92,9 @@ class FormRow extends ZVHFormRow
                     '<fieldset><legend>%s</legend>%s</fieldset>',
                     $label,
                     $elementString);
+                if ($this->renderErrors) {
+                    $markup .= $elementErrors;
+                }
             } else {
                 // Ensure element and label will be separated if element has an `id`-attribute.
                 // If element has label option `always_wrap` it will be nested in any case.
@@ -111,7 +122,7 @@ class FormRow extends ZVHFormRow
 
                 switch ($this->labelPosition) {
                 	case self::LABEL_PREPEND:
-                	    $markup = '<div class="form-group">' . $labelOpen . $label . $labelClose . ' <div class="col-sm-9">' . $elementString . "</div>" . "</div>";
+                	    $markup = '<div class="' . $warpClass . '">' . $labelOpen . $label . $labelClose . ' <div class="col-sm-9">' . $elementString . ($this->renderErrors?$elementErrors:'') . "</div>" . "</div>";
                 	    break;
                 	case self::LABEL_APPEND:
                 	default:
@@ -120,9 +131,7 @@ class FormRow extends ZVHFormRow
                 }
             }
 
-            if ($this->renderErrors) {
-                $markup .= $elementErrors;
-            }
+
         } else {
             if ($this->renderErrors) {
                 $markup = $elementString . $elementErrors;

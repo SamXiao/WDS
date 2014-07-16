@@ -6,8 +6,8 @@ return array(
         'ZendDeveloperTools',
         'BjyProfiler',
     	'CodeGenerator',
-      //  'BootsrapView',
         'Components',
+        'SamFramework',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

@@ -39,17 +39,14 @@ class IndexController extends AbstractActionController
     protected function generateModelToFile($form)
     {
         $nameSpace = $form->get('namespace')->getValue();
-        $className = ucfirst($form->get('model_class')->getValue());
+        $className = $form->get('model_class')->getValue();
         $tableName = $form->get('table_name')->getValue();
         $dbAdapter = $this->serviceLocator->get('Zend\Db\Adapter\Adapter');
+
         $gnerator = new ModelGenerator($dbAdapter, $className, $nameSpace, $tableName);
+        $gnerator->generate();
 
-        $class = $gnerator->generate();
 
-        $fileName = $form->get('path')->getValue() . '/' . $className . '.php';
-        $file = new FileGenerator();
-        $file->setClass($class);
-        file_put_contents($fileName, $file->generate());
     }
 
 
@@ -57,17 +54,13 @@ class IndexController extends AbstractActionController
     protected function generateModelMapperToFile($form)
     {
         $nameSpace = $form->get('namespace')->getValue();
-        $modelClassName = ucfirst($form->get('model_class')->getValue());
+        $className = $form->get('model_class')->getValue();
         $dbAdapter = $this->serviceLocator->get('Zend\Db\Adapter\Adapter');
         $tableName = $form->get('table_name')->getValue();
-        $gnerator = new ModelMapperGenerator($dbAdapter, $modelClassName, $nameSpace, $tableName);
 
-        $class = $gnerator->generate();
+        $gnerator = new ModelMapperGenerator($dbAdapter, $className, $nameSpace, $tableName);
+        $gnerator->generate();
 
-        $fileName = $form->get('path')->getValue() . '/' . $class->getName() . '.php';
-        $file = new FileGenerator();
-        $file->setClass($class);
-        file_put_contents($fileName, $file->generate());
     }
 
 

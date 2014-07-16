@@ -7,6 +7,7 @@ return array(
             'formRow' => 'Components\Form\View\Helper\FormRow',
             'formButton' => 'Components\Form\View\Helper\FormButton',
             'formActions' => 'Components\Form\View\Helper\FormActions',
+            'FormElementErrors' => 'Components\Form\View\Helper\FormElementErrors',
         ),
     ),
 

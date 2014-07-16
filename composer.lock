@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "d235ec907766b6a522371292f7af756a",
+    "hash": "c05f33ac07dbc01d78467e34c381cba8",
     "packages": [
         {
             "name": "bjyoungblood/bjy-profiler",
@@ -60,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3"
+                "reference": "a9244b9cc17861eb36a7c899d450119575d16d41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
-                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/a9244b9cc17861eb36a7c899d450119575d16d41",
+                "reference": "a9244b9cc17861eb36a7c899d450119575d16d41",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +114,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-05-06 03:29:18"
+            "time": "2014-07-11 19:51:50"
         },
         {
             "name": "zendframework/zendframework",

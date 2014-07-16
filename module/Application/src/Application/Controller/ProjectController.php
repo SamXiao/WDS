@@ -13,9 +13,10 @@ class ProjectController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel(array(
-            'projects' => $this->getProjectTable()->fetchAll()
-        ));
+        $model = $this->getServiceLocator()->get('\Application\Model\Product\ProductTable');
+//         return new ViewModel(array(
+//             'projects' => $this->getProjectTable()->fetchAll()
+//         ));
     }
 
     public function addAction()

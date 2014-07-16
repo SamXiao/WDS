@@ -68,7 +68,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Project' => 'Application\Controller\ProjectController'
+            'Application\Controller\Project' => 'Application\Controller\ProjectController',
+            'Application\Controller\User' => 'Application\Controller\UserController',
+            'Application\Controller\Product' => 'Application\Controller\Product\ProductController'
         ),
     ),
     'view_manager' => array(
@@ -79,6 +81,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/login'            => __DIR__ . '/../view/layout/login.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
