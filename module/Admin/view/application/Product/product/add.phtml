@@ -1,0 +1,22 @@
+<?php
+$title = 'Add new project';
+$this->headTitle($title);
+?>
+<?= $this->pageHeader( $title )?>
+<?php
+
+$form->setAttribute('action', $this->url('home/default', array(
+    'controller' => 'project',
+    'action' => 'add'
+)));
+$form->setAttribute('class', 'form-horizontal');
+$form->setAttribute('role', 'form');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('description'));
+echo $this->formActions( $form->get('cancel'), $form->get('submit'));
+echo $this->form()->closeTag();
+?>
