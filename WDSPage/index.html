@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Page Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="jquery.mobile-1.4.3.min.css" />
+	<script src="jquery.min.js"></script>
+	<script src="jquery.mobile-1.4.3.min.js"></script>
+	<style type="text/css">
+		.noshadow * {
+			-webkit-box-shadow: none !important;
+			-moz-box-shadow: none !important;
+			box-shadow: none !important;
+		}
+		form.ui-mini .ui-field-contain fieldset.ui-controlgroup legend small {
+			color: #666;
+		}
+		/* Page and overlay */
+		.ui-overlay-a,
+		.ui-page-theme-a,
+		.ui-page-theme-a .ui-panel-wrapper {
+			background-color: #f1f2e8 /*{a-page-background-color}*/;
+		}
+	</style>
+</head>
+
+<body>
+	<div data-role="page" id="testpage" class="ui-page-theme-a noshadow">
+		<div data-role="header">
+			<h1>Default theme</h1>
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
+			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-gear">Button</a>
+		</div><!-- /header -->
+		<div class="ui-content" role="main">
+			<ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
+				<li><a href="#">We</a></li>
+				<li><a href="#">Divider</a></li>
+				<li><a href="#">have<span class="ui-li-count">4</span></a></li>
+				<li><a href="#">links</a></li>
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#">Menu item 1</a></li>
+					<li><a href="#" class="ui-btn-active ui-state-persist">Menu item 2</a></li>
+					<li><a href="#">Menu item 3</a></li>
+				</ul>
+			</div>
+			<h4 style="display:none;">Footer</h4>
+		</div>
+
+	</div>
+</body>
+</html>
