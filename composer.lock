@@ -291,6 +291,7 @@
         "zendframework/zend-developer-tools": 20,
         "bjyoungblood/bjy-profiler": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },

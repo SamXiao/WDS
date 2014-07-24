@@ -8,6 +8,7 @@ return array(
     	'CodeGenerator',
         'Components',
         'SamFramework',
+        'Mobile',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
