@@ -1,5 +1,5 @@
 <?php
-namespace Application\Model\Product;
+namespace Admin\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
 

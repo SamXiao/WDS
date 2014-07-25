@@ -1,10 +1,10 @@
 <?php
-namespace Application\Controller\Product;
+namespace Admin\Controller\Product;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Form\ProjectForm;
-use Application\Model\Project;
+use Admin\Model\Product\Product;
+use Admin\Form\Product\ProductForm;
 
 class ProductController extends AbstractActionController
 {
@@ -17,18 +17,16 @@ class ProductController extends AbstractActionController
         $viewModel = new ViewModel(array(
             'products' => $this->getProductTable()->fetchAll()
         ));
-        $viewModel->setTemplate( 'Application/Product/product/index');
         return $viewModel;
     }
 
     public function addAction()
     {
-        $form = ProjectForm::getInstance( $this->getServiceLocator() );
-//         $form->get('submit')->setValue('Add');
+        $form = ProductForm::getInstance($this->getServiceLocator());
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $album = new Project();
+            $album = new Product();
             $form->setInputFilter($album->getInputFilter());
             $form->setData($request->getPost());
 
@@ -44,7 +42,6 @@ class ProductController extends AbstractActionController
         $viewModel = new ViewModel(array(
              'form' => $form
         ));
-        $viewModel->setTemplate( 'Application/Product/product/index');
         return $viewModel;
     }
 
@@ -57,7 +54,7 @@ class ProductController extends AbstractActionController
     public function getProductTable()
     {
         if (! $this->projectTable) {
-            $this->projectTable = $this->getServiceLocator()->get('\Application\Model\Product\ProductTable');
+            $this->projectTable = $this->getServiceLocator()->get('\Admin\Model\Product\ProductTable');
         }
 
         return $this->projectTable;

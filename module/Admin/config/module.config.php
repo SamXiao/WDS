@@ -10,34 +10,50 @@
 return array(
     'router' => array(
         'routes' => array(
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'admin' => array(
-                'type'    => 'Literal',
+            'wds.admin.local' => array(
+                'type' => 'Zend\Mvc\Router\Http\Hostname',
                 'options' => array(
-                    'route'    => '/admin',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Admin\Controller',
-                        'controller'    => 'index',
-                        'action'        => 'index',
+                    'route' => ':4th.[:3rd.]:2nd.:1st', // domain levels from right to left
+                    'contraints' => array(
+                        '4th' => 'wds',
+                        '3rd' => '.*?', // optional 3rd level domain such as .ci, .dev or .test
+                        '2nd' => 'admin',
+                        '1st' => 'local',
                     ),
+
+                    // Purposely omit default controller and action
+                    // to let the child routes control the route match
+                    'defaults' => array(
+                        'module' => 'Admin',
+                        'action' => 'index',
+                    )
                 ),
-                'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
-                                'module' => 'Admin',
-                                'action' => 'index',
+                                'controller' => 'index',
                                 '__NAMESPACE__' => 'Admin\Controller'
+                            ),
+                        ),
+                    ),
+                    'product' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/product[/:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'product',
+                                '__NAMESPACE__' => 'Admin\Controller\Product'
                             ),
                         ),
                     ),
@@ -68,7 +84,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
-            'Admin\Controller\Product' => 'Admin\Controller\Product\ProductController'
+            'Admin\Controller\User' => 'Admin\Controller\UserController',
+            'Admin\Controller\Product\Product' => 'Admin\Controller\Product\ProductController'
         ),
     ),
     'view_manager' => array(
