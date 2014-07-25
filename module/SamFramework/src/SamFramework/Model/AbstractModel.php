@@ -1,8 +1,11 @@
 <?php
 namespace SamFramework\Model;
 
-abstract class AbstractModel
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+abstract class AbstractModel  implements InputFilterAwareInterface
 {
+    protected $inputFilter;
 
     public function __get($name)
     {
@@ -46,5 +49,15 @@ abstract class AbstractModel
                 return $this->$name !== null;
             }
         return false;
+    }
+
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Please set InputFilter");
+    }
+
+    public function getInputFilter()
+    {
+        throw new \Exception("Please set InputFilter");
     }
 }

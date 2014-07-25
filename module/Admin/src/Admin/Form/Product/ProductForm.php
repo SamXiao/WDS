@@ -15,7 +15,9 @@ class ProductForm extends Form
     {
         // we want to ignore the name passed
         parent::__construct('product');
+    }
 
+    public function init(){
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden'
@@ -27,19 +29,24 @@ class ProductForm extends Form
                 'placeholder' => 'test'
             ),
             'options' => array(
-                'label' => 'Title'
+                'label' => '商品名称'
             )
         ));
         $this->add(array(
-            'name' => 'description',
+            'name' => 'short_desc',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Artist'
+                'label' => '商品说明'
             )
         ));
-    }
-
-    public function init(){
+        $this->add(array(
+            'name' => 'category_id',
+            'type' => 'Select',
+            'options' => array(
+                'label' => '商品类型',
+                'value_options' => $this->getCategories()
+            )
+        ));
         $this->add(array(
             'name' => 'submit',
             'type' => 'submitButton',
@@ -54,5 +61,21 @@ class ProductForm extends Form
                 'label' => 'Cancel',
             )
         ));
+    }
+
+    protected function getServiceLocator()
+    {
+        return $this->getFormFactory()->getFormElementManager()->getServiceLocator();
+    }
+
+    protected function getCategories()
+    {
+        $table = $this->getServiceLocator()->get('\Admin\Model\Product\CategoryTable');
+        $result = $table->fetchAll();
+        $categories = array();
+        foreach ($result as $category){
+            $categories[$category->id] = $category->name;
+        }
+        return $categories;
     }
 }

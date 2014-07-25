@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c05f33ac07dbc01d78467e34c381cba8",
+    "hash": "7f015eb3c7323117acd955f438409c26",
     "packages": [
         {
             "name": "bjyoungblood/bjy-profiler",
@@ -54,6 +54,58 @@
                 "zf2"
             ],
             "time": "2014-04-17 14:44:15"
+        },
+        {
+            "name": "mobiledetect/mobiledetectlib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/serbanghita/Mobile-Detect.git",
+                "reference": "3548c51559873ad59f26d85b8248dffdda7fd679"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/3548c51559873ad59f26d85b8248dffdda7fd679",
+                "reference": "3548c51559873ad59f26d85b8248dffdda7fd679",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Mobile_Detect.php"
+                ],
+                "psr-0": {
+                    "Detection": "namespaced/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serban Ghita",
+                    "email": "serbanghita@gmail.com",
+                    "homepage": "http://ghita.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
+            "homepage": "https://github.com/serbanghita/Mobile-Detect",
+            "keywords": [
+                "detect mobile devices",
+                "mobile",
+                "mobile detect",
+                "mobile detector",
+                "php mobile detect"
+            ],
+            "time": "2014-07-10 20:53:40"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -289,9 +341,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zendframework/zend-developer-tools": 20,
-        "bjyoungblood/bjy-profiler": 20
+        "bjyoungblood/bjy-profiler": 20,
+        "mobiledetect/mobiledetectlib": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },

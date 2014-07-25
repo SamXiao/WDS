@@ -1,11 +1,10 @@
 <?php
 namespace Admin\Model\Product;
 
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
 use SamFramework\Model\AbstractModel;
+use Zend\InputFilter\InputFilter;
 
-class Product extends AbstractModel implements InputFilterAwareInterface
+class Product extends AbstractModel
 {
 
     public $id = '';
@@ -24,14 +23,28 @@ class Product extends AbstractModel implements InputFilterAwareInterface
 
     protected $category = NULL;
 
-    public function setInputFilter(InputFilterInterface $inputFilter)
-    {
-        throw new \Exception("Not used");
-    }
-
     public function getInputFilter()
     {
-        throw new \Exception("Not used");
+        if (! $this->inputFilter) {
+            $inputFilter = new InputFilter();
+
+            $inputFilter->add(array(
+                'name' => 'name',
+                'required' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
+                    ),
+                    array(
+                        'name' => 'StringTrim'
+                    )
+                ),
+            ));
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
     }
 
     public function exchangeArray($data)

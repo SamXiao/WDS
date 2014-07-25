@@ -26,16 +26,20 @@ class ProductController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $album = new Product();
-            $form->setInputFilter($album->getInputFilter());
+            $product = new Product();
+            $form->setInputFilter($product->getInputFilter());
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $album->exchangeArray($form->getData());
-                $this->getProjectTable()->saveAlbum($album);
+                $product->exchangeArray($form->getData());
+                $this->getProductTable()->saveProduct($product);
 
-                // Redirect to list of albums
-                return $this->redirect()->toRoute('album');
+                //TODO add redirect
+                //TODO add flash message
+
+
+//                 // Redirect to list of albums
+//                 return $this->redirect()->toRoute('album');
             }
         }
 
@@ -54,7 +58,7 @@ class ProductController extends AbstractActionController
     public function getProductTable()
     {
         if (! $this->projectTable) {
-            $this->projectTable = $this->getServiceLocator()->get('\Admin\Model\Product\ProductTable');
+            $this->projectTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductTable');
         }
 
         return $this->projectTable;
