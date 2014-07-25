@@ -18,5 +18,15 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $categoryTable = $this->getCategoryTable();
+        $categories = $categoryTable->fetchAll();
+        return array(
+        	'categories' => $categories
+        );
+    }
+
+    protected function getCategoryTable()
+    {
+        return $this->getServiceLocator()->get('Mobile\Model\CategoryTable');
     }
 }
