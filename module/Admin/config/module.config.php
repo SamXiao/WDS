@@ -17,7 +17,7 @@ return array(
             'admin' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/admin',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Admin\Controller',
                         'controller'    => 'index',
@@ -37,7 +37,7 @@ return array(
                             'defaults' => array(
                                 'module' => 'Admin',
                                 'action' => 'index',
-                                '__NAMESPACE__' => 'Application\Controller'
+                                '__NAMESPACE__' => 'Admin\Controller'
                             ),
                         ),
                     ),
@@ -67,10 +67,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Project' => 'Application\Controller\ProjectController',
-            'Application\Controller\User' => 'Application\Controller\UserController',
-            'Application\Controller\Product' => 'Application\Controller\Product\ProductController'
+            'Admin\Controller\Index' => 'Admin\Controller\IndexController',
+            'Admin\Controller\Product' => 'Admin\Controller\Product\ProductController'
         ),
     ),
     'view_manager' => array(
