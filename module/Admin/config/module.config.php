@@ -14,12 +14,12 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'home' => array(
+            'admin' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
+                        '__NAMESPACE__' => 'Admin\Controller',
                         'controller'    => 'index',
                         'action'        => 'index',
                     ),
@@ -35,7 +35,7 @@ return array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
-                                'module' => 'Application',
+                                'module' => 'Admin',
                                 'action' => 'index',
                                 '__NAMESPACE__' => 'Application\Controller'
                             ),
@@ -91,6 +91,7 @@ return array(
         ),
     ),
 
+    'parmas' => array(),
 
     // Placeholder for console routes
     'console' => array(

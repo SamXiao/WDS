@@ -31,6 +31,8 @@ abstract class AbstractAutoBuilder implements AutoBuildInterface, ServiceLocator
         return $this->service_manager;
     }
 
-    abstract public static function getInstance(ServiceLocatorInterface $serviceLocator);
+    public static function getInstance(ServiceLocatorInterface $serviceLocator){
+
+    }
 }
 

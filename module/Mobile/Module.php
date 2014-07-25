@@ -11,11 +11,6 @@ namespace Mobile;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-use Application\Model\ProjectTable;
-use Application\Model\TaskTable;
 
 class Module
 {

@@ -18,6 +18,8 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $config = $this->getServiceLocator()->get('Config');
+        print_r($config);exit();
         $categoryTable = $this->getCategoryTable();
         $categories = $categoryTable->fetchAll();
         return array(

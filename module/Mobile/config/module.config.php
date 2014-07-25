@@ -87,6 +87,7 @@ return array(
         ),
     ),
 
+    'params' => array('test'),
 
     // Placeholder for console routes
     'console' => array(
