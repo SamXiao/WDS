@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7f015eb3c7323117acd955f438409c26",
+    "hash": "d9a75e2b2521c1c09bcb4b11d42bf422",
     "packages": [
         {
             "name": "bjyoungblood/bjy-profiler",
@@ -344,6 +344,7 @@
         "bjyoungblood/bjy-profiler": 20,
         "mobiledetect/mobiledetectlib": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
