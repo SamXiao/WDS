@@ -12,6 +12,7 @@
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
+    	<script src="/js/jquery.min.js"></script>
 
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -46,6 +47,8 @@
 		<script src="/js/html5shiv.js"></script>
 		<script src="/js/respond.min.js"></script>
 		<![endif]-->
+		<?php echo $this->headscript();?>
+		<?php echo $this->headLink() ?>
         <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
     </head>

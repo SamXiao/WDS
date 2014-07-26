@@ -11,6 +11,15 @@ class ProductController extends AbstractActionController
 
     protected $projectTable;
 
+    public function getProductTable()
+    {
+        if (! $this->projectTable) {
+            $this->projectTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductTable');
+        }
+
+        return $this->projectTable;
+    }
+
     public function indexAction()
     {
 
@@ -55,12 +64,10 @@ class ProductController extends AbstractActionController
     public function deleteAction()
     {}
 
-    public function getProductTable()
-    {
-        if (! $this->projectTable) {
-            $this->projectTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductTable');
-        }
 
-        return $this->projectTable;
+
+    public function uploadImageAction()
+    {
+        return false;
     }
 }

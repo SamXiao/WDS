@@ -79,5 +79,10 @@ class Product extends AbstractModel
         }
         return $this->category;
     }
+
+    public function getDefaultImage()
+    {
+
+    }
 }
 

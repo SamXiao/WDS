@@ -3,10 +3,10 @@ namespace Admin\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
 
-class ProductTable extends AbstractModelMapper
+class ProductImageTable extends AbstractModelMapper
 {
 
-    protected $tableName = 'product';
+    protected $tableName = 'product_image';
 
     protected $modelClassName = 'Admin\\Model\\Product\\Product';
 
@@ -16,7 +16,7 @@ class ProductTable extends AbstractModelMapper
         return $resultSet;
     }
 
-    public function getProduct()
+    public function getProductImage()
     {
         $tableGateway = $this->getTableGateway();
         $id = (int) $id;
@@ -30,14 +30,14 @@ class ProductTable extends AbstractModelMapper
         return $row;
     }
 
-    public function deleteProduct($id)
+    public function deleteProductImage($id)
     {
         $this->tableGateway->delete(array(
             'id' => (int) $id
         ));
     }
 
-    public function saveProduct(Product $product)
+    public function saveProductImage(Product $product)
     {
         $tableGateway = $this->getTableGateway();
         $data = $product->toArray();

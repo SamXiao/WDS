@@ -106,7 +106,9 @@ return array(
         ),
     ),
 
-    'parmas' => array(),
+    'system_params' => array(
+    	'upload_path' => getcwd() . '/public/asserts/product/images'
+    ),
 
     // Placeholder for console routes
     'console' => array(
