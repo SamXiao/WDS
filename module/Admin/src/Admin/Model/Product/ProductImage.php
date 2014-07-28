@@ -9,6 +9,8 @@ class ProductImage extends AbstractModel
 
     public $id = '';
 
+    public $name = '';
+
     public $product_id = '';
 
     public $file_path = '';
@@ -23,6 +25,7 @@ class ProductImage extends AbstractModel
     public function exchangeArray($data)
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
+        $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->product_id = (!empty($data['product_id'])) ? $data['product_id'] : null;
         $this->file_path = (!empty($data['file_path'])) ? $data['file_path'] : null;
         $this->uri = (!empty($data['uri'])) ? $data['uri'] : null;
@@ -34,6 +37,7 @@ class ProductImage extends AbstractModel
     {
         $data = array();
         (!empty($this->id)) ? $data['id'] = $this->id : null;
+        (!empty($this->name)) ? $data['name'] = $this->name : null;
         (!empty($this->product_id)) ? $data['product_id'] = $this->product_id : null;
         (!empty($this->file_path)) ? $data['file_path'] = $this->file_path : null;
         (!empty($this->uri)) ? $data['uri'] = $this->uri : null;

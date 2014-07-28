@@ -53,11 +53,4 @@ class IndexController extends AbstractActionController
         return false;
     }
 
-    public function diAction()
-    {
-        $di = new Di();
-        $b = $di->get('Application\Model\B');
-        var_dump($b);
-        return false;
-    }
 }

@@ -37,10 +37,10 @@ class ProductImageTable extends AbstractModelMapper
         ));
     }
 
-    public function saveProductImage(Product $product)
+    public function saveProductImage(ProductImage $productImage)
     {
         $tableGateway = $this->getTableGateway();
-        $data = $product->toArray();
+        $data = $productImage->toArray();
         $id = (int) $product->id;
         if ($id == 0) {
             $tableGateway->insert($data);
