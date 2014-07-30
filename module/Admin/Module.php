@@ -12,10 +12,6 @@ namespace Admin;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-use Application\Model\ProjectTable;
-use Application\Model\TaskTable;
 
 class Module
 {
@@ -24,6 +20,53 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH , array($this, 'setLayout'));
+        $eventManager->attach(MvcEvent::EVENT_RENDER , array($this, 'registerJsonStrategy'), 100);
+    }
+
+    /**
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function setLayout($e)
+    {
+        $request = $e->getRequest();
+        if ( $request->isXmlHttpRequest()) {
+            // Set the layout template
+            $viewModel = $e->getViewModel();
+            $viewModel->setTemplate('layout/ajax');
+        }
+
+
+    }
+
+    /**
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function registerJsonStrategy(MvcEvent $e)
+    {
+        $matches    = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            // not a controller from this module
+            return;
+        }
+
+        // Potentially, you could be even more selective at this point, and test
+        // for specific controller classes, and even specific actions or request
+        // methods.
+
+        // Set the JSON strategy when controllers from this module are selected
+        $app          = $e->getTarget();
+        $locator      = $app->getServiceManager();
+        $view         = $locator->get('Zend\View\View');
+        $jsonStrategy = $locator->get('ViewJsonStrategy');
+
+        // Attach strategy, which is a listener aggregate, at high priority
+        $view->getEventManager()->attach($jsonStrategy, 100);
     }
 
     public function getConfig()

@@ -7,11 +7,11 @@ use SamFramework\Model\AbstractModel;
 class ProductImage extends AbstractModel
 {
 
-    public $id = '';
+    public $id = 0;
 
     public $name = '';
 
-    public $product_id = '';
+    public $product_id = 0;
 
     public $file_path = '';
 
@@ -19,30 +19,31 @@ class ProductImage extends AbstractModel
 
     public $thumbnail_uri = '';
 
-    public $is_default = '';
+    public $is_default = 0;
 
 
     public function exchangeArray($data)
     {
-        $this->id = (!empty($data['id'])) ? $data['id'] : null;
-        $this->name = (!empty($data['name'])) ? $data['name'] : null;
-        $this->product_id = (!empty($data['product_id'])) ? $data['product_id'] : null;
-        $this->file_path = (!empty($data['file_path'])) ? $data['file_path'] : null;
-        $this->uri = (!empty($data['uri'])) ? $data['uri'] : null;
-        $this->thumbnail_uri = (!empty($data['thumbnail_uri'])) ? $data['thumbnail_uri'] : null;
-        $this->is_default = (!empty($data['is_default'])) ? $data['is_default'] : null;
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->name = (isset($data['name'])) ? $data['name'] : null;
+        $this->product_id = (isset($data['product_id'])) ? $data['product_id'] : null;
+        $this->file_path = (isset($data['file_path'])) ? $data['file_path'] : null;
+        $this->uri = (isset($data['uri'])) ? $data['uri'] : null;
+        $this->thumbnail_uri = (isset($data['thumbnail_uri'])) ? $data['thumbnail_uri'] : null;
+        $this->is_default = (isset($data['is_default'])) ? $data['is_default'] : null;
     }
 
     public function toArray()
     {
-        $data = array();
-        (!empty($this->id)) ? $data['id'] = $this->id : null;
-        (!empty($this->name)) ? $data['name'] = $this->name : null;
-        (!empty($this->product_id)) ? $data['product_id'] = $this->product_id : null;
-        (!empty($this->file_path)) ? $data['file_path'] = $this->file_path : null;
-        (!empty($this->uri)) ? $data['uri'] = $this->uri : null;
-        (!empty($this->thumbnail_uri)) ? $data['thumbnail_uri'] = $this->thumbnail_uri : null;
-        (!empty($this->is_default)) ? $data['is_default'] = $this->is_default : null;
+        $data = array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'product_id' => $this->product_id,
+            'file_path' => $this->file_path,
+            'uri' => $this->uri,
+            'thumbnail_uri' => $this->thumbnail_uri,
+            'is_default' => $this->is_default,
+        );
         return $data;
     }
 

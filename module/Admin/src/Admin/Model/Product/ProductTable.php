@@ -27,6 +27,13 @@ class ProductTable extends AbstractModelMapper
         if (! $row) {
             throw new \Exception("Could not find row $id");
         }
+
+        //Get Product Images
+        $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+        $rowset = $productImageTable->getProductImagesByProductId($id);
+        foreach ($rowset as $productImage){
+            $row->product_images[] = $productImage->id;
+        }
         return $row;
     }
 
@@ -44,13 +51,16 @@ class ProductTable extends AbstractModelMapper
         $id = (int) $product->id;
         if ($id == 0) {
             $tableGateway->insert($data);
+            $product->id = $this->getTableGateway()->getLastInsertValue();
         } else {
+            $product->update_time = time();
             if ($this->getProduct($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id
                 ));
             }
         }
+        return $product;
     }
 }
 

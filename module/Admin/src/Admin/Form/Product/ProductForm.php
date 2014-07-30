@@ -14,12 +14,16 @@ class ProductForm extends Form
     public function __construct($name = null)
     {
         // we want to ignore the name passed
-        parent::__construct('product');
+        parent::__construct('product_form');
     }
 
     public function init(){
         $this->add(array(
             'name' => 'id',
+            'type' => 'Hidden',
+        ));
+        $this->add(array(
+            'name' => 'product_images',
             'type' => 'Hidden'
         ));
         $this->add(array(

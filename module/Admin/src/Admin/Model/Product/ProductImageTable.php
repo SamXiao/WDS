@@ -8,7 +8,7 @@ class ProductImageTable extends AbstractModelMapper
 
     protected $tableName = 'product_image';
 
-    protected $modelClassName = 'Admin\\Model\\Product\\Product';
+    protected $modelClassName = 'Admin\\Model\\Product\\ProductImage';
 
     public function fetchAll()
     {
@@ -41,16 +41,37 @@ class ProductImageTable extends AbstractModelMapper
     {
         $tableGateway = $this->getTableGateway();
         $data = $productImage->toArray();
-        $id = (int) $product->id;
+        $id = (int) $productImage->id;
         if ($id == 0) {
             $tableGateway->insert($data);
+            $productImage->id = $this->getTableGateway()->getLastInsertValue();
         } else {
-            if ($this->getProduct($id)) {
+            if ($this->getProductImage($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id
                 ));
             }
         }
+        return $productImage;
+    }
+
+    public function updateProductId($productId, $images)
+    {
+        $this->getTableGateway()->update(array(
+            'product_id' => $productId
+        ), array(
+            'id' => $images
+        ));
+    }
+
+    public function getProductImagesByProductId($productId)
+    {
+        $tableGateway = $this->getTableGateway();
+        $productId = (int) $productId;
+        $rowset = $tableGateway->select(array(
+            'product_id' => $productId
+        ));
+        return $rowset;
     }
 }
 

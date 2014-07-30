@@ -7,19 +7,21 @@ use Zend\InputFilter\InputFilter;
 class Product extends AbstractModel
 {
 
-    public $id = '';
+    public $id = 0;
 
     public $name = '';
 
     public $short_desc = '';
 
-    public $cid = '';
+    public $cid = 0;
 
     public $category_id = '';
 
     public $create_time = '';
 
     public $update_time = '';
+
+    public $product_images = array();
 
     protected $category = NULL;
 
@@ -38,7 +40,7 @@ class Product extends AbstractModel
                     array(
                         'name' => 'StringTrim'
                     )
-                ),
+                )
             ));
 
             $this->inputFilter = $inputFilter;
@@ -49,25 +51,25 @@ class Product extends AbstractModel
 
     public function exchangeArray($data)
     {
-        $this->id = (! empty($data['id'])) ? $data['id'] : null;
-        $this->name = (! empty($data['name'])) ? $data['name'] : null;
-        $this->short_desc = (! empty($data['short_desc'])) ? $data['short_desc'] : null;
-        $this->cid = (! empty($data['cid'])) ? $data['cid'] : null;
-        $this->category_id = (! empty($data['category_id'])) ? $data['category_id'] : null;
-        $this->create_time = (! empty($data['create_time'])) ? $data['create_time'] : null;
-        $this->update_time = (! empty($data['update_time'])) ? $data['update_time'] : null;
+        $this->id = (isset($data['id'])) ? $data['id'] : $this->id;
+        $this->name = (isset($data['name'])) ? $data['name'] : $this->name;
+        $this->short_desc = (isset($data['short_desc'])) ? $data['short_desc'] : $this->short_desc;
+        $this->cid = (isset($data['cid'])) ? $data['cid'] : $this->cid;
+        $this->category_id = (isset($data['category_id'])) ? $data['category_id'] : $this->category_id;
+        $this->create_time = (isset($data['create_time'])) ? $data['create_time'] : $this->create_time;
+        $this->update_time = (isset($data['update_time'])) ? $data['update_time'] : $this->update_time;
+        $this->product_images = (isset($data['product_images'])) ? $data['product_images'] : $this->product_images;
     }
 
     public function toArray()
     {
-        $data = array();
-        (! empty($this->id)) ? $data['id'] = $this->id : null;
-        (! empty($this->name)) ? $data['name'] = $this->name : null;
-        (! empty($this->short_desc)) ? $data['short_desc'] = $this->short_desc : null;
-        (! empty($this->cid)) ? $data['cid'] = $this->cid : null;
-        (! empty($this->category_id)) ? $data['category_id'] = $this->category_id : null;
-        (! empty($this->create_time)) ? $data['create_time'] = $this->create_time : null;
-        (! empty($this->update_time)) ? $data['update_time'] = $this->update_time : null;
+        $data = array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'short_desc' => $this->short_desc,
+            'cid' => $this->cid,
+            'category_id' => $this->category_id,
+        );
         return $data;
     }
 
@@ -81,8 +83,6 @@ class Product extends AbstractModel
     }
 
     public function getDefaultImage()
-    {
-
-    }
+    {}
 }
 

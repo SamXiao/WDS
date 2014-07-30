@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Admin\Model\Product\Product;
 use Admin\Form\Product\ProductForm;
 use Admin\Model\Product\ProductImage;
+use Zend\View\Model\JsonModel;
 
 class ProductController extends AbstractActionController
 {
@@ -49,11 +50,14 @@ class ProductController extends AbstractActionController
             $product = new Product();
             $form->setInputFilter($product->getInputFilter());
             $form->setData($request->getPost());
-
             if ($form->isValid()) {
                 $product->exchangeArray($form->getData());
-                $this->getProductTable()->saveProduct($product);
+                $productTable = $this->getProductTable();
+                $product = $productTable->saveProduct($product);
 
+
+                $productImageTable = $this->getProductImageTable();
+                $productImageTable->updateProductId($product->id, $product->product_images);
                 // TODO add redirect
                 // TODO add flash message
 
@@ -77,22 +81,23 @@ class ProductController extends AbstractActionController
     public function uploadImageAction()
     {
         $config = $this->getServiceLocator()->get('config');
-        print_r($_FILES);exit();
-        $file = $_FILES['file'];
-
-        $desFileName = $config->params->uploadPath . $file["name"];
-        if (move_uploaded_file($file["tmp_name"], $desFileName)) {
-            $image = new ProductImage();
-            $image->file_path = $desFileName;
-            $image->name = $file["name"];
-            $image->product_id = 0;
-            $table = $this->getProductImageTable();
-            $table->saveProductImage($image);
-        } else {
-            throw new \Exception('Upload Failed');
+        $file = $this->getRequest()->getFiles('file');
+        if ($file) {
+            $desFileName = $config['system_params']['upload_path'] . DIRECTORY_SEPARATOR . $file["name"];
+            if (move_uploaded_file($file["tmp_name"], $desFileName)) {
+                $image = new ProductImage();
+                $image->file_path = $desFileName;
+                $image->name = $file["name"];
+                $image->product_id = 0;
+                $table = $this->getProductImageTable();
+                $image = $table->saveProductImage($image);
+            } else {
+                throw new \Exception('Upload Failed');
+            }
         }
 
-        exit();
+        $model = new JsonModel($image->toArray());
+        return $model;
     }
 
     public function removeImageAction()
