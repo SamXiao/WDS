@@ -4,6 +4,7 @@ if ($form->get('id')->getValue() > 0) {
 }else{
     $title = '新增商品';
 }
+print_r($form->get('product_images')->getValue());exit();
 
 $this->headTitle($title);
 $this->headlink()->appendStylesheet( $this->basePath('css/uncompressed/dropzone.css') );

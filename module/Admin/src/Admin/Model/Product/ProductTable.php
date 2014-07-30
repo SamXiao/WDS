@@ -2,6 +2,7 @@
 namespace Admin\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
+use Zend\Json\Json;
 
 class ProductTable extends AbstractModelMapper
 {
@@ -16,7 +17,7 @@ class ProductTable extends AbstractModelMapper
         return $resultSet;
     }
 
-    public function getProduct()
+    public function getProduct($id)
     {
         $tableGateway = $this->getTableGateway();
         $id = (int) $id;
@@ -28,12 +29,14 @@ class ProductTable extends AbstractModelMapper
             throw new \Exception("Could not find row $id");
         }
 
-        //Get Product Images
+        // Get Product Images
         $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
         $rowset = $productImageTable->getProductImagesByProductId($id);
-        foreach ($rowset as $productImage){
-            $row->product_images[] = $productImage->id;
+        $arrProductImages = array();
+        foreach ($rowset as $productImage) {
+            $arrProductImages[] = $productImage->id;
         }
+        $row->product_images = $arrProductImages;
         return $row;
     }
 
@@ -47,7 +50,7 @@ class ProductTable extends AbstractModelMapper
     public function saveProduct(Product $product)
     {
         $tableGateway = $this->getTableGateway();
-        $data = $product->toArray();
+        $data = $product->getArrayCopy();
         $id = (int) $product->id;
         if ($id == 0) {
             $tableGateway->insert($data);
@@ -60,6 +63,9 @@ class ProductTable extends AbstractModelMapper
                 ));
             }
         }
+
+        $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+        $productImageTable->updateProductId($product->id, Json::decode($product->product_images, Json::TYPE_ARRAY));
         return $product;
     }
 }

@@ -24,14 +24,6 @@ class ProductController extends AbstractActionController
         return $this->projectTable;
     }
 
-    public function getProductImageTable()
-    {
-        if (! $this->projectImageTable) {
-            $this->projectImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
-        }
-
-        return $this->projectImageTable;
-    }
 
     public function indexAction()
     {
@@ -55,7 +47,6 @@ class ProductController extends AbstractActionController
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
 
-
                 $productImageTable = $this->getProductImageTable();
                 $productImageTable->updateProductId($product->id, $product->product_images);
                 // TODO add redirect
@@ -66,14 +57,52 @@ class ProductController extends AbstractActionController
             }
         }
 
-        $viewModel = new ViewModel(array(
+        return array(
             'form' => $form
-        ));
-        return $viewModel;
+        );
     }
 
     public function editAction()
-    {}
+    {
+        $id = (int) $this->params('id', 0);
+        if (!$id) {
+            return $this->redirect()->toUrl('/product/product/add');
+        }
+
+        // Get the Album with the specified id.  An exception is thrown
+        // if it cannot be found, in which case go to the index page.
+        try {
+            $product = $this->getProductTable()->getProduct($id);
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toUrl('/product/product');
+        }
+
+        $form = ProductForm::getInstance($this->getServiceLocator());
+//         print_r($product);exit();
+        $form->bind($product);
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setInputFilter($product->getInputFilter());
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $product->exchangeArray($form->getData());
+                $productTable = $this->getProductTable();
+                $product = $productTable->saveProduct($product);
+
+
+                // TODO add redirect
+                // TODO add flash message
+
+                // // Redirect to list of albums
+                return $this->redirect()->toUrl('/product/product');
+            }
+        }
+
+        return array(
+            'form' => $form
+        );
+    }
 
     public function deleteAction()
     {}
@@ -96,8 +125,7 @@ class ProductController extends AbstractActionController
             }
         }
 
-        $model = new JsonModel($image->toArray());
-        return $model;
+        return new JsonModel($image->toArray());
     }
 
     public function removeImageAction()

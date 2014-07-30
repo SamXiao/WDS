@@ -3,7 +3,8 @@ namespace SamFramework\Model;
 
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-abstract class AbstractModel  implements InputFilterAwareInterface
+use Zend\Stdlib\ArraySerializableInterface;
+abstract class AbstractModel  implements InputFilterAwareInterface, ArraySerializableInterface
 {
     protected $inputFilter;
 
@@ -59,5 +60,10 @@ abstract class AbstractModel  implements InputFilterAwareInterface
     public function getInputFilter()
     {
         throw new \Exception("Please set InputFilter");
+    }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
     }
 }

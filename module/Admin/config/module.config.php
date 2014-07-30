@@ -46,10 +46,11 @@ return array(
                     'product' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/product[/:controller[/:action]]',
+                            'route'    => '/product[/][:controller[/:action]][/:id]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'product',

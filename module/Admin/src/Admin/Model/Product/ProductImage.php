@@ -22,18 +22,18 @@ class ProductImage extends AbstractModel
     public $is_default = 0;
 
 
-    public function exchangeArray($data)
+    public function exchangeArray(array $array)
     {
-        $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->name = (isset($data['name'])) ? $data['name'] : null;
-        $this->product_id = (isset($data['product_id'])) ? $data['product_id'] : null;
-        $this->file_path = (isset($data['file_path'])) ? $data['file_path'] : null;
-        $this->uri = (isset($data['uri'])) ? $data['uri'] : null;
-        $this->thumbnail_uri = (isset($data['thumbnail_uri'])) ? $data['thumbnail_uri'] : null;
-        $this->is_default = (isset($data['is_default'])) ? $data['is_default'] : null;
+        $this->id = (isset($array['id'])) ? $array['id'] : null;
+        $this->name = (isset($array['name'])) ? $array['name'] : null;
+        $this->product_id = (isset($array['product_id'])) ? $array['product_id'] : null;
+        $this->file_path = (isset($array['file_path'])) ? $array['file_path'] : null;
+        $this->uri = (isset($array['uri'])) ? $array['uri'] : null;
+        $this->thumbnail_uri = (isset($array['thumbnail_uri'])) ? $array['thumbnail_uri'] : null;
+        $this->is_default = (isset($array['is_default'])) ? $array['is_default'] : null;
     }
 
-    public function toArray()
+    public function getArrayCopy()
     {
         $data = array(
             'id' => $this->id,
