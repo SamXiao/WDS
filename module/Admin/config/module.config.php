@@ -46,7 +46,7 @@ return array(
                     'product' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/product[/][:controller[/:action]][/:id]',
+                            'route'    => '/product[/][:controller[/][:action[/][:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -109,8 +109,8 @@ return array(
 
     'system_params' => array(
         'upload' => array(
-    	   'upload_file_path' => 'asserts/product/images',
-    	   'hostname' => ''
+    	   'upload_file_path' => '/asserts/product/images',
+    	   'hostname' => 'http://wds.admin.local'
         )
     ),
 

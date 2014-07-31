@@ -31,7 +31,7 @@
                 <td><?= $this->escapeHtml($product->category->name);?></td>
                 <td><?= $this->escapeHtml($product->short_desc);?></td>
                 <td align="right">
-                    <a href="<?= $this->basePath('product/edit/id/' . $product->id);?>">
+                    <a href="<?= $this->basePath('product/product/edit/' . $product->id);?>">
                         <i class="ace-icon glyphicon glyphicon-pencil"></i>Edit
                     </a>
                     <a href="<?= $this->basePath('product/delete/id/' . $product->id);?>">

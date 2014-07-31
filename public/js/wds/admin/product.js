@@ -34,16 +34,9 @@ var wds_admin_product = {
 			$(file.previewTemplate).find('.dz-details').attr('data-dz-id', response.id);
 		});
 	
-//		myDropzone.on("addedfile", function(file) {
-//		  if (!file.type.match(/image.*/)) {
-//		    // This is not an image, so Dropzone doesn't create a thumbnail.
-//		    // Set a default thumbnail:
-//		    myDropzone.emit("thumbnail", file, "http://path/to/image");
-//
-//		    // You could of course generate another image yourself here,
-//		    // and set it as a data url.
-//		  }
-//		});
+		this.elmDropzone.on("addedfile", function(file) {
+		  console.log(file);
+		});
 		
 	},
 	
@@ -52,8 +45,12 @@ var wds_admin_product = {
 		files = $.parseJSON(files);
 		var elmDropzone = this.elmDropzone;
 		$.each(files, function( index, value ){
-			console.log(value);
-			elmDropzone.emit("addedfile", { name: "Filename", size: 12345 });
+			var file = { 
+                id: value.id,
+                name: value.name,
+            }
+			elmDropzone.emit("addedfile", file);
+			elmDropzone.emit("thumbnail", file, value.thumbnail_uri);
 		})
 		
 	}

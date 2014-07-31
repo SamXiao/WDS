@@ -7,6 +7,8 @@ use Admin\Model\Product\Product;
 use Admin\Form\Product\ProductForm;
 use Admin\Model\Product\ProductImage;
 use Zend\View\Model\JsonModel;
+use Zend\Filter\File\RenameUpload;
+use PHPThumb\GD;
 
 class ProductController extends AbstractActionController
 {
@@ -73,13 +75,12 @@ class ProductController extends AbstractActionController
     public function editAction()
     {
         $id = (int) $this->params('id', 0);
-        if (!$id) {
+        if (! $id) {
             return $this->redirect()->toUrl('/product/product/add');
         }
         try {
             $product = $this->getProductTable()->getProduct($id);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->redirect()->toUrl('/product/product');
         }
 
@@ -93,7 +94,6 @@ class ProductController extends AbstractActionController
                 $product->exchangeArray($form->getData());
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
-
 
                 // TODO add redirect
                 // TODO add flash message
@@ -110,7 +110,8 @@ class ProductController extends AbstractActionController
 
     public function deleteAction()
     {
-    	print_r(realpath('.'));exit();
+        print_r(realpath('.'));
+        exit();
     }
 
     public function uploadImageAction()
@@ -118,23 +119,36 @@ class ProductController extends AbstractActionController
         $config = $this->getServiceLocator()->get('config');
         $file = $this->getRequest()->getFiles('file');
 
-        print_r($this->url());exit();
         if ($file) {
-            $desFileName = $config['system_params']['upload_path'] . DIRECTORY_SEPARATOR . $file["name"];
-            if (move_uploaded_file($file["tmp_name"], $desFileName)) {
-                $image = new ProductImage();
-                $image->file_path = $desFileName;
-                $image->uri = $this->url();
-                $image->name = $file["name"];
-                $image->product_id = 0;
-                $table = $this->getProductImageTable();
-                $image = $table->saveProductImage($image);
-            } else {
-                throw new \Exception('Upload Failed');
-            }
+            $desFileName = './public' . $config['system_params']['upload']['upload_file_path'] . '/product.jpg';
+            $filter = new RenameUpload(array(
+                'target' => $desFileName,
+                'randomize' => true,
+                'use_upload_extension' => true
+            ));
+            $result = $filter->filter($file);
+
+            $uploadedImageInfo = pathinfo($result['tmp_name']);
+            $imageUri = $config['system_params']['upload']['hostname'] . $config['system_params']['upload']['upload_file_path'] . '/' . $uploadedImageInfo['basename'];
+            $thumbImageFileName = $uploadedImageInfo['filename'] . '_thumb.' . $uploadedImageInfo['extension'];
+            $thumbImagePath = $uploadedImageInfo['dirname'] . '/' . $thumbImageFileName;
+            $thumbImageUri = $config['system_params']['upload']['hostname'] . $config['system_params']['upload']['upload_file_path'] . '/' . $thumbImageFileName;
+
+            $phpThumb = new GD($result['tmp_name']);
+            $phpThumb->adaptiveResize(100, 100);
+            $phpThumb->save($thumbImagePath);
+
+            $productImage = new ProductImage();
+            $productImage->file_path = $result['tmp_name'];
+            $productImage->uri = $imageUri;
+            $productImage->thumbnail_uri = $thumbImageUri;
+            $productImage->name = $file["name"];
+            $productImage->product_id = 0;
+            $table = $this->getProductImageTable();
+            $productImage = $table->saveProductImage($productImage);
         }
 
-        return new JsonModel($image->toArray());
+        return new JsonModel($productImage->getArrayCopy());
     }
 
     public function removeImageAction()
