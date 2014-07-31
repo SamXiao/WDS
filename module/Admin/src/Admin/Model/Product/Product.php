@@ -69,7 +69,7 @@ class Product extends AbstractModel
             'short_desc' => $this->short_desc,
             'cid' => $this->cid,
             'category_id' => $this->category_id,
-            'product_images' => 'product_images'
+            'product_images' => $this->product_images
         );
         return $data;
     }

@@ -4,7 +4,6 @@ if ($form->get('id')->getValue() > 0) {
 }else{
     $title = '新增商品';
 }
-print_r($form->get('product_images')->getValue());exit();
 
 $this->headTitle($title);
 $this->headlink()->appendStylesheet( $this->basePath('css/uncompressed/dropzone.css') );
@@ -21,14 +20,11 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
-$product_images = $form->get('product_images')->getValue();
-foreach ($product_images as $product_image){
-    echo '<input type="hidden" name="product_images[]" value="' . $product_image . '">';
-}
 echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('category_id'));
 echo $this->formRow($form->get('short_desc'));
 
+$product_images = $form->get('product_images')->getValue();
 
 ?>
 <div class="form-group">
@@ -46,6 +42,9 @@ echo $this->formActions( $form->get('cancel'), $form->get('submit'));
 echo $this->form()->closeTag();
 ?>
 
+<div id="dropzone_uploadedFiles" class="hidden">
+    <?= json_encode($product_images)?>
+</div>
 <div id="dropzone_dictDefaultMessage" class="hidden">
     <span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload
 	<span class="smaller-80 grey">(or click)</span> <br />
@@ -56,13 +55,8 @@ echo $this->form()->closeTag();
     <div class="dz-preview dz-file-preview">
         <div class="dz-details" data-dz-id>
             <div class="dz-filename"><span data-dz-name></span></div>
-            <div class="dz-size" data-dz-size></div>
             <img data-dz-thumbnail />
         </div>
-        <div class="progress progress-small progress-striped active">
-            <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
-        </div>
-        <div class="dz-success-mark"><span></span></div>
         <div class="dz-error-mark"><span></span></div>
         <div class="dz-error-message"><span data-dz-errormessage></span></div>
     </div>

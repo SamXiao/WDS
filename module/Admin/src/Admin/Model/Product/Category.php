@@ -18,11 +18,12 @@ class Category extends AbstractModel
 
     public function exchangeArray(array $array)
     {
-        $this->id = (! empty($data['id'])) ? $data['id'] : null;
-        $this->cid = (! empty($data['cid'])) ? $data['cid'] : null;
-        $this->name = (! empty($data['name'])) ? $data['name'] : null;
-        $this->type = (! empty($data['type'])) ? $data['type'] : null;
-        $this->parent_id = (! empty($data['parent_id'])) ? $data['parent_id'] : null;
+        $this->id = (! empty($array['id'])) ? $array['id'] : null;
+        $this->cid = (! empty($array['cid'])) ? $array['cid'] : null;
+        $this->name = (! empty($array['name'])) ? $array['name'] : null;
+        $this->type = (! empty($array['type'])) ? $array['type'] : null;
+        $this->parent_id = (! empty($array['parent_id'])) ? $array['parent_id'] : null;
     }
+
 }
 

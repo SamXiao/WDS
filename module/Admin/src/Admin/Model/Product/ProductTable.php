@@ -34,7 +34,7 @@ class ProductTable extends AbstractModelMapper
         $rowset = $productImageTable->getProductImagesByProductId($id);
         $arrProductImages = array();
         foreach ($rowset as $productImage) {
-            $arrProductImages[] = $productImage->id;
+            $arrProductImages[] = $productImage;
         }
         $row->product_images = $arrProductImages;
         return $row;
@@ -65,7 +65,7 @@ class ProductTable extends AbstractModelMapper
         }
 
         $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
-        $productImageTable->updateProductId($product->id, Json::decode($product->product_images, Json::TYPE_ARRAY));
+        $productImageTable->updateProductId($product->id, $product->product_images);
         return $product;
     }
 }

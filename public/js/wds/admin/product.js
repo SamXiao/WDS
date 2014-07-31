@@ -1,6 +1,8 @@
 var wds_admin_product = {
+	elmDropzone: null,
 	init: function(){
 		this.initDropZone();
+		this.initUploadedFiles();
 		this.initEvents();
 	},
 	initEvents: function(){
@@ -15,7 +17,7 @@ var wds_admin_product = {
 	
 	initDropZone: function(){
 		Dropzone.autoDiscover = false;
-		var myDropzone = new Dropzone("div.dropzone", { 
+		this.elmDropzone = new Dropzone("div.dropzone", { 
 			url: "/product/product/uploadimage",
 		    paramName: "file", // The name that will be used to transfer the file
 		    maxFilesize: 0.5, // MB
@@ -28,9 +30,10 @@ var wds_admin_product = {
 			previewTemplate: $('#dropzone_previewTemplate').html(),
 		  
 		});
-		myDropzone.on("success", function(file, response){
+		this.elmDropzone.on("success", function(file, response){
 			$(file.previewTemplate).find('.dz-details').attr('data-dz-id', response.id);
 		});
+	
 //		myDropzone.on("addedfile", function(file) {
 //		  if (!file.type.match(/image.*/)) {
 //		    // This is not an image, so Dropzone doesn't create a thumbnail.
@@ -41,6 +44,17 @@ var wds_admin_product = {
 //		    // and set it as a data url.
 //		  }
 //		});
+		
+	},
+	
+	initUploadedFiles: function(){
+		var files = $("#dropzone_uploadedFiles").html();
+		files = $.parseJSON(files);
+		var elmDropzone = this.elmDropzone;
+		$.each(files, function( index, value ){
+			console.log(value);
+			elmDropzone.emit("addedfile", { name: "Filename", size: 12345 });
+		})
 		
 	}
 };

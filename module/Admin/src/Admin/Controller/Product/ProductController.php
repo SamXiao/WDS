@@ -24,6 +24,14 @@ class ProductController extends AbstractActionController
         return $this->projectTable;
     }
 
+    public function getProductImageTable()
+    {
+        if (! $this->projectImageTable) {
+            $this->projectImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+        }
+
+        return $this->projectImageTable;
+    }
 
     public function indexAction()
     {
@@ -68,9 +76,6 @@ class ProductController extends AbstractActionController
         if (!$id) {
             return $this->redirect()->toUrl('/product/product/add');
         }
-
-        // Get the Album with the specified id.  An exception is thrown
-        // if it cannot be found, in which case go to the index page.
         try {
             $product = $this->getProductTable()->getProduct($id);
         }
@@ -79,7 +84,6 @@ class ProductController extends AbstractActionController
         }
 
         $form = ProductForm::getInstance($this->getServiceLocator());
-//         print_r($product);exit();
         $form->bind($product);
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -105,17 +109,22 @@ class ProductController extends AbstractActionController
     }
 
     public function deleteAction()
-    {}
+    {
+    	print_r(realpath('.'));exit();
+    }
 
     public function uploadImageAction()
     {
         $config = $this->getServiceLocator()->get('config');
         $file = $this->getRequest()->getFiles('file');
+
+        print_r($this->url());exit();
         if ($file) {
             $desFileName = $config['system_params']['upload_path'] . DIRECTORY_SEPARATOR . $file["name"];
             if (move_uploaded_file($file["tmp_name"], $desFileName)) {
                 $image = new ProductImage();
                 $image->file_path = $desFileName;
+                $image->uri = $this->url();
                 $image->name = $file["name"];
                 $image->product_id = 0;
                 $table = $this->getProductImageTable();

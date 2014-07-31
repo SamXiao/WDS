@@ -108,7 +108,10 @@ return array(
     ),
 
     'system_params' => array(
-    	'upload_path' => getcwd() . '/public/asserts/product/images'
+        'upload' => array(
+    	   'upload_file_path' => 'asserts/product/images',
+    	   'hostname' => ''
+        )
     ),
 
     // Placeholder for console routes
