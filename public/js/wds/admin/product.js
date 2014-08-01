@@ -17,12 +17,15 @@ var wds_admin_product = {
 	
 	initDropZone: function(){
 		Dropzone.autoDiscover = false;
+		
 		this.elmDropzone = new Dropzone("div.dropzone", { 
 			url: "/product/product/uploadimage",
 		    paramName: "file", // The name that will be used to transfer the file
-		    maxFilesize: 0.5, // MB
-
-			addRemoveLinks : true,
+		    maxFilesize: 5, // MB
+		    params: {
+		    	product_id: $("input[name='id']").val()
+		    },
+		    addRemoveLinks : false,
 			dictDefaultMessage : $('#dropzone_dictDefaultMessage').html(),
 			dictResponseError: 'Error while uploading file!',
 			
@@ -35,7 +38,36 @@ var wds_admin_product = {
 		});
 	
 		this.elmDropzone.on("addedfile", function(file) {
-		  console.log(file);
+			if(file.id){
+				$(file.previewTemplate).find('.dz-details').attr('data-dz-id', file.id);
+			}
+			
+	        // Create the remove button
+	        var removeButton = Dropzone.createElement('<a class="dz-remove" href="javascript:undefined;" data-dz-remove="">删除</a>"');
+
+
+	        // Capture the Dropzone instance as closure.
+	        var _this = this;
+
+	        // Listen to the click event
+	        removeButton.addEventListener("click", function(e) {
+	          // Make sure the button click doesn't submit the form:
+	          e.preventDefault();
+	          e.stopPropagation();
+	          
+	          var button = this;
+
+	        
+	          // If you want to the delete the file on the server as well,
+	          // you can do the AJAX request here.
+	          $.post('/product/product/removeImage', { id: $(button).parent().find('.dz-details').attr('data-dz-id')}, function(){
+	        	  // Remove the file preview.
+		          _this.removeFile(file);
+	          });
+	        });
+
+	        // Add the button to the file preview element.
+	        file.previewElement.appendChild(removeButton);
 		});
 		
 	},
@@ -48,11 +80,12 @@ var wds_admin_product = {
 			var file = { 
                 id: value.id,
                 name: value.name,
+                size: 1024
             }
 			elmDropzone.emit("addedfile", file);
 			elmDropzone.emit("thumbnail", file, value.thumbnail_uri);
-		})
-		
+		});
+		elmDropzone.maxFilesize -= files.length;
 	}
 };
 

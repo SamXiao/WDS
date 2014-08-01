@@ -118,6 +118,7 @@ class ProductController extends AbstractActionController
     {
         $config = $this->getServiceLocator()->get('config');
         $file = $this->getRequest()->getFiles('file');
+        $product_id = (int) $this->params()->fromPost('product_id', 0);
 
         if ($file) {
             $desFileName = './public' . $config['system_params']['upload']['upload_file_path'] . '/product.jpg';
@@ -143,7 +144,7 @@ class ProductController extends AbstractActionController
             $productImage->uri = $imageUri;
             $productImage->thumbnail_uri = $thumbImageUri;
             $productImage->name = $file["name"];
-            $productImage->product_id = 0;
+            $productImage->product_id = $product_id;
             $table = $this->getProductImageTable();
             $productImage = $table->saveProductImage($productImage);
         }
@@ -153,6 +154,11 @@ class ProductController extends AbstractActionController
 
     public function removeImageAction()
     {
-        return false;
+        $id = (int) $this->params()->fromPost('id', 0);
+        $table = $this->getProductImageTable();
+        $result = $table->deleteProductImage($id);
+        return new JsonModel(array(
+            $result
+        ));
     }
 }

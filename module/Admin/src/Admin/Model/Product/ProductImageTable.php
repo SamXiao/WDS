@@ -32,7 +32,8 @@ class ProductImageTable extends AbstractModelMapper
 
     public function deleteProductImage($id)
     {
-        $this->tableGateway->delete(array(
+        $tableGateway = $this->getTableGateway();
+        return $tableGateway->delete(array(
             'id' => (int) $id
         ));
     }
