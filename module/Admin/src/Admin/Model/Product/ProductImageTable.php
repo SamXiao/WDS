@@ -74,5 +74,23 @@ class ProductImageTable extends AbstractModelMapper
         ));
         return $rowset;
     }
+
+    public function setImageAsDefault($imageId, $productId)
+    {
+        $tableGateway = $this->getTableGateway();
+
+        $this->getTableGateway()->update(array(
+            'is_default' => 0
+        ), array(
+            'product_id' => $productId
+        ));
+
+
+        return $this->getTableGateway()->update(array(
+            'is_default' => 1
+        ), array(
+            'id' => $imageId
+        ));
+    }
 }
 

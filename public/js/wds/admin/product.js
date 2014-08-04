@@ -7,11 +7,12 @@ var wds_admin_product = {
 	},
 	initEvents: function(){
 		var form = $('#product_form');
+		var self = this;
 		$(form).on('submit', function(e){
-			$(".dropzone .dz-details").each(function(){
-				var input = '<input type="hidden" name="product_images[]" value="' + $(this).attr("data-dz-id") + '">';
+			$.each(self.elmDropzone.files, function( index, file){
+				var input = '<input type="hidden" name="product_images[]" value="' + file.serverId + '">';
 				$(form).append(input);
-			})
+			} )
 		});
 	},
 	
@@ -34,40 +35,50 @@ var wds_admin_product = {
 		  
 		});
 		this.elmDropzone.on("success", function(file, response){
-			$(file.previewTemplate).find('.dz-details').attr('data-dz-id', response.id);
+			file.serverId = response.id;
 		});
+		var elmDropzone = this.elmDropzone;
 	
 		this.elmDropzone.on("addedfile", function(file) {
-			if(file.id){
-				$(file.previewTemplate).find('.dz-details').attr('data-dz-id', file.id);
-			}
-			
 	        // Create the remove button
-	        var removeButton = Dropzone.createElement('<a class="dz-remove" href="javascript:undefined;" data-dz-remove="">删除</a>"');
+	        var removeButton = Dropzone.createElement($('#dropzone_removeButtonTemplate').html().trim());
+	        var premierButton = Dropzone.createElement($('#dropzone_premierButtonTemplate').html().trim());
 
-
+	        console.log(removeButton);
 	        // Capture the Dropzone instance as closure.
-	        var _this = this;
+	        var elmDropzone = this;
 
 	        // Listen to the click event
 	        removeButton.addEventListener("click", function(e) {
 	          // Make sure the button click doesn't submit the form:
 	          e.preventDefault();
 	          e.stopPropagation();
-	          
 	          var button = this;
-
-	        
 	          // If you want to the delete the file on the server as well,
 	          // you can do the AJAX request here.
-	          $.post('/product/product/removeImage', { id: $(button).parent().find('.dz-details').attr('data-dz-id')}, function(){
+	          $.post('/product/product/removeImage', { imageId: file.serverId}, function(){
 	        	  // Remove the file preview.
-		          _this.removeFile(file);
+	        	  elmDropzone.removeFile(file);
 	          });
 	        });
+	        
+	        premierButton.addEventListener("click", function(e) {
+		          // Make sure the button click doesn't submit the form:
+		          e.preventDefault();
+		          e.stopPropagation();
+		          var button = this;
+		          // If you want to the delete the file on the server as well,
+		          // you can do the AJAX request here.
+		          $.post('/product/product/setDefaultImage', { imageId: file.serverId, id: elmDropzone.options.params.product_id}, function(){
+		        	  // Remove the file preview.
+			          $(".dz-button-premier").show();
+			          $(button).hide();
+		          });
+		        });
 
 	        // Add the button to the file preview element.
 	        file.previewElement.appendChild(removeButton);
+	        file.previewElement.appendChild(premierButton);
 		});
 		
 	},
@@ -78,14 +89,15 @@ var wds_admin_product = {
 		var elmDropzone = this.elmDropzone;
 		$.each(files, function( index, value ){
 			var file = { 
-                id: value.id,
+				serverId: value.id,
                 name: value.name,
-                size: 1024
+                size: 1024,
+                status: "success"
             }
+			elmDropzone.files.push(file);
 			elmDropzone.emit("addedfile", file);
 			elmDropzone.emit("thumbnail", file, value.thumbnail_uri);
 		});
-		elmDropzone.maxFilesize -= files.length;
 	}
 };
 

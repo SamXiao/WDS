@@ -154,9 +154,21 @@ class ProductController extends AbstractActionController
 
     public function removeImageAction()
     {
-        $id = (int) $this->params()->fromPost('id', 0);
+        $id = (int) $this->params()->fromPost('imageId', 0);
         $table = $this->getProductImageTable();
         $result = $table->deleteProductImage($id);
+        return new JsonModel(array(
+            $result
+        ));
+    }
+
+    public function setDefaultImageAction()
+    {
+        $productId = (int) $this->params()->fromPost('id', 0);
+        $imageId = (int) $this->params()->fromPost('imageId', 0);
+
+        $table = $this->getProductImageTable();
+        $result = $table->setImageAsDefault($imageId, $productId);
         return new JsonModel(array(
             $result
         ));
