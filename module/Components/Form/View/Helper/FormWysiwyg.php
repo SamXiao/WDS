@@ -97,23 +97,24 @@ class FormWysiwyg extends AbstractHelper
             throw new DomainException(sprintf('%s requires that the element has an assigned name; none discovered', __METHOD__));
         }
 
-        $this->renderScript();
+        $this->renderScript($name);
 
         $attributes = $element->getAttributes();
-        $attributes['name'] = $name;
         $content = (string) $element->getValue();
-        $escapeHtml = $this->getEscapeHtmlHelper();
 
-        return sprintf('<div %s>%s</div>' . PHP_EOL . '<input type="hidden" name="wysiwyg-value" />', $this->createAttributesString($attributes), $escapeHtml($content));
+        return sprintf('<div %s>%s</div>' . PHP_EOL . '<input type="hidden" name="' . $name . '" />', $this->createAttributesString($attributes), $content);
     }
 
-    protected function renderScript(){
+    protected function renderScript($name){
         $inlineScriptHelper = $this->getInlineScriptHelper();
-//         $basePath = $this->getBasePathHelper();
-
-//         $inlineScriptHelper->appendFile($this->getView()->basePath('js/bootstrap-wysiwyg.min.js'));
         $inlineScriptHelper->appendFile($this->getView()->basePath('js/uncompressed/wysiwyg.js'));
-
+        $inlineScriptHelper->captureStart();
+echo <<<JS
+$('.wysiwyg-editor').parents("form").on('submit', function(){
+	$('input[name=$name]' , this).val($('.wysiwyg-editor').html());
+});
+JS;
+        $inlineScriptHelper->captureEnd();
     }
 }
 

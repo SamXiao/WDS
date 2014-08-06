@@ -34,7 +34,7 @@ class ProductTable extends AbstractModelMapper
         $rowset = $productImageTable->getProductImagesByProductId($id);
         $arrProductImages = array();
         foreach ($rowset as $productImage) {
-            $arrProductImages[] = $productImage;
+            $arrProductImages[] = $productImage->getArrayCopy();
         }
         $row->product_images = $arrProductImages;
         return $row;
@@ -51,7 +51,7 @@ class ProductTable extends AbstractModelMapper
     {
         $tableGateway = $this->getTableGateway();
         $product->update_time = date('YmdHis');
-        $data = $product->getArrayCopy();
+        $data = $product->getArrayCopyForSave();
         $id = (int) $product->id;
         if ($id == 0) {
             $tableGateway->insert($data);
@@ -64,8 +64,9 @@ class ProductTable extends AbstractModelMapper
             }
         }
 
-        $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
-        $productImageTable->updateProductId($product->id, $product->product_images);
+
+//         $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+//         $productImageTable->updateProductId($product->id, $product->product_images);
         return $product;
     }
 }

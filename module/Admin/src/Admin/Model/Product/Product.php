@@ -25,6 +25,8 @@ class Product extends AbstractModel
 
     protected $category = NULL;
 
+    protected $exclude = array( 'product_images' );
+
     public function getInputFilter()
     {
         if (! $this->inputFilter) {
@@ -69,8 +71,8 @@ class Product extends AbstractModel
             'short_desc' => $this->short_desc,
             'cid' => $this->cid,
             'category_id' => $this->category_id,
-            'update_time' => $this->update_time
-//             'product_images' => $this->product_images
+            'update_time' => $this->update_time,
+            'product_images' => $this->product_images
         );
         return $data;
     }

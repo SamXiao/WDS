@@ -4,9 +4,16 @@ namespace SamFramework\Model;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Stdlib\ArraySerializableInterface;
-abstract class AbstractModel  implements InputFilterAwareInterface, ArraySerializableInterface
+
+abstract class AbstractModel implements InputFilterAwareInterface, ArraySerializableInterface
 {
+
     protected $inputFilter;
+
+    /**
+     * exclude fields to save
+     */
+    protected $exclude = array();
 
     public function __get($name)
     {
@@ -65,5 +72,17 @@ abstract class AbstractModel  implements InputFilterAwareInterface, ArraySeriali
     public function getArrayCopy()
     {
         return get_object_vars($this);
+    }
+
+    public function getArrayCopyForSave()
+    {
+        $variables = $this->getArrayCopy();
+        $filtedVariables = array();
+        foreach ($variables as $key => $value) {
+            if (! in_array($key, $this->exclude)) {
+                $filtedVariables[$key] = $value;
+            }
+        }
+        return $filtedVariables;
     }
 }
