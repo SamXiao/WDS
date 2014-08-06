@@ -50,13 +50,13 @@ class ProductTable extends AbstractModelMapper
     public function saveProduct(Product $product)
     {
         $tableGateway = $this->getTableGateway();
+        $product->update_time = date('YmdHis');
         $data = $product->getArrayCopy();
         $id = (int) $product->id;
         if ($id == 0) {
             $tableGateway->insert($data);
             $product->id = $this->getTableGateway()->getLastInsertValue();
         } else {
-            $product->update_time = time();
             if ($this->getProduct($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id

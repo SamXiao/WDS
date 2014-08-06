@@ -38,7 +38,7 @@ class ProductForm extends Form
         ));
         $this->add(array(
             'name' => 'short_desc',
-            'type' => 'Text',
+            'type' => 'Wysiwyg',
             'options' => array(
                 'label' => '商品说明'
             )

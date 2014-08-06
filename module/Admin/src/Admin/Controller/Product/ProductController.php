@@ -91,7 +91,6 @@ class ProductController extends AbstractActionController
             $form->setInputFilter($product->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $product->exchangeArray($form->getData());
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
 

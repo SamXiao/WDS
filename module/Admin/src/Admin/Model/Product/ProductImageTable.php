@@ -58,11 +58,13 @@ class ProductImageTable extends AbstractModelMapper
 
     public function updateProductId($productId, $images)
     {
-        $this->getTableGateway()->update(array(
-            'product_id' => $productId
-        ), array(
-            'id' => $images
-        ));
+        if (! empty($images) && is_array($images)) {
+            $this->getTableGateway()->update(array(
+                'product_id' => $productId
+            ), array(
+                'id' => $images
+            ));
+        }
     }
 
     public function getProductImagesByProductId($productId)
@@ -84,7 +86,6 @@ class ProductImageTable extends AbstractModelMapper
         ), array(
             'product_id' => $productId
         ));
-
 
         return $this->getTableGateway()->update(array(
             'is_default' => 1

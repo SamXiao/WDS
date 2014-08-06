@@ -7,6 +7,7 @@ use Zend\Form\View\Helper\FormRow as ZVHFormRow;
 use Zend\Form\LabelAwareInterface;
 use Zend\Form\Element\MonthSelect;
 use Zend\Form\Element\Button;
+use Zend\Form\View\Helper\FormElement;
 
 
 class FormRow extends ZVHFormRow
@@ -145,8 +146,6 @@ class FormRow extends ZVHFormRow
 
     public function renderElement( ElementInterface $element ){
         $elementHelper = $this->getElementHelper();
-        $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
-        $element->setAttribute( 'class', $classAttributes . 'col-xs-10 col-sm-5');
         return $elementHelper->render($element);
     }
 
@@ -164,5 +163,29 @@ class FormRow extends ZVHFormRow
 
         return $this->labelAttributes;
     }
+
+    /**
+     * Retrieve the FormElement helper
+     *
+     * @return FormElement
+     */
+    protected function getElementHelper()
+    {
+        if ($this->elementHelper) {
+            return $this->elementHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->elementHelper = $this->view->plugin('form_element');
+        }
+
+        if (!$this->elementHelper instanceof FormElement) {
+            $this->elementHelper = new FormElement();
+        }
+        $this->elementHelper->addClass('Components\Form\Element\WYSIWYG', 'formwysiwyg');
+        return $this->elementHelper;
+    }
+
+
 }
 
