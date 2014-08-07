@@ -91,7 +91,11 @@ class Product extends AbstractModel
 
     public function getProductThumbnail()
     {
-
+        if (empty($this->productThumbnail)){
+            $productImageTable = new ProductImageTable();
+            $this->productThumbnail = $productImageTable->getDefaultImage($this->id)->thumbnail_uri;
+        }
+        return $this->productThumbnail;
     }
 
 }

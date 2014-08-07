@@ -86,9 +86,6 @@ class ProductTable extends AbstractModelMapper
             'category_id' => $categoryId,
             'enable' => 1
         ));
-        foreach ($resultSet as $product) {
-//             $product->product_thumbnail = $this->getDefaultImageForProduct($product);
-        }
         return $resultSet;
     }
 

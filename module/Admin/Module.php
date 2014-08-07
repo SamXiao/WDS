@@ -32,13 +32,16 @@ class Module
      */
     public function setLayout($e)
     {
-        $request = $e->getRequest();
-        if ( $request->isXmlHttpRequest()) {
-            // Set the layout template
-            $viewModel = $e->getViewModel();
-            $viewModel->setTemplate('Admin/Layout');
+        $matches    = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            // not a controller from this module
+            return;
         }
 
+        // Set the layout template
+        $viewModel = $e->getViewModel();
+        $viewModel->setTemplate('admin/layout/layout');
 
     }
 
