@@ -2,14 +2,25 @@
 namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
-use Zend\Json\Json;
+use Application\Model\Product\Product;
 
 class ProductTable extends AbstractModelMapper
 {
 
     protected $tableName = 'product';
 
-    protected $modelClassName = 'Admin\\Model\\Product\\Product';
+    protected $projectImageTable;
+
+    protected $modelClassName = 'Application\\Model\\Product\\Product';
+
+    public function getProductImageTable()
+    {
+        if (! $this->projectImageTable) {
+            $this->projectImageTable = $this->getServiceLocator()->get('Application\Model\Product\ProductImageTable');
+        }
+
+        return $this->projectImageTable;
+    }
 
     public function fetchAll()
     {
@@ -30,7 +41,7 @@ class ProductTable extends AbstractModelMapper
         }
 
         // Get Product Images
-        $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+        $productImageTable = $this->getProductImageTable();
         $rowset = $productImageTable->getProductImagesByProductId($id);
         $arrProductImages = array();
         foreach ($rowset as $productImage) {
@@ -64,10 +75,28 @@ class ProductTable extends AbstractModelMapper
             }
         }
 
-
-//         $productImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
-//         $productImageTable->updateProductId($product->id, $product->product_images);
+        $productImageTable = $this->getProductImageTable();
+        $productImageTable->updateProductId($product->id, $product->product_images);
         return $product;
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        $resultSet = $this->getTableGateway()->select(array(
+            'category_id' => $categoryId,
+            'enable' => 1
+        ));
+        foreach ($resultSet as $product) {
+//             $product->product_thumbnail = $this->getDefaultImageForProduct($product);
+        }
+        return $resultSet;
+    }
+
+    public function getDefaultImageForProduct(Product $product)
+    {
+        $productImageTable = $this->getProductImageTable();
+        $defaultImage = $productImageTable->getDefaultImage($product->id);
+        $product->product_thumbnail = $defaultImage->thumbnail_uri;
     }
 }
 

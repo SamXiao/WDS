@@ -36,7 +36,7 @@ class Module
         if ( $request->isXmlHttpRequest()) {
             // Set the layout template
             $viewModel = $e->getViewModel();
-            $viewModel->setTemplate('layout/ajax');
+            $viewModel->setTemplate('Admin/Layout');
         }
 
 

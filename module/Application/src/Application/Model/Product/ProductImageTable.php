@@ -2,6 +2,7 @@
 namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
+use Application\Model\Product\ProductImage;
 
 class ProductImageTable extends AbstractModelMapper
 {
@@ -92,6 +93,26 @@ class ProductImageTable extends AbstractModelMapper
         ), array(
             'id' => $imageId
         ));
+    }
+
+    public function getDefaultImage($productId)
+    {
+        $tableGateway = $this->getTableGateway();
+        $productId = (int) $productId;
+        $rowset = $tableGateway->select(array(
+            'product_id' => $productId
+        ));
+        if ($rowset->count() > 0) {
+            $default = $rowset->current();
+            foreach ($rowset as $item) {
+                if ($item->is_default == 1) {
+                    $default = $item;
+                }
+            }
+            return $default;
+        } else {
+            return new ProductImage();
+        }
     }
 }
 

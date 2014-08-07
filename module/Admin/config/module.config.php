@@ -90,6 +90,7 @@ return array(
         ),
     ),
     'view_manager' => array(
+
         // The TemplatePathStack takes an array of directories. Directories
         // are then searched in LIFO order (it's a stack) for the requested
         // view script. This is a nice solution for rapid application
@@ -99,6 +100,10 @@ return array(
         // The following adds an entry pointing to the view directory
         // of the current module. Make sure your keys differ between modules
         // to ensure that they are not overwritten -- or simply omit the key!
+
+        'template_map' => array(
+            'admin/layout' => __DIR__ . '/../view/layout/layout.phtml',
+        ),
         'template_path_stack' => array(
              'admin' =>__DIR__ . '/../view',
         ),

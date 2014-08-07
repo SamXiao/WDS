@@ -23,9 +23,11 @@ class Product extends AbstractModel
 
     public $product_images = '';
 
+    protected $productThumbnail = '';
+
     protected $category = NULL;
 
-    protected $exclude = array( 'product_images' );
+    protected $exclude = array( 'product_images', 'product_thumbnail' );
 
     public function getInputFilter()
     {
@@ -87,7 +89,10 @@ class Product extends AbstractModel
         return $this->category;
     }
 
-    public function getDefaultImage()
-    {}
+    public function getProductThumbnail()
+    {
+
+    }
+
 }
 

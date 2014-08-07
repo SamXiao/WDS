@@ -41,6 +41,27 @@ return array(
                             ),
                         ),
                     ),
+                    'g' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => 'g/:identity',
+                            'defaults' => array(
+                                'controller' => 'product',
+                                'action' => 'list',
+                                '__NAMESPACE__' => 'Mobile\Controller\Product'
+                            ),
+                        ),
+                    ),
+//                     'p' => array(
+//                         'type'    => 'literal',
+//                         'options' => array(
+//                             'defaults' => array(
+//                                 'controller' => 'product',
+//                                 'action' => 'index',
+//                                 '__NAMESPACE__' => 'Mobile\Controller\Product'
+//                             ),
+//                         ),
+//                     ),
                 ),
             ),
 
@@ -68,6 +89,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Mobile\Controller\Index' => 'Mobile\Controller\IndexController',
+            'Mobile\Controller\Product\Product' => 'Mobile\Controller\Product\ProductController',
         ),
     ),
     'view_manager' => array(
