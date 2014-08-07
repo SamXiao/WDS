@@ -18,8 +18,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $config = $this->getServiceLocator()->get('Config');
-        print_r($config);exit();
         $categoryTable = $this->getCategoryTable();
         $categories = $categoryTable->fetchAll();
         return array(
@@ -29,6 +27,6 @@ class IndexController extends AbstractActionController
 
     protected function getCategoryTable()
     {
-        return $this->getServiceLocator()->get('Mobile\Model\CategoryTable');
+        return $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
     }
 }

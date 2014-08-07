@@ -90,20 +90,17 @@ return array(
         ),
     ),
     'view_manager' => array(
-        'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
-        'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/login'            => __DIR__ . '/../view/layout/login.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
-        ),
+        // The TemplatePathStack takes an array of directories. Directories
+        // are then searched in LIFO order (it's a stack) for the requested
+        // view script. This is a nice solution for rapid application
+        // development, but potentially introduces performance expense in
+        // production due to the number of static calls necessary.
+        //
+        // The following adds an entry pointing to the view directory
+        // of the current module. Make sure your keys differ between modules
+        // to ensure that they are not overwritten -- or simply omit the key!
         'template_path_stack' => array(
-            __DIR__ . '/../view',
+             'admin' =>__DIR__ . '/../view',
         ),
     ),
 

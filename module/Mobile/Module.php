@@ -14,11 +14,36 @@ use Zend\Mvc\MvcEvent;
 
 class Module
 {
+    /**
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $eventManager->attach('dispatch', array($this, 'setLayout'));
+    }
+
+    /**
+     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function setLayout($e)
+    {
+        $matches    = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            // not a controller from this module
+            return;
+        }
+
+        // Set the layout template
+        $viewModel = $e->getViewModel();
+        $viewModel->setTemplate('mobile/layout/layout');
+
     }
 
     public function getConfig()

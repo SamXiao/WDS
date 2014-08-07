@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Model\Product;
+namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModel;
 use Zend\InputFilter\InputFilter;
