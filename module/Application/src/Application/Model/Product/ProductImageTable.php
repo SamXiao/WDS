@@ -9,7 +9,7 @@ class ProductImageTable extends AbstractModelMapper
 
     protected $tableName = 'product_image';
 
-    protected $modelClassName = 'Admin\\Model\\Product\\ProductImage';
+    protected $modelClassName = 'Application\\Model\\Product\\ProductImage';
 
     public function fetchAll()
     {

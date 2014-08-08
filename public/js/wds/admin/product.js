@@ -86,18 +86,20 @@ var wds_admin_product = {
 	initUploadedFiles: function(){
 		var files = $("#dropzone_uploadedFiles").html();
 		files = $.parseJSON(files);
-		var elmDropzone = this.elmDropzone;
-		$.each(files, function( index, value ){
-			var file = { 
-				serverId: value.id,
-                name: value.name,
-                size: 1024,
-                status: "success"
-            }
-			elmDropzone.files.push(file);
-			elmDropzone.emit("addedfile", file);
-			elmDropzone.emit("thumbnail", file, value.thumbnail_uri);
-		});
+		if(files){
+    		var elmDropzone = this.elmDropzone;
+    		$.each(files, function( index, value ){
+    			var file = { 
+    				serverId: value.id,
+                    name: value.name,
+                    size: 1024,
+                    status: "success"
+                }
+    			elmDropzone.files.push(file);
+    			elmDropzone.emit("addedfile", file);
+    			elmDropzone.emit("thumbnail", file, value.thumbnail_uri);
+    		});
+    	}
 	}
 };
 

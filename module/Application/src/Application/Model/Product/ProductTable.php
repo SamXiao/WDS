@@ -67,6 +67,9 @@ class ProductTable extends AbstractModelMapper
         if ($id == 0) {
             $tableGateway->insert($data);
             $product->id = $this->getTableGateway()->getLastInsertValue();
+
+            $productImageTable = $this->getProductImageTable();
+            $productImageTable->updateProductId($product->id, $product->product_images);
         } else {
             if ($this->getProduct($id)) {
                 $tableGateway->update($data, array(
@@ -75,8 +78,7 @@ class ProductTable extends AbstractModelMapper
             }
         }
 
-        $productImageTable = $this->getProductImageTable();
-        $productImageTable->updateProductId($product->id, $product->product_images);
+
         return $product;
     }
 

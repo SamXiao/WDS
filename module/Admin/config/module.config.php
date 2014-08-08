@@ -102,7 +102,7 @@ return array(
         // to ensure that they are not overwritten -- or simply omit the key!
 
         'template_map' => array(
-            'admin/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'admin/layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
         ),
         'template_path_stack' => array(
              'admin' =>__DIR__ . '/../view',

@@ -3,9 +3,9 @@ namespace Admin\Controller\Product;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Admin\Model\Product\Product;
+use Application\Model\Product\Product;
 use Admin\Form\Product\ProductForm;
-use Admin\Model\Product\ProductImage;
+use Application\Model\Product\ProductImage;
 use Zend\View\Model\JsonModel;
 use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
@@ -20,7 +20,7 @@ class ProductController extends AbstractActionController
     public function getProductTable()
     {
         if (! $this->projectTable) {
-            $this->projectTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductTable');
+            $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
         }
 
         return $this->projectTable;
@@ -29,7 +29,7 @@ class ProductController extends AbstractActionController
     public function getProductImageTable()
     {
         if (! $this->projectImageTable) {
-            $this->projectImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+            $this->projectImageTable = $this->getServiceLocator()->get('Application\Model\Product\ProductImageTable');
         }
 
         return $this->projectImageTable;
@@ -57,8 +57,6 @@ class ProductController extends AbstractActionController
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
 
-                $productImageTable = $this->getProductImageTable();
-                $productImageTable->updateProductId($product->id, $product->product_images);
                 // TODO add redirect
                 // TODO add flash message
 

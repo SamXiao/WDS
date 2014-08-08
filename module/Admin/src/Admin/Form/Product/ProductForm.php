@@ -74,7 +74,7 @@ class ProductForm extends Form
 
     protected function getCategories()
     {
-        $table = $this->getServiceLocator()->get('\Admin\Model\Product\CategoryTable');
+        $table = $this->getServiceLocator()->get('\Application\Model\Product\CategoryTable');
         $result = $table->fetchAll();
         $categories = array();
         foreach ($result as $category){

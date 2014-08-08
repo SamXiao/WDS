@@ -14,22 +14,20 @@
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <td></td>
+<!--                 <td></td> -->
                 <th></th>
                 <th>商品名称</th>
                 <th>商品类别</th>
-                <th>说明</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($products as $product) : ?>
             <tr>
-                <td><input type="checkbox"></td>
-                <td></td>
+<!--                 <td><input type="checkbox"></td> -->
+                <td><img alt="" src="<?=$product->productThumbnail?>"></td>
                 <td><?= $this->escapeHtml($product->name);?></td>
                 <td><?= $this->escapeHtml($product->category->name);?></td>
-                <td><?= $this->escapeHtml($product->short_desc);?></td>
                 <td align="right">
                     <a href="<?= $this->basePath('product/product/edit/' . $product->id);?>">
                         <i class="ace-icon glyphicon glyphicon-pencil"></i>Edit

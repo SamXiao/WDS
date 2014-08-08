@@ -8,7 +8,7 @@ class CategoryTable extends AbstractModelMapper
 
     protected $tableName = 'category';
 
-    protected $modelClassName = 'Admin\\Model\\Product\\Category';
+    protected $modelClassName = 'Application\\Model\\Product\\Category';
 
     public function fetchAll()
     {
