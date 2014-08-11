@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+.noshadow * {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+form.ui-mini .ui-field-contain fieldset.ui-controlgroup legend small {
+    color: #666;
+}
+/* Page and overlay */
+.ui-overlay-a,
+.ui-page-theme-a,
+.ui-page-theme-a .ui-panel-wrapper {
+    background-color: #f1f2e8 /*{a-page-background-color}*/;
+}
+
+.product-images{
+}
+.product-images .image-col{
+	width: 100%;
+	margin-right: 5px;
+	vertical-align: top;
+}
+.product-images .thumbnails-col{
+	width: 47px;
+	padding-left: 3px;
+	padding-top: 5px;
+	vertical-align: top;
+}
+
+.product-images .thumbnails-col img{
+	width: 40px;
+    height: 40px;
+}
+.product-images .full-image-wrapper{
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.product-images .full-image-wrapper img{
+	width: 100%;
+	height: auto;
+}

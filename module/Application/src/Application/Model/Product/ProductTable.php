@@ -45,7 +45,7 @@ class ProductTable extends AbstractModelMapper
         $rowset = $productImageTable->getProductImagesByProductId($id);
         $arrProductImages = array();
         foreach ($rowset as $productImage) {
-            $arrProductImages[] = $productImage->getArrayCopy();
+            $arrProductImages[] = $productImage;
         }
         $row->product_images = $arrProductImages;
         return $row;
