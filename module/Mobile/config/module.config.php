@@ -52,16 +52,17 @@ return array(
                             ),
                         ),
                     ),
-//                     'p' => array(
-//                         'type'    => 'literal',
-//                         'options' => array(
-//                             'defaults' => array(
-//                                 'controller' => 'product',
-//                                 'action' => 'index',
-//                                 '__NAMESPACE__' => 'Mobile\Controller\Product'
-//                             ),
-//                         ),
-//                     ),
+                    'p' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => 'p/:identity',
+                            'defaults' => array(
+                                'controller' => 'product',
+                                'action' => 'single',
+                                '__NAMESPACE__' => 'Mobile\Controller\Product'
+                            ),
+                        ),
+                    ),
                 ),
             ),
 

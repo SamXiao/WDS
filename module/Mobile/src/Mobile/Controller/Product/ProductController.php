@@ -39,5 +39,9 @@ class ProductController extends AbstractActionController
     public function singleAction()
     {
         $identity = $this->params('identity');
+        $productTable = $this->getProductTable();
+
+        $productTable->getProduct($identity);
+
     }
 }
