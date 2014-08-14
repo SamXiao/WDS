@@ -1,4 +1,7 @@
-<?php $this->layout()->headerTitle = '首页';?>
+<?php
+$this->layout()->headerTitle = '首页';
+$this->layout()->category = null;
+?>
 <ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
 	<li>优惠信息</li>
 	<li><a href="#">更多优惠</a></li>
@@ -6,6 +9,6 @@
 
 <ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
 	<?php foreach ($categories as $category): ?>
-	<li><a href="/g/<?=$category->id?>" data-transition="fade"><?= $category->name?></a></li>
+	<li><a href="/g/<?=$category->id?>" data-transition="fade"><?= $category->title?></a></li>
 	<?php endforeach;?>
 </ul>

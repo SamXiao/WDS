@@ -1,4 +1,7 @@
-<?php $this->layout()->headerTitle = $category->title;?>
+<?php
+$this->layout()->headerTitle = $category->title;
+$this->layout()->category = $category;
+?>
 <ul data-role="listview" data-inset="true">
     <?php foreach ($products as $product):?>
 	<li>

@@ -9,7 +9,7 @@
     	<link rel="stylesheet" href="/css/mobile-site/mobile.css" />
     	<script src="/js/jquery.min.js"></script>
     	<script src="/js/jquery.mobile-1.4.3.min.js"></script>
-        <?php echo $this->headTitle( $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle( $this->escapehtml($headerTitle))?>
 
     </head>
     <body>
@@ -18,7 +18,7 @@
     			<h1><?=$headerTitle?></h1>
     		</div><!-- /header -->
     		<div class="ui-content" role="main">
-    		    <?=$this->partial('mobile/layout/breadcrumbs')?>
+    		    <?=$this->partial('mobile/layout/breadcrumbs', array( 'category' => $category))?>
     			<?php echo $this->content; ?>
     		</div><!-- /content -->
 
