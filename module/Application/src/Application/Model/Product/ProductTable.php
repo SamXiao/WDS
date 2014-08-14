@@ -82,10 +82,10 @@ class ProductTable extends AbstractModelMapper
         return $product;
     }
 
-    public function getProductsByCategory($categoryId)
+    public function getProductsByCategory( Category $category)
     {
         $resultSet = $this->getTableGateway()->select(array(
-            'category_id' => $categoryId,
+            'category_id' => $category->id,
             'enable' => 1
         ));
         return $resultSet;

@@ -44,7 +44,6 @@ var wds_admin_product = {
 	        var removeButton = Dropzone.createElement($('#dropzone_removeButtonTemplate').html().trim());
 	        var premierButton = Dropzone.createElement($('#dropzone_premierButtonTemplate').html().trim());
 
-	        console.log(removeButton);
 	        // Capture the Dropzone instance as closure.
 	        var elmDropzone = this;
 

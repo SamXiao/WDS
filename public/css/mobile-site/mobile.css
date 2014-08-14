@@ -15,30 +15,37 @@ form.ui-mini .ui-field-contain fieldset.ui-controlgroup legend small {
     background-color: #f1f2e8 /*{a-page-background-color}*/;
 }
 
-.product-images{
+.imageswitcher{
 }
-.product-images .image-col{
+.imageswitcher .image-col{
 	width: 100%;
 	margin-right: 5px;
 	vertical-align: top;
 }
-.product-images .thumbnails-col{
+.imageswitcher .thumbnails-col{
 	width: 47px;
 	padding-left: 3px;
 	padding-top: 5px;
 	vertical-align: top;
 }
 
-.product-images .thumbnails-col img{
+.imageswitcher .thumbnails-col img{
 	width: 40px;
     height: 40px;
+	border: 1px solid #ccc;
+    margin: 1px;
 }
-.product-images .full-image-wrapper{
+
+.imageswitcher .thumbnails-col img.thumb-active{
+	border: 2px solid #0050c1;
+	margin: 0;
+}
+.imageswitcher .full-image-wrapper{
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 }
-.product-images .full-image-wrapper img{
+.imageswitcher .full-image-wrapper img{
 	width: 100%;
 	height: auto;
 }

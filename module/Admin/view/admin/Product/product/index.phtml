@@ -18,6 +18,8 @@
                 <th></th>
                 <th>商品名称</th>
                 <th>商品类别</th>
+                <th>价格</th>
+                <th>单位</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -28,6 +30,8 @@
                 <td><img alt="" src="<?=$product->productThumbnail?>"></td>
                 <td><?= $this->escapeHtml($product->name);?></td>
                 <td><?= $this->escapeHtml($product->category->name);?></td>
+                <td><?= $this->escapeHtml($product->price);?></td>
+                <td><?= $this->escapeHtml($product->unit);?></td>
                 <td align="right">
                     <a href="<?= $this->basePath('product/product/edit/' . $product->id);?>">
                         <i class="ace-icon glyphicon glyphicon-pencil"></i>Edit

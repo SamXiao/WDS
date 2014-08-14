@@ -1,10 +1,11 @@
+<?php $this->layout()->headerTitle = $category->title;?>
 <ul data-role="listview" data-inset="true">
     <?php foreach ($products as $product):?>
 	<li>
 		<a href="/p/<?=$product->id?>" data-transition="fade">
 			<img src="<?=$product->productThumbnail?>">
-			<h2><?=$product->name?></h2>
-			<p>Broken Bells</p>
+			<h2><?=$product->title?></h2>
+			<p>¥ <?=$product->price?> / <?=$product->unit?></p>
 		</a>
 	</li>
 	<?php endforeach;?>

@@ -52,6 +52,20 @@ class ProductForm extends Form
             )
         ));
         $this->add(array(
+            'name' => 'price',
+            'type' => 'Text',
+            'options' => array(
+                'label' => '商品价格',
+            )
+        ));
+        $this->add(array(
+            'name' => 'unit',
+            'type' => 'Text',
+            'options' => array(
+                'label' => '价格单位',
+            )
+        ));
+        $this->add(array(
             'name' => 'submit',
             'type' => 'submitButton',
             'options' => array(

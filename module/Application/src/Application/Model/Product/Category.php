@@ -10,7 +10,7 @@ class Category extends AbstractModel
 
     public $cid = '';
 
-    public $name = '';
+    public $title = '';
 
     public $type = '';
 
@@ -20,7 +20,7 @@ class Category extends AbstractModel
     {
         $this->id = (! empty($array['id'])) ? $array['id'] : null;
         $this->cid = (! empty($array['cid'])) ? $array['cid'] : null;
-        $this->name = (! empty($array['name'])) ? $array['name'] : null;
+        $this->title = (! empty($array['title'])) ? $array['title'] : null;
         $this->type = (! empty($array['type'])) ? $array['type'] : null;
         $this->parent_id = (! empty($array['parent_id'])) ? $array['parent_id'] : null;
     }

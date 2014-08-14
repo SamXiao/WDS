@@ -1,9 +1,12 @@
-<?php $headerTitle = '首页';?>
+<?php
+$this->layout()->headerTitle = $product->title;
+$this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') )
+?>
 
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">商品信息</li>
     <li>
-        <div class="product-images">
+        <div class="product-images imageswitcher">
             <table>
                 <tr>
                     <td class="image-col">
@@ -12,17 +15,21 @@
                         </div>
                     </td>
                     <td class="thumbnails-col">
-                        <?php foreach ($product->product_images as $image):?>
-                        <div><img alt="" src="<?=$image->thumbnail_uri?>"></div>
+                        <?php foreach ($product->product_images as $key => $image):?>
+                        <?php if ($key == 0) :?>
+                        <div><img alt="" src="<?=$image->thumbnail_uri?>" data-fullimage="<?=$image->uri?>" class="thumb-active"></div>
+                        <?php else :?>
+                        <div><img alt="" src="<?=$image->thumbnail_uri?>" data-fullimage="<?=$image->uri?>"></div>
+                        <?php endif;?>
                         <?php endforeach;?>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="product-info">
-            <span><?=$product->name?></span>
-            <span><?=$product->category->name?></span>
-            <div>¥ 9.90/5 件</div>
+            <span><?=$product->title?></span>
+            <span><?=$product->category->title?></span>
+            <div>¥ <?=$product->price?> / <?=$product->unit?></div>
         </div>
     </li>
     <li data-role="list-divider">详细说明</li>

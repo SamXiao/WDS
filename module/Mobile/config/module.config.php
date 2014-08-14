@@ -96,7 +96,7 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'mobile/layout/layout'          => __DIR__ . '/../view/layout/layout.phtml',
-            'mobile/layout/nav'             => __DIR__ . '/../view/layout/nav.phtml',
+            'mobile/layout/footer'             => __DIR__ . '/../view/layout/footer.phtml',
             'mobile/layout/breadcrumbs'     => __DIR__ . '/../view/layout/breadcrumbs.phtml',
         ),
         'template_path_stack' => array(

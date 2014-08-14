@@ -8,7 +8,7 @@ class ProductController extends AbstractActionController
 
     protected $projectTable;
 
-    protected $projectImageTable;
+    protected $categoryTable;
 
     public function getProductTable()
     {
@@ -19,20 +19,24 @@ class ProductController extends AbstractActionController
         return $this->projectTable;
     }
 
-    public function getProductImageTable()
+    public function getCategoryTable()
     {
-        if (! $this->projectImageTable) {
-            $this->projectImageTable = $this->getServiceLocator()->get('Admin\Model\Product\ProductImageTable');
+        if (! $this->categoryTable) {
+            $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
         }
 
-        return $this->projectImageTable;
+        return $this->categoryTable;
     }
 
     public function listAction()
     {
         $category_id = $this->params('identity');
+
+        $category = $this->getCategoryTable()->getCategory( $category_id );
+
         return array(
-            'products' => $this->getProductTable()->getProductsByCategory($category_id)
+            'category' => $category,
+            'products' => $this->getProductTable()->getProductsByCategory($category)
         );
     }
 
