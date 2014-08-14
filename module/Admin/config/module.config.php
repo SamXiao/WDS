@@ -63,25 +63,6 @@ return array(
 
         ),
     ),
-    'service_manager' => array(
-        'abstract_factories' => array(
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
-        ),
-        'aliases' => array(
-            'translator' => 'MvcTranslator',
-        ),
-    ),
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
@@ -108,7 +89,13 @@ return array(
              'admin' =>__DIR__ . '/../view',
         ),
     ),
-
+    'view_helper_config' => array(
+        'flashmessenger' => array(
+            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="ace-icon fa fa-times"></i></button>',
+            'message_close_string'     => '</div>',
+            'message_separator_string' => '<br>'
+        )
+    ),
     'system_params' => array(
         'upload' => array(
     	   'upload_file_path' => '/asserts/product/images',
@@ -116,11 +103,5 @@ return array(
         )
     ),
 
-    // Placeholder for console routes
-    'console' => array(
-        'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
 );
+

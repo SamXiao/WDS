@@ -37,6 +37,7 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->flashMessenger()->addErrorMessage('You are now logged in.');
         $viewModel = new ViewModel(array(
             'products' => $this->getProductTable()->fetchAll()
         ));
