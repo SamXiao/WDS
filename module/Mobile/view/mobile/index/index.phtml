@@ -1,10 +1,17 @@
 <?php
 $this->layout()->headerTitle = '首页';
-$this->layout()->category = null;
 ?>
 <ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
-	<li>优惠信息</li>
-	<li><a href="#">更多优惠</a></li>
+	<li data-role="list-divider">推荐商品</li>
+	<?php foreach ($products as $product):?>
+	<li>
+		<a href="/p/<?=$product->id?>" data-transition="fade">
+			<img src="<?=$product->productThumbnail?>">
+			<h2><?=$product->title?></h2>
+			<p>¥ <?=$product->price?> / <?=$product->unit?></p>
+		</a>
+	</li>
+	<?php endforeach;?>
 </ul>
 
 <ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">

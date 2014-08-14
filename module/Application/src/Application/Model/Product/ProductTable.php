@@ -78,11 +78,10 @@ class ProductTable extends AbstractModelMapper
             }
         }
 
-
         return $product;
     }
 
-    public function getProductsByCategory( Category $category)
+    public function getProductsByCategory(Category $category)
     {
         $resultSet = $this->getTableGateway()->select(array(
             'category_id' => $category->id,
@@ -96,6 +95,15 @@ class ProductTable extends AbstractModelMapper
         $productImageTable = $this->getProductImageTable();
         $defaultImage = $productImageTable->getDefaultImage($product->id);
         $product->product_thumbnail = $defaultImage->thumbnail_uri;
+    }
+
+    public function getRecommendedProducts()
+    {
+        $resultSet = $this->getTableGateway()->select(array(
+            'recommend' => 1,
+            'enable' => 1
+        ));
+        return $resultSet;
     }
 }
 

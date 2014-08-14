@@ -28,8 +28,8 @@
             <tr>
 <!--                 <td><input type="checkbox"></td> -->
                 <td><img alt="" src="<?=$product->productThumbnail?>"></td>
-                <td><?= $this->escapeHtml($product->name);?></td>
-                <td><?= $this->escapeHtml($product->category->name);?></td>
+                <td><?= $this->escapeHtml($product->title);?></td>
+                <td><?= $this->escapeHtml($product->category->title);?></td>
                 <td><?= $this->escapeHtml($product->price);?></td>
                 <td><?= $this->escapeHtml($product->unit);?></td>
                 <td align="right">

@@ -1,7 +1,7 @@
 <?php
 $this->layout()->headerTitle = $product->title;
-$this->layout()->category = $product->category;
-$this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') )
+echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $product->category));
+$this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') );
 ?>
 
 <ul data-role="listview" data-inset="true">
@@ -34,5 +34,5 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.
         </div>
     </li>
     <li data-role="list-divider">详细说明</li>
-    <li><?=$product->short_desc?></li>
+    <li><?=$product->description?></li>
 </ul>

@@ -1,6 +1,6 @@
 <?php
 $this->layout()->headerTitle = $category->title;
-$this->layout()->category = $category;
+echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 ?>
 <ul data-role="listview" data-inset="true">
     <?php foreach ($products as $product):?>

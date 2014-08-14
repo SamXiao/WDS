@@ -11,9 +11,9 @@ class Product extends AbstractModel
 
     public $title = '';
 
-    public $short_desc = '';
+    public $description = '';
 
-    public $cid = 0;
+    public $user_id = 0;
 
     public $category_id = '';
 
@@ -61,8 +61,8 @@ class Product extends AbstractModel
     {
         $this->id = (isset($array['id'])) ? $array['id'] : $this->id;
         $this->title = (isset($array['title'])) ? $array['title'] : $this->title;
-        $this->short_desc = (isset($array['short_desc'])) ? $array['short_desc'] : $this->short_desc;
-        $this->cid = (isset($array['cid'])) ? $array['cid'] : $this->cid;
+        $this->description = (isset($array['description'])) ? $array['description'] : $this->description;
+        $this->user_id = (isset($array['user_id'])) ? $array['user_id'] : $this->user_id;
         $this->category_id = (isset($array['category_id'])) ? $array['category_id'] : $this->category_id;
         $this->create_time = (isset($array['create_time'])) ? $array['create_time'] : $this->create_time;
         $this->update_time = (isset($array['update_time'])) ? $array['update_time'] : $this->update_time;
@@ -76,8 +76,7 @@ class Product extends AbstractModel
         $data = array(
             'id' => $this->id,
             'title' => $this->title,
-            'short_desc' => $this->short_desc,
-            'cid' => $this->cid,
+            'description' => $this->description,
             'category_id' => $this->category_id,
             'update_time' => $this->update_time,
             'product_images' => $this->product_images,

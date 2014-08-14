@@ -27,7 +27,7 @@ class ProductForm extends Form
             'type' => 'Hidden'
         ));
         $this->add(array(
-            'name' => 'name',
+            'name' => 'title',
             'type' => 'Text',
             'attributes' => array(
                 'placeholder' => 'test'
@@ -37,7 +37,7 @@ class ProductForm extends Form
             )
         ));
         $this->add(array(
-            'name' => 'short_desc',
+            'name' => 'description',
             'type' => 'Wysiwyg',
             'options' => array(
                 'label' => '商品说明'
@@ -92,7 +92,7 @@ class ProductForm extends Form
         $result = $table->fetchAll();
         $categories = array();
         foreach ($result as $category){
-            $categories[$category->id] = $category->name;
+            $categories[$category->id] = $category->title;
         }
         return $categories;
     }

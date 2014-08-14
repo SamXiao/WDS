@@ -8,7 +8,7 @@ class Category extends AbstractModel
 
     public $id = '';
 
-    public $cid = '';
+    public $user_id = '';
 
     public $title = '';
 
@@ -19,7 +19,7 @@ class Category extends AbstractModel
     public function exchangeArray(array $array)
     {
         $this->id = (! empty($array['id'])) ? $array['id'] : null;
-        $this->cid = (! empty($array['cid'])) ? $array['cid'] : null;
+        $this->user_id = (! empty($array['user_id'])) ? $array['user_id'] : null;
         $this->title = (! empty($array['title'])) ? $array['title'] : null;
         $this->type = (! empty($array['type'])) ? $array['type'] : null;
         $this->parent_id = (! empty($array['parent_id'])) ? $array['parent_id'] : null;

@@ -11,11 +11,11 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('id'));
-echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('title'));
 echo $this->formRow($form->get('category_id'));
 echo $this->formRow($form->get('price'));
 echo $this->formRow($form->get('unit'));
-echo $this->formRow($form->get('short_desc'));
+echo $this->formRow($form->get('description'));
 
 $product_images = $form->get('product_images')->getValue();
 
