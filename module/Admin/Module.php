@@ -34,13 +34,13 @@ class Module
     {
         $matches    = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
-        if (false === strpos($controller, __NAMESPACE__)) {
+        $viewModel = $e->getViewModel();
+
+        if (false === strpos($controller, __NAMESPACE__) || $viewModel->terminate()) {
             // not a controller from this module
             return;
         }
 
-        // Set the layout template
-        $viewModel = $e->getViewModel();
         $viewModel->setTemplate('admin/layout/layout');
 
     }

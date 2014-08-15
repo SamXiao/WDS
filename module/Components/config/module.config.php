@@ -21,5 +21,10 @@ return array(
             'text' => 'Components\Form\Element\Text',
             'select' => 'Components\Form\Element\Select'
         )
-    )
+    ),
+    'view_manager' => array(
+        'template_map' => array(
+            'components/layout/flashmessager' => __DIR__ . '/../view/layout/flashmessager.phtml',
+        ),
+    ),
 );

@@ -9,6 +9,7 @@ use Application\Model\Product\ProductImage;
 use Zend\View\Model\JsonModel;
 use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
+use Components\Layout\View\Model\FlashMessagerModel;
 
 class ProductController extends AbstractActionController
 {
@@ -101,6 +102,17 @@ class ProductController extends AbstractActionController
     {
         print_r(realpath('.'));
         exit();
+    }
+
+    public function recommendAction(){
+        $table = $this->getProductTable();
+        $id = $_GET['id'];
+
+        $product = $table->getProduct($id);
+        $product->recommend = $_GET['recommend'];
+        $table->saveProduct($product);
+        $this->flashmessenger()->addSuccessMessage($product->title . ' 已推荐');
+        return new FlashMessagerModel();
     }
 
     public function uploadImageAction()

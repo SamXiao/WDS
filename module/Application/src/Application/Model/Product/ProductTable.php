@@ -105,5 +105,6 @@ class ProductTable extends AbstractModelMapper
         ));
         return $resultSet;
     }
+
 }
 
