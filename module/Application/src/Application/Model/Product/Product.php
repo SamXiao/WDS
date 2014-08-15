@@ -27,6 +27,8 @@ class Product extends AbstractModel
 
     public $product_images = '';
 
+    public $recommend = 0;
+
     protected $productThumbnail = '';
 
     protected $category = NULL;
@@ -69,6 +71,7 @@ class Product extends AbstractModel
         $this->product_images = (isset($array['product_images'])) ? $array['product_images'] : $this->product_images;
         $this->price = (isset($array['price'])) ? $array['price'] : $this->price;
         $this->unit = (isset($array['unit'])) ? $array['unit'] : $this->unit;
+        $this->recommend = (isset($array['recommend'])) ? $array['recommend'] : $this->recommend;
     }
 
     public function getArrayCopy()
@@ -82,6 +85,7 @@ class Product extends AbstractModel
             'product_images' => $this->product_images,
             'price' => $this->price,
             'unit' => $this->unit,
+            'recommend' => $this->recommend,
         );
         return $data;
     }

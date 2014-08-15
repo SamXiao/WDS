@@ -89,13 +89,6 @@ return array(
              'admin' =>__DIR__ . '/../view',
         ),
     ),
-    'view_helper_config' => array(
-        'flashmessenger' => array(
-            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="ace-icon fa fa-times"></i></button>',
-            'message_close_string'     => '</div>',
-            'message_separator_string' => '<br>'
-        )
-    ),
     'system_params' => array(
         'upload' => array(
     	   'upload_file_path' => '/asserts/product/images',

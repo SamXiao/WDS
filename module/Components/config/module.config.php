@@ -9,6 +9,7 @@ return array(
             'formActions' => 'Components\Form\View\Helper\FormActions',
             'FormElementErrors' => 'Components\Form\View\Helper\FormElementErrors',
             'formwysiwyg' => 'Components\Form\View\Helper\FormWysiwyg',
+            'flashMessenger' => 'Components\Layout\View\Helper\FlashMessenger',
         ),
     ),
 

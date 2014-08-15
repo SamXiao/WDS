@@ -37,7 +37,7 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->flashMessenger()->addErrorMessage('You are now logged in.');
+
         $viewModel = new ViewModel(array(
             'products' => $this->getProductTable()->fetchAll()
         ));
@@ -57,12 +57,8 @@ class ProductController extends AbstractActionController
                 $product->exchangeArray($form->getData());
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
-
-                // TODO add redirect
-                // TODO add flash message
-
-                // // Redirect to list of albums
-                // return $this->redirect()->toRoute('album');
+                $this->flashMessenger()->addSuccessMessage($product->title . ' 已添加');
+                 return $this->redirect()->toUrl('/product/product');
             }
         }
 
@@ -92,15 +88,10 @@ class ProductController extends AbstractActionController
             if ($form->isValid()) {
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
-
-                // TODO add redirect
-                // TODO add flash message
-
-                // // Redirect to list of albums
+                $this->flashMessenger()->addSuccessMessage($product->title . ' 已编辑');
                 return $this->redirect()->toUrl('/product/product');
             }
         }
-
         return array(
             'form' => $form
         );
