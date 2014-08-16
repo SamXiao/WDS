@@ -9,59 +9,7 @@
 
 return array(
     'router' => array(
-        'routes' => array(
-            'wds.admin.local' => array(
-                'type' => 'Zend\Mvc\Router\Http\Hostname',
-                'options' => array(
-                    'route' => ':4th.[:3rd.]:2nd.:1st', // domain levels from right to left
-                    'contraints' => array(
-                        '4th' => 'wds',
-                        '3rd' => '.*?', // optional 3rd level domain such as .ci, .dev or .test
-                        '2nd' => 'admin',
-                        '1st' => 'local',
-                    ),
-
-                    // Purposely omit default controller and action
-                    // to let the child routes control the route match
-                    'defaults' => array(
-                        'module' => 'Admin',
-                        'action' => 'index',
-                    )
-                ),
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'index',
-                                '__NAMESPACE__' => 'Admin\Controller'
-                            ),
-                        ),
-                    ),
-                    'product' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/product[/][:controller[/][:action[/][:id]]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'         => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'product',
-                                '__NAMESPACE__' => 'Admin\Controller\Product'
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-
-        ),
+        'routes' => require( __DIR__ . "/router.config.php" )
     ),
     'controllers' => array(
         'invokables' => array(
