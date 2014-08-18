@@ -4,6 +4,8 @@
 
 
 .enable_submen_hover() when (@enable-submenu-hover = true) {
+ 
+ @media only screen and (min-width: @screen-hover-menu) {
   .nav-list li.hover {
 	 > .submenu {
 		position: absolute;
@@ -99,12 +101,13 @@
 		}
 	}
 
+ }//@media
 
 
 
   .enable_collapsible_responsive_menu_hover() when (@enable-collapsible-responsive-menu = true) {
 	//reset .hover styles for small screens with .navbar-collapse
-	@media only screen and (max-width: @grid-float-breakpoint-max) {
+	@media (min-width: @screen-hover-menu) and (max-width: @grid-float-breakpoint-max) {
 	 .sidebar.navbar-collapse {
 		.nav-list li.hover > .submenu {
 			position: relative;
@@ -199,13 +202,17 @@
 		.nav-list li.hover > .submenu.nav-show {
 			display: block !important;
 		}
-
+	  }
+	}
+	
+	@media (min-width: max(@screen-compact-menu, @screen-hover-menu)) and (max-width: @grid-float-breakpoint-max) {
+	 .sidebar.navbar-collapse {
 		&.compact {
 			.nav-list > li.hover.active > a:after {
 				display: none;
 			}
 		}
-	  }
+	 }
 	}
 
   }//@enable-collapsible-responsive-menu

@@ -165,10 +165,12 @@
 
 
 .enable_compact_menu_highlight_no_skin() when (@enable-compact-menu = true) {
- .sidebar.compact .nav-list li.highlight.active > a {
+ @media (min-width: @screen-compact-menu) {
+  .sidebar.compact .nav-list li.highlight.active > a {
 	&:after , &:before {
 		display: none !important;
 	}
+  }
  }
 
  .enable_horizontal_menu_highlight_compact() when(@enable-horizontal-menu = true) {

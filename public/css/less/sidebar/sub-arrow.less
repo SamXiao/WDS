@@ -40,7 +40,10 @@
  &:hover > a + .arrow {
 	display: none;
  }
- &.hover:hover > a.dropdown-toggle + .arrow {
+ 
+ @media only screen and (min-width: @screen-hover-menu) {
+  &.hover:hover > a.dropdown-toggle + .arrow {
 	display: block;
+  }
  }
 }

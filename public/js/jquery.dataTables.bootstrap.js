@@ -4,7 +4,6 @@ $.extend( true, $.fn.dataTable.defaults, {
 		"<'row'<'col-xs-6'l><'col-xs-6'f>r>"+
 		"t"+
 		"<'row'<'col-xs-6'i><'col-xs-6'p>>",
-	"sPaginationType": "bootstrap",
 	"oLanguage": {
 		"sLengthMenu": "Display _MENU_ records"
 	}
