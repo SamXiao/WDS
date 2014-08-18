@@ -32,6 +32,7 @@ return array(
 
         'template_map' => array(
             'admin/layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'admin/layout/login' => __DIR__ . '/../view/layout/login.phtml',
         ),
         'template_path_stack' => array(
              'admin' =>__DIR__ . '/../view',
@@ -42,6 +43,11 @@ return array(
     	   'upload_file_path' => '/asserts/product/images',
     	   'hostname' => 'http://192.168.31.118'
         )
+    ),
+    'service_manager' => array(
+        'invokables' => array(
+            'Zend\Authentication\AuthenticationService' => 'Zend\Authentication\AuthenticationService',
+        ),
     ),
 
 );

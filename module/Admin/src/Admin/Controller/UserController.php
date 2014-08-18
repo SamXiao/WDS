@@ -14,18 +14,18 @@ use Application\Model\Member;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthDbTableAdapter;
 use Zend\Authentication\Result;
+use Admin\Form\LoginForm;
 
 class UserController extends AbstractActionController
 {
 
     public function loginAction()
     {
-        $form = $this->getServiceLocator()->get('Application\Form\LoginForm');
+        $this->layout('admin/layout/login');
+        $form = LoginForm::getInstance($this->getServiceLocator());
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $member = new Member();
-            $form->setInputFilter($member->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $result = $this->doAuthenticate($form->get('username')->getValue(), $form->get('password')->getValue());
@@ -47,6 +47,7 @@ class UserController extends AbstractActionController
                 foreach ($result->getMessages() as $message) {
                     echo "$message\n";
                 }
+                exit();
             }
         }
 
@@ -60,7 +61,7 @@ class UserController extends AbstractActionController
         $auth = new AuthenticationService();
 
         $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $authAdapter = new AuthDbTableAdapter($dbAdapter, 'core_member', 'username', 'password');
+        $authAdapter = new AuthDbTableAdapter($dbAdapter, 'user', 'username', 'password');
         $authAdapter->setIdentity($username);
         $authAdapter->setCredential($password);
 

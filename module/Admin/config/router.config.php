@@ -23,6 +23,7 @@ return array(
 
     'admin' => array(
         'type' => 'literal',
+        'may_terminate' => true,
         'options' => array(
             'route' => '/admin',
             'defaults' => array(

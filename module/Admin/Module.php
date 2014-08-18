@@ -6,7 +6,6 @@
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
@@ -15,43 +14,53 @@ use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
+
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
-
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH , array($this, 'setLayout'));
-        $eventManager->attach(MvcEvent::EVENT_RENDER , array($this, 'registerJsonStrategy'), 100);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array(
+            $this,
+            'setLayout'
+        ));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, array(
+            $this,
+            'registerJsonStrategy'
+        ), 100);
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     *
+     * @param \Zend\Mvc\MvcEvent $e
+     *            The MvcEvent instance
      * @return void
      */
     public function setLayout($e)
     {
-        $matches    = $e->getRouteMatch();
+        $matches = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
         $viewModel = $e->getViewModel();
 
-        if (false === strpos($controller, __NAMESPACE__) || $viewModel->terminate()) {
+        $oldTemplate = $viewModel->getTemplate();
+
+        if (false === strpos($controller, __NAMESPACE__) || $viewModel->terminate() || strpos($oldTemplate, 'admin') === 0) {
             // not a controller from this module
             return;
         }
 
         $viewModel->setTemplate('admin/layout/layout');
-
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     *
+     * @param \Zend\Mvc\MvcEvent $e
+     *            The MvcEvent instance
      * @return void
      */
     public function registerJsonStrategy(MvcEvent $e)
     {
-        $matches    = $e->getRouteMatch();
+        $matches = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
         if (false === strpos($controller, __NAMESPACE__)) {
             // not a controller from this module
@@ -63,9 +72,9 @@ class Module
         // methods.
 
         // Set the JSON strategy when controllers from this module are selected
-        $app          = $e->getTarget();
-        $locator      = $app->getServiceManager();
-        $view         = $locator->get('Zend\View\View');
+        $app = $e->getTarget();
+        $locator = $app->getServiceManager();
+        $view = $locator->get('Zend\View\View');
         $jsonStrategy = $locator->get('ViewJsonStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
@@ -82,15 +91,14 @@ class Module
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
+                )
+            )
         );
     }
 
     public function getServiceConfig()
     {
-        return array(
-        );
+        return array();
     }
 }

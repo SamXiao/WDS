@@ -15,7 +15,7 @@ return array(
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
             'mobile' => array(
-                'type'    => 'Literal',
+                'type'    => 'literal',
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(

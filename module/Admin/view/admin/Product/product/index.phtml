@@ -7,7 +7,7 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/admin/product-list.js
 <div class="page-header">
 <h1>
     <?= $this->escapeHtml($title); ?>
-    <small><a href="/product/product/add"><i class="ace-icon glyphicon glyphicon-plus"></i>新增商品</a></small>
+    <small><a href="/admin/product/product/add"><i class="ace-icon glyphicon glyphicon-plus"></i>新增商品</a></small>
 </h1>
 </div>
 <div class="row">
@@ -36,18 +36,18 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/admin/product-list.js
                     <td><?= $this->escapeHtml($product->unit);?></td>
                     <td align="right">
                         <?php if ($product->recommend):?>
-                        <a data-target="/product/product/recommend" data-method="ajax/get" data-recommend="0" >
+                        <a data-target="/admin/product/product/recommend" data-method="ajax/get" data-recommend="0" >
                             <i class="ace-icon glyphicon glyphicon-pencil"></i>取消推荐
                         </a>
                         <?php else:?>
-                        <a data-target="/product/product/recommend" data-method="ajax/get" data-recommend="1" >
+                        <a data-target="/admin/product/product/recommend" data-method="ajax/get" data-recommend="1" >
                             <i class="ace-icon glyphicon glyphicon-pencil"></i>推荐到首页
                         </a>
                         <?php endif;?>
-                        <a href="<?= $this->basePath('product/product/edit/' . $product->id);?>">
+                        <a href="<?= $this->basePath('admin/product/product/edit/' . $product->id);?>">
                             <i class="ace-icon glyphicon glyphicon-pencil"></i>编辑
                         </a>
-                        <a href="<?= $this->basePath('product/delete/id/' . $product->id);?>">
+                        <a href="<?= $this->basePath('admin/product/delete/id/' . $product->id);?>">
                             <i class="ace-icon glyphicon glyphicon-remove"></i>删除
                         </a>
                      </td>

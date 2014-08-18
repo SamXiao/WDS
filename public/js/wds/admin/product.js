@@ -20,7 +20,7 @@ var wds_admin_product = {
 		Dropzone.autoDiscover = false;
 		
 		this.elmDropzone = new Dropzone("div.dropzone", { 
-			url: "/product/product/uploadimage",
+			url: "/admin/product/product/uploadimage",
 		    paramName: "file", // The name that will be used to transfer the file
 		    maxFilesize: 5, // MB
 		    params: {

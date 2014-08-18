@@ -1,44 +1,32 @@
-<?php echo $this->doctype(); ?>
-
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-		<meta name="description" content="overview &amp; stats" />
-		<?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>登陆</title>
 
-		<!-- basic styles -->
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-		<link href="/css/bootstrap.min.css" rel="stylesheet" />
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/css/font-awesome.min.css" />
 
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/css/font-awesome-ie7.min.css" />
-		<![endif]-->
-
-		<!-- page specific plugin styles -->
-
-		<!-- fonts -->
-
+		<!-- text fonts -->
 		<link rel="stylesheet" href="/css/ace-fonts.css" />
 
 		<!-- ace styles -->
-
 		<link rel="stylesheet" href="/css/ace.min.css" />
-		<link rel="stylesheet" href="/css/ace-rtl.min.css" />
-		<link rel="stylesheet" href="/css/ace-skins.min.css" />
 
-		<!--[if lte IE 8]>
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="/css/ace-part2.min.css" />
+		<![endif]-->
+		<link rel="stylesheet" href="/css/ace-rtl.min.css" />
+
+		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/css/ace-ie.min.css" />
 		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
-
-		<script src="/js/ace-extra.min.js"></script>
+		<link rel="stylesheet" href="/css/ace.onpage-help.css" />
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -46,34 +34,98 @@
 		<script src="/js/html5shiv.js"></script>
 		<script src="/js/respond.min.js"></script>
 		<![endif]-->
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+	</head>
 
-    </head>
-    <body>
-		<?=$this->partial('/layout/nav.phtml')?>
-        <div class="main-container" id="main-container">
-        	<script type="text/javascript">
-        		try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-        	</script>
-        	<div class="main-container-inner">
-            	<a class="menu-toggler" id="menu-toggler" href="#">
-            		<span class="menu-text"></span>
-            	</a>
-                <?=$this->partial('/layout/sidebar.phtml')?>
+	<body class="login-layout light-login">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+									<i class="ace-icon fa fa-leaf green"></i>
+									<span class="gray" id="id-text2">捷店</span>
+								</h1>
+                                <!-- <h4 class="light-blue" id="id-company-text">&copy; Company Name</h4> -->
+							</div>
 
-            	<div class="main-content">
-                    <?=$this->partial('/layout/breadcrumbs.phtml')?>
-                    <div class="page-content">
-            		  <?php echo $this->content; ?>
-                    </div>
-            	</div>
-        	</div><!-- /.main-container-inner -->
+							<div class="space-6"></div>
 
-        	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        		<i class="icon-double-angle-up icon-only bigger-110"></i>
-        	</a>
-        </div><!-- /.main-container -->
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger">
+												<i class="ace-icon fa fa-coffee green"></i>
+												请输入你的登陆信息
+											</h4>
 
-        <?php echo $this->inlineScript() ?>
-    </body>
+											<div class="space-6"></div>
+
+											<form action="/admin/user/login" method="post">
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input name="username" type="text" class="form-control" placeholder="用户名" />
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input name="password" type="password" class="form-control" placeholder="密码" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+													</label>
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<label class="inline">
+															<input type="checkbox" class="ace" />
+															<span class="lbl"> 记住我</span>
+														</label>
+
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+															<i class="ace-icon fa fa-key"></i>
+															<span class="bigger-110">登陆</span>
+														</button>
+													</div>
+
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+
+										</div><!-- /.widget-main -->
+
+									</div><!-- /.widget-body -->
+								</div><!-- /.login-box -->
+							</div><!-- /.position-relative -->
+
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.main-content -->
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='/js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+
+	</body>
 </html>
