@@ -40,7 +40,7 @@ return array(
     'system_params' => array(
         'upload' => array(
     	   'upload_file_path' => '/asserts/product/images',
-    	   'hostname' => 'http://wds.admin.local'
+    	   'hostname' => 'http://192.168.31.118'
         )
     ),
 

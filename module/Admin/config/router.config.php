@@ -4,7 +4,7 @@ return array(
         'type' => 'Zend\Mvc\Router\Http\Hostname',
         'options' => array(
             'route' => ':4th.[:3rd.]:2nd.:1st', // domain levels from right to left
-            'contraints' => array(
+            'constraints' => array(
                 '4th' => 'wds',
                 '3rd' => '.*?', // optional 3rd level domain such as .ci, .dev or .test
                 '2nd' => 'admin',
