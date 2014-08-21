@@ -23,9 +23,33 @@ class ProductTable extends AbstractModelMapper
         return $this->projectImageTable;
     }
 
+    public function buildSqlSelect(Select $select){
+        $select->join('category', 'category.id=category_id', array(
+            'category_name' => 'title'
+        ));
+        $select->join('product_image', 'product.id=product_id', array(
+            'product_thumbnail' => 'thumbnail_uri'
+        ));
+        $select->where('is_default=1');
+    }
+
+    public function getFetchAllCounts()
+    {
+        $select = $this->getTableGateway()->getSql()->select();
+        $this->buildSqlSelect($select);
+        $select->columns(array('id'));
+        $statement = $this->getTableGateway()->getSql()->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        return $results->count();
+    }
+
     public function fetchAll($offset = 0, $limit = 10)
     {
-        $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit)
+        $offset = (int)$offset;
+        $limit = (int)$limit;
+
+        $table = $this;
+        $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit, $table)
         {
             $select->columns(array(
                 'id',
@@ -34,13 +58,7 @@ class ProductTable extends AbstractModelMapper
                 'unit',
                 'recommend'
             ));
-            $select->join('category', 'category.id=category_id', array(
-                'category_name' => 'title'
-            ));
-            $select->join('product_image', 'product.id=product_id', array(
-                'product_thumbnail' => 'thumbnail_uri'
-            ));
-            $select->where('is_default=1');
+            $table->buildSqlSelect($select);
             $select->offset($offset)
                 ->limit($limit);
         });

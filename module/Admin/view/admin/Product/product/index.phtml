@@ -5,7 +5,14 @@ $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'
                      ->appendFile( $this->basePath('js/jquery.dataTables.bootstrap.js'))
                      ->appendFile( $this->basePath('js/wds/admin/product-list.js'));
 ?>
-
+<style>
+<!--
+.qrcode-in-model{
+	width: 130px;
+	margin: auto;
+}
+-->
+</style>
 <div class="page-header">
 <h1>
     <?= $this->escapeHtml($title); ?>
@@ -26,8 +33,19 @@ $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'
             <th>商品类别</th>
             <th>价格</th>
             <th>单位</th>
-            <th>首页</th>
+            <th>推荐</th>
             <th>&nbsp;</th>
     	</tr>
     </thead>
 </table>
+
+<!-- Modal -->
+<div class="modal" id="qrcodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class='qrcode-in-model'></div>
+      </div>
+    </div>
+  </div>
+</div>

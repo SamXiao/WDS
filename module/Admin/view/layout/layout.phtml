@@ -18,7 +18,7 @@
         <?php $this->headscript()->appendFile($this->basepath('js/ace.min.js'))?>
         <?php $this->headscript()->appendFile($this->basepath('js/ace-elements.min.js'))?>
         <?php $this->headscript()->appendFile($this->basepath('js/ace-extra.min.js'))?>
-        <?php $this->headscript()->appendFile($this->basepath('js/wds/admin/ajax.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/jquery.qrcode.min.js'))?>
 
 
 		<!-- bootstrap & fontawesome -->
@@ -81,7 +81,7 @@
         		<i class="icon-double-angle-up icon-only bigger-110"></i>
         	</a>
         </div><!-- /.main-container -->
-
+        <?php $this->inlinescript()->appendFile($this->basepath('js/wds/admin/core.js'))?>
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

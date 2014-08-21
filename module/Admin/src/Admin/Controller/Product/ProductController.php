@@ -10,6 +10,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
 use Components\Layout\View\Model\FlashMessagerModel;
+use Zend\Barcode\Barcode;
 
 class ProductController extends AbstractActionController
 {
@@ -38,7 +39,6 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
-
         $viewModel = new ViewModel(array(
             'products' => $this->getProductTable()->fetchAll()
         ));
@@ -47,22 +47,23 @@ class ProductController extends AbstractActionController
 
     public function getProcustsListDataAction()
     {
-        $products = $this->getProductTable()->fetchAll();
+        $count = $this->getProductTable()->getFetchAllCounts();
+        $products = $this->getProductTable()->fetchAll($_GET['start'], $_GET['length']);
         $listData = array(
-            'draw' => $_GET['draw']++,
-            'recordsTotal' => $products->count(),
-            'recordsFiltered' => $products->count(),
+            'draw' => $_GET['draw'] ++,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
             'data' => array()
         );
-        foreach ($products as $product){
+        foreach ($products as $product) {
             $listData['data'][] = array(
                 'DT_RowId' => $product->id,
                 'img' => $product->product_thumbnail,
                 'title' => $product->title,
-                'category' =>  $product->category_name,
-                'price' =>  $product->price,
-                'unit' =>  $product->unit,
-                'recommend' =>  $product->recommend,
+                'category' => $product->category_name,
+                'price' => $product->price,
+                'unit' => $product->unit,
+                'recommend' => $product->recommend ? '首页': '普通'
             );
         }
         $viewModel = new JsonModel($listData);
@@ -83,7 +84,7 @@ class ProductController extends AbstractActionController
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
                 $this->flashMessenger()->addSuccessMessage($product->title . ' 已添加');
-                 return $this->redirect()->toUrl('/product/product');
+                return $this->redirect()->toUrl('/product/product');
             }
         }
 
@@ -128,14 +129,15 @@ class ProductController extends AbstractActionController
         exit();
     }
 
-    public function recommendAction(){
+    public function recommendAction()
+    {
         $table = $this->getProductTable();
-        $id = $_GET['id'];
-
+        $id = (int)$this->params()->fromPost('id');
+        $product->recommend = (int)$this->params()->fromPost('recommend');
         $product = $table->getProduct($id);
-        $product->recommend = $_GET['recommend'];
+
         $table->saveProduct($product);
-        $this->flashmessenger()->addSuccessMessage($product->title . ' 已推荐');
+        $this->flashmessenger()->addSuccessMessage($product->title . ($product->recommend==1?' 已推荐':' 已取消推荐'));
         return new FlashMessagerModel();
     }
 
@@ -197,5 +199,11 @@ class ProductController extends AbstractActionController
         return new JsonModel(array(
             $result
         ));
+    }
+
+    public function getBarCode()
+    {
+        $productId = (int) $this->params()->fromPost('id', 0);
+        $url = '/p/'.$productId;
     }
 }
