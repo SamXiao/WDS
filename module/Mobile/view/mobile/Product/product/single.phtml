@@ -1,6 +1,5 @@
 <?php
-$this->layout()->headerTitle = $product->title;
-echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $product->category));
+echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') );
 ?>
 
@@ -28,9 +27,9 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.
             </table>
         </div>
         <div class="product-info">
-            <span><?=$product->title?></span>
-            <span><?=$product->category->title?></span>
-            <div>¥ <?=$product->price?> / <?=$product->unit?></div>
+            <p class="ui-li-desc"><?=$product->title?></p>
+            <p><?=$category->title?></p>
+            <p>¥ <?=$product->price?> / <?=$product->unit?></p>
         </div>
     </li>
     <li data-role="list-divider">详细说明</li>
