@@ -11,12 +11,6 @@ class ProductImageTable extends AbstractModelMapper
 
     protected $modelClassName = 'Application\\Model\\Product\\ProductImage';
 
-    public function fetchAll()
-    {
-        $resultSet = $this->getTableGateway()->select();
-        return $resultSet;
-    }
-
     public function getProductImage()
     {
         $tableGateway = $this->getTableGateway();
@@ -45,6 +39,11 @@ class ProductImageTable extends AbstractModelMapper
         $data = $productImage->getArrayCopy();
         $id = (int) $productImage->id;
         if ($id == 0) {
+            $images = $this->getProductImagesByProductId($productImage->product_id);
+            if ($images->count() == 0) {
+            	$productImage->is_default = 1;
+            	$data = $productImage->getArrayCopyForSave();
+            }
             $tableGateway->insert($data);
             $productImage->id = $this->getTableGateway()->getLastInsertValue();
         } else {

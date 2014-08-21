@@ -45,6 +45,30 @@ class ProductController extends AbstractActionController
         return $viewModel;
     }
 
+    public function getProcustsListDataAction()
+    {
+        $products = $this->getProductTable()->fetchAll();
+        $listData = array(
+            'draw' => $_GET['draw']++,
+            'recordsTotal' => $products->count(),
+            'recordsFiltered' => $products->count(),
+            'data' => array()
+        );
+        foreach ($products as $product){
+            $listData['data'][] = array(
+                'DT_RowId' => $product->id,
+                'img' => $product->product_thumbnail,
+                'title' => $product->title,
+                'category' =>  $product->category_name,
+                'price' =>  $product->price,
+                'unit' =>  $product->unit,
+                'recommend' =>  $product->recommend,
+            );
+        }
+        $viewModel = new JsonModel($listData);
+        return $viewModel;
+    }
+
     public function addAction()
     {
         $form = ProductForm::getInstance($this->getServiceLocator());

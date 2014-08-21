@@ -17,6 +17,8 @@ class Product extends AbstractModel
 
     public $category_id = '';
 
+    public $category_name = '';
+
     public $create_time = '';
 
     public $update_time = '';
@@ -29,11 +31,11 @@ class Product extends AbstractModel
 
     public $recommend = 0;
 
-    protected $productThumbnail = '';
+    public $product_thumbnail = '';
 
-    protected $category = NULL;
 
-    protected $exclude = array( 'product_images', 'product_thumbnail' );
+
+    protected $exclude = array( 'product_images');
 
     public function getInputFilter()
     {
@@ -66,6 +68,8 @@ class Product extends AbstractModel
         $this->description = (isset($array['description'])) ? $array['description'] : $this->description;
         $this->user_id = (isset($array['user_id'])) ? $array['user_id'] : $this->user_id;
         $this->category_id = (isset($array['category_id'])) ? $array['category_id'] : $this->category_id;
+        $this->category_name = (isset($array['category_name'])) ? $array['category_name'] : $this->category_name;
+        $this->product_thumbnail = (isset($array['product_thumbnail'])) ? $array['product_thumbnail'] : $this->product_thumbnail;
         $this->create_time = (isset($array['create_time'])) ? $array['create_time'] : $this->create_time;
         $this->update_time = (isset($array['update_time'])) ? $array['update_time'] : $this->update_time;
         $this->product_images = (isset($array['product_images'])) ? $array['product_images'] : $this->product_images;
@@ -91,23 +95,7 @@ class Product extends AbstractModel
     }
 
 
-    public function getCategory()
-    {
-        if (! $this->category) {
-            $categoryTable = new CategoryTable();
-            $this->category = $categoryTable->getCategory($this->category_id);
-        }
-        return $this->category;
-    }
 
-    public function getProductThumbnail()
-    {
-        if (empty($this->productThumbnail)){
-            $productImageTable = new ProductImageTable();
-            $this->productThumbnail = $productImageTable->getDefaultImage($this->id)->thumbnail_uri;
-        }
-        return $this->productThumbnail;
-    }
 
 }
 

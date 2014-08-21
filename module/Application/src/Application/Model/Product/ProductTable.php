@@ -3,6 +3,7 @@ namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
 use Application\Model\Product\Product;
+use Zend\Db\Sql\Select;
 
 class ProductTable extends AbstractModelMapper
 {
@@ -22,9 +23,27 @@ class ProductTable extends AbstractModelMapper
         return $this->projectImageTable;
     }
 
-    public function fetchAll()
+    public function fetchAll($offset = 0, $limit = 10)
     {
-        $resultSet = $this->getTableGateway()->select();
+        $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit)
+        {
+            $select->columns(array(
+                'id',
+                'title',
+                'price',
+                'unit',
+                'recommend'
+            ));
+            $select->join('category', 'category.id=category_id', array(
+                'category_name' => 'title'
+            ));
+            $select->join('product_image', 'product.id=product_id', array(
+                'product_thumbnail' => 'thumbnail_uri'
+            ));
+            $select->where('is_default=1');
+            $select->offset($offset)
+                ->limit($limit);
+        });
         return $resultSet;
     }
 
@@ -105,6 +124,5 @@ class ProductTable extends AbstractModelMapper
         ));
         return $resultSet;
     }
-
 }
 
