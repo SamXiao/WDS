@@ -11,6 +11,8 @@ use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
 use Components\Layout\View\Model\FlashMessagerModel;
 use Zend\Barcode\Barcode;
+use Admin\Form\Product\CategoryForm;
+use Application\Model\Product\Category;
 
 class CategoryController extends AbstractActionController
 {
@@ -58,19 +60,19 @@ class CategoryController extends AbstractActionController
 
     public function addAction()
     {
-        $form = ProductForm::getInstance($this->getServiceLocator());
+        $form = CategoryForm::getInstance($this->getServiceLocator());
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $product = new Product();
-            $form->setInputFilter($product->getInputFilter());
+            $category = new Category();
+            $form->setInputFilter($category->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $product->exchangeArray($form->getData());
-                $productTable = $this->getProductTable();
-                $product = $productTable->saveProduct($product);
-                $this->flashMessenger()->addSuccessMessage($product->title . ' 已添加');
-                return $this->redirect()->toUrl('/product/product');
+                $category->exchangeArray($form->getData());
+                $categoryTable = $this->getCategoryTable();
+                $category = $categoryTable->saveCategory($category);
+                $this->flashMessenger()->addSuccessMessage($category->title . ' 已添加');
+                return $this->redirect()->toUrl('/admin/product/category');
             }
         }
 
@@ -83,25 +85,25 @@ class CategoryController extends AbstractActionController
     {
         $id = (int) $this->params('id', 0);
         if (! $id) {
-            return $this->redirect()->toUrl('/product/product/add');
+            return $this->redirect()->toUrl('/admin/product/category/add');
         }
         try {
-            $product = $this->getProductTable()->getProduct($id);
+            $category = $this->getCategoryTable()->getCategory($id);
         } catch (\Exception $ex) {
-            return $this->redirect()->toUrl('/product/product');
+            return $this->redirect()->toUrl('/admin/product/category');
         }
 
-        $form = ProductForm::getInstance($this->getServiceLocator());
-        $form->bind($product);
+        $form = CategoryForm::getInstance($this->getServiceLocator());
+        $form->bind($category);
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter($product->getInputFilter());
+            $form->setInputFilter($category->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $productTable = $this->getProductTable();
-                $product = $productTable->saveProduct($product);
-                $this->flashMessenger()->addSuccessMessage($product->title . ' 已编辑');
-                return $this->redirect()->toUrl('/product/product');
+                $categoryTable = $this->getCategoryTable();
+                $category = $categoryTable->saveCategory($category);
+                $this->flashMessenger()->addSuccessMessage($category->title . ' 已编辑');
+                return $this->redirect()->toUrl('/admin/product/category');
             }
         }
         return array(

@@ -68,10 +68,11 @@ class CategoryTable extends AbstractModelMapper
     public function saveCategory(Category $category)
     {
         $tableGateway = $this->getTableGateway();
-        $data = $category->toArray();
+        $data = $category->getArrayCopyForSave();
         $id = (int) $category->id;
         if ($id == 0) {
             $tableGateway->insert($data);
+            $category->id = $this->getTableGateway()->getLastInsertValue();
         } else {
             if ($this->getCategory($id)) {
                 $tableGateway->update($data, array(
@@ -79,6 +80,7 @@ class CategoryTable extends AbstractModelMapper
                 ));
             }
         }
+        return $category;
     }
 }
 
