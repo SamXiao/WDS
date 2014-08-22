@@ -55,7 +55,7 @@ var wds_admin_product = {
 	          var button = this;
 	          // If you want to the delete the file on the server as well,
 	          // you can do the AJAX request here.
-	          $.post('/product/product/removeImage', { imageId: file.serverId}, function(){
+	          $.post('/admin/product/product/removeImage', { imageId: file.serverId}, function(){
 	        	  // Remove the file preview.
 	        	  elmDropzone.removeFile(file);
 	          });
@@ -68,7 +68,7 @@ var wds_admin_product = {
 		          var button = this;
 		          // If you want to the delete the file on the server as well,
 		          // you can do the AJAX request here.
-		          $.post('/product/product/setDefaultImage', { imageId: file.serverId, id: elmDropzone.options.params.product_id}, function(){
+		          $.post('/admin/product/product/setDefaultImage', { imageId: file.serverId, id: elmDropzone.options.params.product_id}, function(){
 		        	  // Remove the file preview.
 			          $(".dz-button-premier").show();
 			          $(button).hide();

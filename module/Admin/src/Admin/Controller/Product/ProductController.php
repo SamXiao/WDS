@@ -84,7 +84,7 @@ class ProductController extends AbstractActionController
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
                 $this->flashMessenger()->addSuccessMessage($product->title . ' 已添加');
-                return $this->redirect()->toUrl('/product/product');
+                return $this->redirect()->toUrl('/admin/product/product');
             }
         }
 
@@ -97,12 +97,12 @@ class ProductController extends AbstractActionController
     {
         $id = (int) $this->params('id', 0);
         if (! $id) {
-            return $this->redirect()->toUrl('/product/product/add');
+            return $this->redirect()->toUrl('/admin/product/product/add');
         }
         try {
             $product = $this->getProductTable()->getProduct($id);
         } catch (\Exception $ex) {
-            return $this->redirect()->toUrl('/product/product');
+            return $this->redirect()->toUrl('/admin/product/product');
         }
 
         $form = ProductForm::getInstance($this->getServiceLocator());
@@ -115,7 +115,7 @@ class ProductController extends AbstractActionController
                 $productTable = $this->getProductTable();
                 $product = $productTable->saveProduct($product);
                 $this->flashMessenger()->addSuccessMessage($product->title . ' 已编辑');
-                return $this->redirect()->toUrl('/product/product');
+                return $this->redirect()->toUrl('/admin/product/product');
             }
         }
         return array(
