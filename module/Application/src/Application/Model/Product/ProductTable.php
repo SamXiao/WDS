@@ -4,6 +4,7 @@ namespace Application\Model\Product;
 use SamFramework\Model\AbstractModelMapper;
 use Application\Model\Product\Product;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Expression;
 
 class ProductTable extends AbstractModelMapper
 {
@@ -27,10 +28,10 @@ class ProductTable extends AbstractModelMapper
         $select->join('category', 'category.id=category_id', array(
             'category_name' => 'title'
         ));
-        $select->join('product_image', 'product.id=product_id', array(
+        $select->join('product_image', new Expression("product.id=product_id and is_default=1"), array(
             'product_thumbnail' => 'thumbnail_uri'
         ), Select::JOIN_LEFT);
-        $select->where('is_default=1');
+        $select->where('product.id!=0');
     }
 
     public function getFetchAllCounts()
