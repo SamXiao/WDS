@@ -2,6 +2,7 @@
 namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModelMapper;
+use Zend\Db\Sql\Select;
 
 class CategoryTable extends AbstractModelMapper
 {
@@ -10,11 +11,38 @@ class CategoryTable extends AbstractModelMapper
 
     protected $modelClassName = 'Application\\Model\\Product\\Category';
 
-    public function fetchAll()
+    public function buildSqlSelect(Select $select){
+    }
+
+    public function getFetchAllCounts()
     {
-        $resultSet = $this->getTableGateway()->select();
+        $select = $this->getTableGateway()->getSql()->select();
+        $this->buildSqlSelect($select);
+        $select->columns(array('id'));
+        $statement = $this->getTableGateway()->getSql()->prepareStatementForSqlObject($select);
+        $results = $statement->execute();
+        return $results->count();
+    }
+
+    public function fetchAll($offset = 0, $limit = 10)
+    {
+        $offset = (int)$offset;
+        $limit = (int)$limit;
+
+        $table = $this;
+        $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit, $table)
+        {
+            $select->columns(array(
+                'id',
+                'title'
+            ));
+            $table->buildSqlSelect($select);
+            $select->offset($offset)
+                ->limit($limit);
+        });
         return $resultSet;
     }
+
 
     public function getCategory($id)
     {
