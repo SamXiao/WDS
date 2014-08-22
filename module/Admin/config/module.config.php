@@ -42,7 +42,7 @@ return array(
     'system_params' => array(
         'upload' => array(
     	   'upload_file_path' => '/asserts/product/images',
-    	   'hostname' => 'http://192.168.31.118'
+    	   'hostname' => 'http://115.29.19.195/'
         )
     ),
     'service_manager' => array(

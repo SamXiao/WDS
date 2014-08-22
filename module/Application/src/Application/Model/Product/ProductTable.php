@@ -29,7 +29,7 @@ class ProductTable extends AbstractModelMapper
         ));
         $select->join('product_image', 'product.id=product_id', array(
             'product_thumbnail' => 'thumbnail_uri'
-        ));
+        ), Select::JOIN_LEFT);
         $select->where('is_default=1');
     }
 
