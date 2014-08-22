@@ -1,4 +1,5 @@
 <?php
+$this->layout()->headerTitle = $product->title;
 echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') );
 ?>
@@ -7,6 +8,7 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.
     <li data-role="list-divider">商品信息</li>
     <li>
         <div class="product-images imageswitcher">
+            <?php if (!empty($product->product_images)):?>
             <table>
                 <tr>
                     <td class="image-col">
@@ -25,6 +27,7 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.
                     </td>
                 </tr>
             </table>
+            <?php endif;?>
         </div>
         <div class="product-info">
             <p class="ui-li-desc"><?=$product->title?></p>

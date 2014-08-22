@@ -45,6 +45,9 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => 'g/:identity',
+                            'constraints' => array(
+                                'id' => '[0-9]+'
+                            ),
                             'defaults' => array(
                                 'controller' => 'product',
                                 'action' => 'list',
@@ -56,6 +59,9 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => 'p/:identity',
+                            'constraints' => array(
+                                'id' => '[0-9]+'
+                            ),
                             'defaults' => array(
                                 'controller' => 'product',
                                 'action' => 'single',

@@ -1,4 +1,5 @@
 <?php
+$this->layout()->headerTitle = $category->title;
 echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 ?>
 <ul data-role="listview" data-inset="true">
