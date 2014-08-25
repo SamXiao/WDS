@@ -67,6 +67,8 @@ class UserController extends AbstractActionController
 
         // Attempt authentication, saving the result
         $result = $auth->authenticate($authAdapter);
+        $storage = $auth->getStorage();
+        $storage->write($authAdapter->getResultRowObject(null, 'password'));
         return $result;
     }
 }
