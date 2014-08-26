@@ -3,3 +3,6 @@
 a {
     cursor: pointer;
 }
+.table .cols-actions{
+	width: 56px;
+}

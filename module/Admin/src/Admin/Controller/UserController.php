@@ -33,6 +33,7 @@ class UserController extends AbstractActionController
 
                     case Result::SUCCESS:
                         /** do stuff for successful authentication **/
+                        $this->redirect()->toUrl('/admin/product');
                         break;
 
                     case Result::FAILURE_IDENTITY_NOT_FOUND:
@@ -47,7 +48,6 @@ class UserController extends AbstractActionController
                 foreach ($result->getMessages() as $message) {
                     echo "$message\n";
                 }
-                exit();
             }
         }
 
@@ -67,6 +67,8 @@ class UserController extends AbstractActionController
 
         // Attempt authentication, saving the result
         $result = $auth->authenticate($authAdapter);
+        $storage = $auth->getStorage();
+        $storage->write($authAdapter->getResultRowObject(null, 'password'));
         return $result;
     }
 }

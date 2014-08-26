@@ -17,11 +17,9 @@ class IndexController extends AbstractActionController
     {
         $user = $this->identity();
         if ($user) {
-            $this->redirect('/admin/product');
+            $this->redirect()->toUrl('/admin/product');
         }else{
-
-            $this->redirect('/admin/user/login');
-            return array();
+            $this->redirect()->toUrl('/admin/user/login');
         }
     }
 }
