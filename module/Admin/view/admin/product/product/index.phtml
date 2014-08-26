@@ -11,6 +11,19 @@ $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'
 	width: 130px;
 	margin: auto;
 }
+.dataTables_wrapper .dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 40px;
+  margin-left: -50%;
+  margin-top: -25px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: white;
+}
 -->
 </style>
 <div class="page-header">
@@ -30,10 +43,10 @@ $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'
     	<tr>
             <th>&nbsp;</th>
             <th>商品名称</th>
-            <th>商品类别</th>
+            <th class="hidden-480">商品类别</th>
             <th>价格</th>
-            <th>单位</th>
-            <th>推荐</th>
+            <th class="hidden-480">单位</th>
+            <th class="hidden-480">推荐</th>
             <th>&nbsp;</th>
     	</tr>
     </thead>
