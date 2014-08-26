@@ -119,8 +119,8 @@ class ProductController extends AbstractActionController
         }
 
         $form = ProductForm::getInstance($this->getServiceLocator());
-        $form->setCategories($this->getCategoryTable()->fetchAll());
         $form->bind($product);
+        $form->setCategories($this->getCategoryTable()->fetchAll());
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setInputFilter($product->getInputFilter());

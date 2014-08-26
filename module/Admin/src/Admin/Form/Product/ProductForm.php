@@ -7,8 +7,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ProductForm extends Form
 {
 
-    protected $categories = array();
-
     public static function getInstance(ServiceLocatorInterface $sl)
     {
         return $sl->get('FormElementManager')->get('\Admin\Form\Product\ProductForm');
@@ -52,7 +50,6 @@ class ProductForm extends Form
             'type' => 'Select',
             'options' => array(
                 'label' => '商品类型',
-                'value_options' => $this->getCategories()
             )
         ));
         $this->add(array(
@@ -92,17 +89,12 @@ class ProductForm extends Form
             ->getServiceLocator();
     }
 
-    protected function setCategories($categories)
+    public function setCategories($categories)
     {
         $categoriesArr = array();
         foreach ($categories as $category) {
             $categoriesArr[$category->id] = $category->title;
         }
-        $this->categories = $categoriesArr;
-    }
-
-    protected function getCategories()
-    {
-        return $this->categories;
+        $this->get('category_id')->setValueOptions($categoriesArr);
     }
 }
