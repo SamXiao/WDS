@@ -27,7 +27,7 @@ class CategoryTable extends AbstractModelMapper
         return $results->count();
     }
 
-    public function fetchAll($offset = 0, $limit = 10)
+    public function fetchAll($offset = 0, $limit = 1000)
     {
         $offset = (int)$offset;
         $limit = (int)$limit;

@@ -7,7 +7,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ProductForm extends Form
 {
 
-    public static function getInstance( ServiceLocatorInterface $sl){
+    protected $categories = array();
+
+    public static function getInstance(ServiceLocatorInterface $sl)
+    {
         return $sl->get('FormElementManager')->get('\Admin\Form\Product\ProductForm');
     }
 
@@ -17,7 +20,8 @@ class ProductForm extends Form
         parent::__construct('product_form');
     }
 
-    public function init(){
+    public function init()
+    {
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden',
@@ -55,45 +59,50 @@ class ProductForm extends Form
             'name' => 'price',
             'type' => 'Text',
             'options' => array(
-                'label' => '商品价格',
+                'label' => '商品价格'
             )
         ));
         $this->add(array(
             'name' => 'unit',
             'type' => 'Text',
             'options' => array(
-                'label' => '价格单位',
+                'label' => '价格单位'
             )
         ));
         $this->add(array(
             'name' => 'submit',
             'type' => 'submitButton',
             'options' => array(
-                'label' => '保存',
+                'label' => '保存'
             )
         ));
         $this->add(array(
             'name' => 'cancel',
             'type' => 'cancelButton',
             'options' => array(
-                'label' => '重设',
+                'label' => '重设'
             )
         ));
     }
 
     protected function getServiceLocator()
     {
-        return $this->getFormFactory()->getFormElementManager()->getServiceLocator();
+        return $this->getFormFactory()
+            ->getFormElementManager()
+            ->getServiceLocator();
+    }
+
+    protected function setCategories($categories)
+    {
+        $categoriesArr = array();
+        foreach ($categories as $category) {
+            $categoriesArr[$category->id] = $category->title;
+        }
+        $this->categories = $categoriesArr;
     }
 
     protected function getCategories()
     {
-        $table = $this->getServiceLocator()->get('\Application\Model\Product\CategoryTable');
-        $result = $table->fetchAll();
-        $categories = array();
-        foreach ($result as $category){
-            $categories[$category->id] = $category->title;
-        }
-        return $categories;
+        return $this->categories;
     }
 }
