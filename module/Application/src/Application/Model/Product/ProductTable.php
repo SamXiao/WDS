@@ -8,6 +8,7 @@ use Zend\Db\Sql\Expression;
 
 class ProductTable extends AbstractModelMapper
 {
+    public $currentUserId = 0;
 
     protected $tableName = 'product';
 
@@ -32,6 +33,9 @@ class ProductTable extends AbstractModelMapper
             'product_thumbnail' => 'thumbnail_uri'
         ), Select::JOIN_LEFT);
         $select->where('product.id!=0');
+        if($this->currentUserId){
+            $select->where('product.user_id='.$this->currentUserId);
+        }
     }
 
     public function getFetchAllCounts()
@@ -100,6 +104,7 @@ class ProductTable extends AbstractModelMapper
     {
         $tableGateway = $this->getTableGateway();
         $product->update_time = date('YmdHis');
+        $product->user_id = $this->currentUserId;
         $data = $product->getArrayCopyForSave();
         $id = (int) $product->id;
         if ($id == 0) {

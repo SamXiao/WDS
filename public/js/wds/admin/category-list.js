@@ -7,6 +7,9 @@ var wds_admin_category_list = {
 	        processing: true,
 	        serverSide: true,
 	        bAutoWidth: false,
+	    	searching: false,
+			lengthChange: false,
+			info: false,
 			ajax: "/admin/product/category/getCategoriesListData",
 			columns: [
 				{ "data": "title" },

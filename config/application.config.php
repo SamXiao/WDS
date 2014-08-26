@@ -5,7 +5,7 @@ return array(
         'Application',
         'ZendDeveloperTools',
         'BjyProfiler',
-    	'CodeGenerator',
+//     	'CodeGenerator',
         'Components',
         'SamFramework',
         'Mobile',

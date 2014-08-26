@@ -23,6 +23,7 @@ class ProductController extends AbstractActionController
     {
         if (! $this->projectTable) {
             $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
+            $this->projectTable->currentUserId = $this->identity()->id;
         }
 
         return $this->projectTable;

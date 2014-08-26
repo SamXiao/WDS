@@ -21,7 +21,7 @@ var wds_admin_product_list = {
 				},
 			],
 			columns: [
-				{ "data": "img", "orderable": false, },
+				{ "data": "img", "orderable": false, className:'hidden-480' },
 				{ "data": "title" },
 				{ "data": "category", className:'hidden-480'},
 				{ "data": "price" },

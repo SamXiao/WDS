@@ -83,6 +83,7 @@ class Product extends AbstractModel
         $data = array(
             'id' => $this->id,
             'title' => $this->title,
+            'user_id' => $this->user_id,
             'description' => $this->description,
             'category_id' => $this->category_id,
             'update_time' => $this->update_time,

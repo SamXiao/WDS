@@ -21,6 +21,9 @@ class ProductForm extends Form
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden',
+            'attributes' => array(
+                'value' => 0
+            )
         ));
         $this->add(array(
             'name' => 'product_images',
@@ -29,9 +32,6 @@ class ProductForm extends Form
         $this->add(array(
             'name' => 'title',
             'type' => 'Text',
-            'attributes' => array(
-                'placeholder' => 'test'
-            ),
             'options' => array(
                 'label' => '商品名称'
             )
@@ -69,14 +69,14 @@ class ProductForm extends Form
             'name' => 'submit',
             'type' => 'submitButton',
             'options' => array(
-                'label' => 'Submit',
+                'label' => '保存',
             )
         ));
         $this->add(array(
             'name' => 'cancel',
             'type' => 'cancelButton',
             'options' => array(
-                'label' => 'Cancel',
+                'label' => '重设',
             )
         ));
     }

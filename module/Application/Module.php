@@ -45,18 +45,6 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'factories' => array(
-                'Model\ProjectTable' => function (ServiceManager $sm)
-                {
-                    $table = new ProjectTable($sm);
-                    return $table;
-                },
-                'Model\TaskTable' => function (ServiceManager $sm)
-                {
-                    $table = new TaskTable($sm);
-                    return $table;
-                },
-            )
         );
     }
 }
