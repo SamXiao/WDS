@@ -39,7 +39,7 @@ class ProductImageTable extends AbstractModelMapper
         $data = $productImage->getArrayCopy();
         $id = (int) $productImage->id;
         if ($id == 0) {
-            $images = $this->getProductImagesByProductId($productImage->product_id);
+            $images = $this->getDefaultImage($productImage->product_id);
             if ($images->count() == 0) {
             	$productImage->is_default = 1;
             	$data = $productImage->getArrayCopyForSave();
@@ -99,19 +99,10 @@ class ProductImageTable extends AbstractModelMapper
         $tableGateway = $this->getTableGateway();
         $productId = (int) $productId;
         $rowset = $tableGateway->select(array(
-            'product_id' => $productId
+            'product_id' => $productId,
+            'is_default' => 1
         ));
-        if ($rowset->count() > 0) {
-            $default = $rowset->current();
-            foreach ($rowset as $item) {
-                if ($item->is_default == 1) {
-                    $default = $item;
-                }
-            }
-            return $default;
-        } else {
-            return new ProductImage();
-        }
+        return $rowset;
     }
 }
 

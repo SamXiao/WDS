@@ -126,19 +126,23 @@ class ProductTable extends AbstractModelMapper
 
     public function getProductsByCategory(Category $category)
     {
-        $resultSet = $this->getTableGateway()->select(array(
-            'category_id' => $category->id,
-            'enable' => 1
-        ));
+        $table = $this;
+        $resultSet = $this->getTableGateway()->select(function (Select $select) use($category, $table)
+        {
+            $select->columns(array(
+                'id',
+                'title',
+                'price',
+                'unit',
+                'recommend'
+            ));
+            $table->buildSqlSelect($select);
+            $select->where("category_id={$category->id}");
+            $select->where("enable=1");
+        });
         return $resultSet;
     }
 
-    public function getDefaultImageForProduct(Product $product)
-    {
-        $productImageTable = $this->getProductImageTable();
-        $defaultImage = $productImageTable->getDefaultImage($product->id);
-        $product->product_thumbnail = $defaultImage->thumbnail_uri;
-    }
 
     public function getRecommendedProducts()
     {
