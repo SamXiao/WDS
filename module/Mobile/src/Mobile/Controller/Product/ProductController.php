@@ -30,9 +30,9 @@ class ProductController extends AbstractActionController
 
     public function listAction()
     {
-        $category_id = $this->params('identity');
+        $categoryId = $this->params('categoryId');
 
-        $category = $this->getCategoryTable()->getCategory( $category_id );
+        $category = $this->getCategoryTable()->getCategory( $categoryId );
 
         return array(
             'category' => $category,
@@ -42,10 +42,10 @@ class ProductController extends AbstractActionController
 
     public function singleAction()
     {
-        $identity = $this->params('identity');
+        $productId = $this->params('productId');
         $productTable = $this->getProductTable();
 
-        $product = $productTable->getProduct($identity);
+        $product = $productTable->getProduct($productId);
         $category = $this->getCategoryTable()->getCategory( $product->category_id );
         return array(
             'product' => $product,

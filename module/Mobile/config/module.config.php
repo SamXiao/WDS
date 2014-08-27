@@ -29,10 +29,9 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '[:controller[/:action]]',
+                            'route'    => ':storeId',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'store' => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'module' => 'Mobile',
@@ -44,9 +43,9 @@ return array(
                     'g' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => 'g/:identity',
+                            'route'    => 'g/:categoryId',
                             'constraints' => array(
-                                'id' => '[0-9]+'
+                                'categoryId' => '[0-9]+'
                             ),
                             'defaults' => array(
                                 'controller' => 'product',
@@ -58,9 +57,9 @@ return array(
                     'p' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => 'p/:identity',
+                            'route'    => 'p/:productId',
                             'constraints' => array(
-                                'id' => '[0-9]+'
+                                'productId' => '[0-9]+'
                             ),
                             'defaults' => array(
                                 'controller' => 'product',

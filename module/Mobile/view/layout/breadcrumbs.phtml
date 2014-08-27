@@ -1,6 +1,6 @@
 <div class="ikea-breadcrumbs" itemprop="breadcrumb">
-	<a href="/" class="ui-link">首页</a>
 	<?php if ( isset($category)):?>
+	<a href="/<?=$category->user_id?>" class="ui-link">首页</a>
 	<span class="ikea-breadcrumb-divider-slash"> / </span><a href="/g/<?=$category->id?>" class="ui-link"><?=$category->title?></a>
 	<?php endif;?>
 </div>

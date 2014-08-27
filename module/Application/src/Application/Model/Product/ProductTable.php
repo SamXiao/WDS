@@ -144,7 +144,8 @@ class ProductTable extends AbstractModelMapper
     {
         $resultSet = $this->getTableGateway()->select(array(
             'recommend' => 1,
-            'enable' => 1
+            'enable' => 1,
+            'user_id' => $this->currentUserId
         ));
         return $resultSet;
     }

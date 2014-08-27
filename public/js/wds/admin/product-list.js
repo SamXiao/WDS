@@ -24,8 +24,12 @@ var wds_admin_product_list = {
 				{ "data": "img", "orderable": false, className:'hidden-480' },
 				{ "data": "title" },
 				{ "data": "category", className:'hidden-480'},
-				{ "data": "price" },
-				{ "data": "unit" , className:'hidden-480'},
+				{
+					data: "price",
+					render: function ( data, type, row ) {
+						return data +' / '+ row.unit;
+					}
+                },
 				{ "data": "recommend" , className:'hidden-480'},
 				{ 
 					"data": null,
