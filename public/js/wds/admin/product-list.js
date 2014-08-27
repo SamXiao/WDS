@@ -21,18 +21,23 @@ var wds_admin_product_list = {
 				},
 			],
 			columns: [
-				{ "data": "img", "orderable": false, },
+				{ "data": "img", "orderable": false, className:'hidden-480' },
 				{ "data": "title" },
 				{ "data": "category", className:'hidden-480'},
-				{ "data": "price" },
-				{ "data": "unit" , className:'hidden-480'},
+				{
+					data: "price",
+					render: function ( data, type, row ) {
+						return data +' / '+ row.unit;
+					}
+                },
 				{ "data": "recommend" , className:'hidden-480'},
 				{ 
 					"data": null,
 					"orderable": false,
 					className:'cols-actions',
 					"render": function ( data, type, row ) {
-					    var shareString = '<p><a data-target="#qrcodeModal" data-method="modal-qrcode" data-toggle="modal" data-text="http://115.29.19.195:9001/p/' + row.DT_RowId + '"><i class="ace-icon fa fa-comments"></i>分享</a></p>';
+					    var shareStringLarge = '<p class="hidden-xs"><a data-target="#qrcodeModal" data-method="modal-qrcode" data-toggle="modal" data-text="http://115.29.19.195:9001/p/' + row.DT_RowId + '"><i class="ace-icon fa fa-comments"></i>分享</a></p>';
+					    var shareStringSmall = '<p class="visible-xs"><a href="http://115.29.19.195:9001/p/' + row.DT_RowId + '"><i class="ace-icon fa fa-comments"></i>分享</a></p>';
 					    var editString = '<p><a href="/admin/product/product/edit/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-pencil"></i>编辑</a></p>';
 						var deleteString = '<p><a href="/admin/product/product/delete/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-remove"></i>删除</a></p>';
 						var recommendString = '';
@@ -42,7 +47,7 @@ var wds_admin_product_list = {
 						    recommendString = '<p><a data-target="/admin/product/product/recommend" data-method="ajax" data-id="' + row.DT_RowId + '" data-recommend="1" ><i class="ace-icon fa fa-heart"></i>推荐</a></p>';
 						}
 						// data-toggle="modal" data-target="#myModal"
-						return shareString + editString + deleteString;
+						return shareStringLarge + shareStringSmall + editString;
 					}
 				}
 			]

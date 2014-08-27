@@ -13,6 +13,7 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+    protected $storeId;
 
     protected $projectTable;
 
@@ -20,6 +21,10 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->storeId = $this->params('storeId',0);
+        if ($this->storeId ==0) {
+        	throw new \Exception('您访问的店铺暂不存在');
+        }
         $categoryTable = $this->getCategoryTable();
         $categories = $categoryTable->fetchAll();
         $products = $this->getProductTable()->getRecommendedProducts();
@@ -33,6 +38,7 @@ class IndexController extends AbstractActionController
     {
         if (! $this->projectTable) {
             $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
+            $this->projectTable->currentUserId = $this->storeId;
         }
 
         return $this->projectTable;
@@ -42,6 +48,7 @@ class IndexController extends AbstractActionController
     {
         if (! $this->categoryTable) {
             $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
+            $this->categoryTable->currentUserId = $this->storeId;
         }
 
         return $this->categoryTable;

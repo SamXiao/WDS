@@ -7,6 +7,9 @@ var wds_admin_category_list = {
 	        processing: true,
 	        serverSide: true,
 	        bAutoWidth: false,
+	    	searching: false,
+			lengthChange: false,
+			info: false,
 			ajax: "/admin/product/category/getCategoriesListData",
 			columns: [
 				{ "data": "title" },
@@ -16,7 +19,7 @@ var wds_admin_category_list = {
                     "render": function ( data, type, row ) {
                         var editString = '<a href="/admin/product/category/edit/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-pencil"></i>编辑</a>';
                         var deleteString = '<a href="/admin/product/category/delete/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-remove"></i>删除</a>';
-                        return editString + deleteString;
+                        return editString;
                     }
                 }
 			]

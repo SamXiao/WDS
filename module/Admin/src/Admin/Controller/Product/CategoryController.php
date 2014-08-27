@@ -24,6 +24,7 @@ class CategoryController extends AbstractActionController
     {
         if (! $this->categoryTable) {
             $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
+            $this->categoryTable->currentUserId = $this->identity()->id;
         }
 
         return $this->categoryTable;

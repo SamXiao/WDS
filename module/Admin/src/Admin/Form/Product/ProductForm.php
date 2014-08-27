@@ -7,7 +7,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ProductForm extends Form
 {
 
-    public static function getInstance( ServiceLocatorInterface $sl){
+    public static function getInstance(ServiceLocatorInterface $sl)
+    {
         return $sl->get('FormElementManager')->get('\Admin\Form\Product\ProductForm');
     }
 
@@ -17,10 +18,14 @@ class ProductForm extends Form
         parent::__construct('product_form');
     }
 
-    public function init(){
+    public function init()
+    {
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden',
+            'attributes' => array(
+                'value' => 0
+            )
         ));
         $this->add(array(
             'name' => 'product_images',
@@ -29,9 +34,6 @@ class ProductForm extends Form
         $this->add(array(
             'name' => 'title',
             'type' => 'Text',
-            'attributes' => array(
-                'placeholder' => 'test'
-            ),
             'options' => array(
                 'label' => '商品名称'
             )
@@ -48,52 +50,51 @@ class ProductForm extends Form
             'type' => 'Select',
             'options' => array(
                 'label' => '商品类型',
-                'value_options' => $this->getCategories()
             )
         ));
         $this->add(array(
             'name' => 'price',
             'type' => 'Text',
             'options' => array(
-                'label' => '商品价格',
+                'label' => '商品价格'
             )
         ));
         $this->add(array(
             'name' => 'unit',
             'type' => 'Text',
             'options' => array(
-                'label' => '价格单位',
+                'label' => '价格单位'
             )
         ));
         $this->add(array(
             'name' => 'submit',
             'type' => 'submitButton',
             'options' => array(
-                'label' => 'Submit',
+                'label' => '保存'
             )
         ));
         $this->add(array(
             'name' => 'cancel',
             'type' => 'cancelButton',
             'options' => array(
-                'label' => 'Cancel',
+                'label' => '重设'
             )
         ));
     }
 
     protected function getServiceLocator()
     {
-        return $this->getFormFactory()->getFormElementManager()->getServiceLocator();
+        return $this->getFormFactory()
+            ->getFormElementManager()
+            ->getServiceLocator();
     }
 
-    protected function getCategories()
+    public function setCategories($categories)
     {
-        $table = $this->getServiceLocator()->get('\Application\Model\Product\CategoryTable');
-        $result = $table->fetchAll();
-        $categories = array();
-        foreach ($result as $category){
-            $categories[$category->id] = $category->title;
+        $categoriesArr = array();
+        foreach ($categories as $category) {
+            $categoriesArr[$category->id] = $category->title;
         }
-        return $categories;
+        $this->get('category_id')->setValueOptions($categoriesArr);
     }
 }

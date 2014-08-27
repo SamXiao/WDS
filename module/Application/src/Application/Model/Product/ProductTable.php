@@ -8,6 +8,7 @@ use Zend\Db\Sql\Expression;
 
 class ProductTable extends AbstractModelMapper
 {
+    public $currentUserId = 0;
 
     protected $tableName = 'product';
 
@@ -32,6 +33,9 @@ class ProductTable extends AbstractModelMapper
             'product_thumbnail' => 'thumbnail_uri'
         ), Select::JOIN_LEFT);
         $select->where('product.id!=0');
+        if($this->currentUserId){
+            $select->where('product.user_id='.$this->currentUserId);
+        }
     }
 
     public function getFetchAllCounts()
@@ -100,6 +104,7 @@ class ProductTable extends AbstractModelMapper
     {
         $tableGateway = $this->getTableGateway();
         $product->update_time = date('YmdHis');
+        $product->user_id = $this->currentUserId;
         $data = $product->getArrayCopyForSave();
         $id = (int) $product->id;
         if ($id == 0) {
@@ -121,25 +126,30 @@ class ProductTable extends AbstractModelMapper
 
     public function getProductsByCategory(Category $category)
     {
-        $resultSet = $this->getTableGateway()->select(array(
-            'category_id' => $category->id,
-            'enable' => 1
-        ));
+        $table = $this;
+        $resultSet = $this->getTableGateway()->select(function (Select $select) use($category, $table)
+        {
+            $select->columns(array(
+                'id',
+                'title',
+                'price',
+                'unit',
+                'recommend'
+            ));
+            $table->buildSqlSelect($select);
+            $select->where("category_id={$category->id}");
+            $select->where("enable=1");
+        });
         return $resultSet;
     }
 
-    public function getDefaultImageForProduct(Product $product)
-    {
-        $productImageTable = $this->getProductImageTable();
-        $defaultImage = $productImageTable->getDefaultImage($product->id);
-        $product->product_thumbnail = $defaultImage->thumbnail_uri;
-    }
 
     public function getRecommendedProducts()
     {
         $resultSet = $this->getTableGateway()->select(array(
             'recommend' => 1,
-            'enable' => 1
+            'enable' => 1,
+            'user_id' => $this->currentUserId
         ));
         return $resultSet;
     }

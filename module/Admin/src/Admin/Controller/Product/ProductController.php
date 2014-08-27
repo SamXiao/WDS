@@ -19,10 +19,13 @@ class ProductController extends AbstractActionController
 
     protected $projectImageTable;
 
+    protected $categoryTable;
+
     public function getProductTable()
     {
         if (! $this->projectTable) {
             $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
+            $this->projectTable->currentUserId = $this->identity()->id;
         }
 
         return $this->projectTable;
@@ -35,6 +38,16 @@ class ProductController extends AbstractActionController
         }
 
         return $this->projectImageTable;
+    }
+
+    public function getCategoryTable()
+    {
+        if (! $this->categoryTable) {
+            $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
+            $this->categoryTable->currentUserId = $this->identity()->id;
+        }
+
+        return $this->categoryTable;
     }
 
     public function indexAction()
@@ -63,7 +76,7 @@ class ProductController extends AbstractActionController
                 'category' => $product->category_name,
                 'price' => $product->price,
                 'unit' => $product->unit,
-                'recommend' => $product->recommend ? '首页': '普通'
+                'recommend' => $product->recommend ? '首页' : '普通'
             );
         }
         $viewModel = new JsonModel($listData);
@@ -73,7 +86,7 @@ class ProductController extends AbstractActionController
     public function addAction()
     {
         $form = ProductForm::getInstance($this->getServiceLocator());
-
+        $form->setCategories($this->getCategoryTable()->fetchAll());
         $request = $this->getRequest();
         if ($request->isPost()) {
             $product = new Product();
@@ -107,6 +120,7 @@ class ProductController extends AbstractActionController
 
         $form = ProductForm::getInstance($this->getServiceLocator());
         $form->bind($product);
+        $form->setCategories($this->getCategoryTable()->fetchAll());
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setInputFilter($product->getInputFilter());
@@ -132,12 +146,12 @@ class ProductController extends AbstractActionController
     public function recommendAction()
     {
         $table = $this->getProductTable();
-        $id = (int)$this->params()->fromPost('id');
-        $product->recommend = (int)$this->params()->fromPost('recommend');
+        $id = (int) $this->params()->fromPost('id');
+        $product->recommend = (int) $this->params()->fromPost('recommend');
         $product = $table->getProduct($id);
 
         $table->saveProduct($product);
-        $this->flashmessenger()->addSuccessMessage($product->title . ($product->recommend==1?' 已推荐':' 已取消推荐'));
+        $this->flashmessenger()->addSuccessMessage($product->title . ($product->recommend == 1 ? ' 已推荐' : ' 已取消推荐'));
         return new FlashMessagerModel();
     }
 
@@ -204,6 +218,6 @@ class ProductController extends AbstractActionController
     public function getBarCode()
     {
         $productId = (int) $this->params()->fromPost('id', 0);
-        $url = '/p/'.$productId;
+        $url = '/p/' . $productId;
     }
 }
