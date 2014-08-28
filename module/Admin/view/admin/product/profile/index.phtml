@@ -1,0 +1,35 @@
+<?php
+$title = '商品详情';
+$this->headTitle($title);
+$this->inlinescript()->appendFile( $this->basePath('js/wds/admin/product-profile.js'));
+$this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'))
+                     ->appendFile( $this->basePath('js/jquery.dataTables.bootstrap.js'));
+?>
+<div class="widget-box">
+											<div class="widget-header widget-header-flat">
+												<h4 class="widget-title"><?=$this->escapehtml($product->title)?></h4>
+											</div>
+
+											<div class="widget-body">
+											<div class="widget-main">
+<dl id="dt-list-1" class="">
+	<dt>售价</dt>
+	<dd><?=$this->escapehtml($product->priceString)?></dd>
+	<dt>上架时间</dd>
+	<dd><?=$this->escapehtml($product->create_time)?></dt>
+	<dt>说明</dt>
+	<dd><?=$this->escapehtml($product->description)?></dd>
+</dl>
+</div>
+</div>
+</div>
+
+<table id="buyer-table" class="table table-striped table-bordered table-hover">
+    <thead>
+    	<tr>
+            <th>微信名</th>
+            <th>数量</th>
+            <th>&nbsp;</th>
+    	</tr>
+    </thead>
+</table>
