@@ -9,13 +9,14 @@
 namespace Admin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use SamFramework\Core\App;
 
 class IndexController extends AbstractActionController
 {
 
     public function indexAction()
     {
-        $user = $this->identity();
+        $user = App::getUser();
         if ($user) {
             $this->redirect()->toUrl('/admin/product');
         }else{
