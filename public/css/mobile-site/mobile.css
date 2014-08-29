@@ -72,3 +72,15 @@ form.ui-mini .ui-field-contain fieldset.ui-controlgroup legend small {
   -webkit-border-bottom-right-radius: inherit;
   border-bottom-right-radius: inherit;
 }
+
+.ui-page-theme-a .btn-buy{
+	background-color: #F6AE01;
+	color: #FFF;
+	text-shadow: 0 1px 0 #F6AE01;
+}
+
+.ui-page-theme-a .btn-buy:hover{
+    background-color: #F6AE01;
+    color: #FFF;
+    text-shadow: 0 1px 0 #F6AE01;
+}

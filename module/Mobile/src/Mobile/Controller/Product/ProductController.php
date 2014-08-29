@@ -52,4 +52,17 @@ class ProductController extends AbstractActionController
             'category' => $category,
         );
     }
+
+    public function buyAction()
+    {
+        $productId = $this->params('productId');
+        $productTable = $this->getProductTable();
+
+        $product = $productTable->getProduct($productId);
+        $category = $this->getCategoryTable()->getCategory( $product->category_id );
+        return array(
+            'product' => $product,
+            'category' => $category,
+        );
+    }
 }

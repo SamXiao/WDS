@@ -45,3 +45,14 @@ $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.
     <p><?=$product->description?></p>
   </div>
 </div>
+
+<a href="/p/buy/<?=$product->id?>" data-transition="fade" class="ui-btn ui-corner-all btn-buy">预订</a>
+
+<ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
+	<li>
+		<a href="/g/<?=$category->id?>" data-transition="fade">
+		更多相关商品
+		</a>
+	</li>
+</ul>
+

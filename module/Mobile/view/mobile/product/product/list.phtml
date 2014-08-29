@@ -3,7 +3,7 @@
 $this->layout()->headerTitle = $category->title;
 echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 ?>
-<ul data-role="listview" data-inset="true">
+<ul data-role="listview" data-inset="true" class="ui-nodisc-icon ui-alt-icon">
     <?php foreach ($products as $product):?>
 	<li>
 		<a href="/p/<?=$product->id?>" data-transition="fade">
