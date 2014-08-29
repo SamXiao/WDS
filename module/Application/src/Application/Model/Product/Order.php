@@ -32,6 +32,7 @@ class Order extends AbstractModel
         $this->buyer_id = (isset($array['buyer_id'])) ? $array['buyer_id'] : $this->buyer_id;
         $this->create_time = (isset($array['create_time'])) ? $array['create_time'] : $this->create_time;
         $this->buyer_weixin = (isset($array['buyer_weixin'])) ? $array['buyer_weixin'] : $this->buyer_weixin;
+        $this->total = (isset($array['total'])) ? $array['total'] : $this->total;
     }
 
     public function getArrayCopy()
@@ -42,6 +43,7 @@ class Order extends AbstractModel
             'status' => $this->status,
             'product_id' => $this->product_id,
             'buyer_id' => $this->buyer_id,
+            'total' => $this->total,
         );
         return $data;
     }
