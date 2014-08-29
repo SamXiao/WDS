@@ -74,9 +74,9 @@ class ProductController extends AbstractActionController
                 'img' => $product->product_thumbnail,
                 'title' => $product->title,
                 'category' => $product->category_name,
-                'price' => $product->price,
+                'price' => $product->priceString,
                 'unit' => $product->unit,
-                'recommend' => $product->recommend ? '首页' : '普通'
+                'recommend' => $product->recommend ? '已推荐' : ''
             );
         }
         $viewModel = new JsonModel($listData);

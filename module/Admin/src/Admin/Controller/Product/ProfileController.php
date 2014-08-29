@@ -12,6 +12,8 @@ class ProfileController extends AbstractActionController
 
     protected $productBuyerTable;
 
+    protected $productId = 0;
+
     public function getProductTable()
     {
         if (! $this->productTable) {
@@ -25,6 +27,7 @@ class ProfileController extends AbstractActionController
     {
         if (! $this->productBuyerTable) {
             $this->productBuyerTable = $this->getServiceLocator()->get('Application\Model\Product\ProductBuyerTable');
+            $this->productBuyerTable->productId = $this->productId;
         }
 
         return $this->productBuyerTable;
@@ -48,6 +51,7 @@ class ProfileController extends AbstractActionController
 
     public function getBuyerDataAction()
     {
+        $this->productId = (int) $this->params('id');
         $count = $this->getProductBuyerTable()->getFetchAllCounts();
         $buyers = $this->getProductBuyerTable()->fetchAll($_GET['start'], $_GET['length']);
         $listData = array(
@@ -59,7 +63,7 @@ class ProfileController extends AbstractActionController
         foreach ($buyers as $buyer) {
             $listData['data'][] = array(
                 'DT_RowId' => $buyer->id,
-                'buyer_weixin' => $buyer->$buyer_weixin,
+                'buyer_weixin' => $buyer->buyer_weixin,
                 'quantity' => $buyer->quantity,
             );
         }

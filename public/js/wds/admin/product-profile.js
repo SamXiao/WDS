@@ -1,8 +1,12 @@
 var wds_admin_product_profile = {
+    options: {
+        productId: 0
+    },    
 	init : function() {
 		this.initTable();
 	},
 	initTable: function() {
+	    var self = this;
 		$('#buyer-table').dataTable( {
 	        processing: true,
 	        serverSide: true,
@@ -10,7 +14,7 @@ var wds_admin_product_profile = {
 	    	searching: false,
 			lengthChange: false,
 			info: false,
-			ajax: "/admin/product/profile/getBuyerData",
+			ajax: "/admin/product/profile/getBuyerData/" + self.options.productId,
 			columns: [
 				{ "data": "buyer_weixin" },
                 { "data": "quantity" },
