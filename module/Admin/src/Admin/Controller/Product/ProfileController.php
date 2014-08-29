@@ -10,7 +10,7 @@ class ProfileController extends AbstractActionController
 
     protected $productTable;
 
-    protected $productBuyerTable;
+    protected $orderTable;
 
     protected $productId = 0;
 
@@ -23,14 +23,14 @@ class ProfileController extends AbstractActionController
         return $this->productTable;
     }
 
-    public function getProductBuyerTable()
+    public function getOrderTable()
     {
-        if (! $this->productBuyerTable) {
-            $this->productBuyerTable = $this->getServiceLocator()->get('Application\Model\Product\ProductBuyerTable');
-            $this->productBuyerTable->productId = $this->productId;
+        if (! $this->orderTable) {
+            $this->orderTable = $this->getServiceLocator()->get('Application\Model\Product\OrderTable');
+            $this->orderTable->productId = $this->productId;
         }
 
-        return $this->productBuyerTable;
+        return $this->orderTable;
     }
 
     public function indexAction()
@@ -41,7 +41,7 @@ class ProfileController extends AbstractActionController
         }
 
         $product = $this->getProductTable()->getProduct($id);
-        $buyer = $this->getProductBuyerTable()->fetchAll();
+        $buyer = $this->getOrderTable()->fetchAll();
 
         $viewModel = new ViewModel(array(
             'product' => $product
@@ -52,19 +52,20 @@ class ProfileController extends AbstractActionController
     public function getBuyerDataAction()
     {
         $this->productId = (int) $this->params('id');
-        $count = $this->getProductBuyerTable()->getFetchAllCounts();
-        $buyers = $this->getProductBuyerTable()->fetchAll($_GET['start'], $_GET['length']);
+        $count = $this->getOrderTable()->getFetchAllCounts();
+        $orders = $this->getOrderTable()->fetchAll($_GET['start'], $_GET['length']);
         $listData = array(
             'draw' => $_GET['draw'] ++,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
             'data' => array()
         );
-        foreach ($buyers as $buyer) {
+        foreach ($orders as $order) {
             $listData['data'][] = array(
-                'DT_RowId' => $buyer->id,
-                'buyer_weixin' => $buyer->buyer_weixin,
-                'quantity' => $buyer->quantity,
+                'DT_RowId' => $order->id,
+                'buyer_weixin' => $order->buyer_weixin,
+                'quantity' => $order->quantity,
+                'total' => $order->total
             );
         }
         $viewModel = new JsonModel($listData);

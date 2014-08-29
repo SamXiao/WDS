@@ -4,8 +4,8 @@ namespace Mobile\Controller\Product;
 use Zend\Mvc\Controller\AbstractActionController;
 use Mobile\Form\BuyerForm;
 use Application\Model\Buyer;
-use Application\Model\Product\ProductBuyer;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Application\Model\Product\Order;
 
 class ProductController extends AbstractActionController
 {
@@ -16,7 +16,7 @@ class ProductController extends AbstractActionController
 
     protected $buyerTable;
 
-    protected $productBuyerTable;
+    protected $orderTable;
 
     public function getProductTable()
     {
@@ -36,13 +36,13 @@ class ProductController extends AbstractActionController
         return $this->categoryTable;
     }
 
-    public function getProductBuyerTable()
+    public function getOrderTable()
     {
-        if (! $this->productBuyerTable) {
-            $this->productBuyerTable = $this->getServiceLocator()->get('Application\Model\Product\ProductBuyerTable');
+        if (! $this->orderTable) {
+            $this->orderTable = $this->getServiceLocator()->get('Application\Model\Product\OrderTable');
         }
 
-        return $this->productBuyerTable;
+        return $this->orderTable;
     }
 
     public function getBuyerTable()
@@ -86,6 +86,9 @@ class ProductController extends AbstractActionController
         $productId = $this->params('productId');
         $productTable = $this->getProductTable();
 
+        $product = $productTable->getProduct($productId);
+        $category = $this->getCategoryTable()->getCategory($product->category_id);
+
         $form = BuyerForm::getInstance($this->getServiceLocator());
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -101,18 +104,18 @@ class ProductController extends AbstractActionController
                     $buyer = $buyerTable->saveBuyer($buyer);
                 }
 
-                $productBuyerTable = $this->getProductBuyerTable();
-                $order = new ProductBuyer();
+                $orderTable = $this->getOrderTable();
+                $order = new Order();
                 $order->buyer_id = $buyer->id;
                 $order->product_id = $productId;
-                $order = $productBuyerTable->saveOrder($order);
+                $order->total = $product->price;
+                $order = $orderTable->saveOrder($order);
                 $this->flashMessenger()->addInfoMessage('您已成功订购商品，我们将在商品到货后及时与您联系');
                 return $this->redirect()->toUrl('/p/' . $productId);
             }
         }
 
-        $product = $productTable->getProduct($productId);
-        $category = $this->getCategoryTable()->getCategory($product->category_id);
+
         return array(
             'product' => $product,
             'category' => $category

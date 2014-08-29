@@ -18,13 +18,13 @@ var wds_admin_product_profile = {
 			columns: [
 				{ "data": "buyer_weixin" },
                 { "data": "quantity" },
+                { "data": "total" },
                 { 
                     "data": null,
                     "orderable": false,
                     "render": function ( data, type, row ) {
-                        var editString = '<a href="/admin/product/category/edit/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-pencil"></i>编辑</a>';
-                        var deleteString = '<a href="/admin/product/category/delete/' + row.DT_RowId + '"> <i class="ace-icon glyphicon glyphicon-remove"></i>删除</a>';
-                        return editString;
+                        var nextString = '<button class="btn btn-xs btn-info"><i class="ace-icon fa fa-usd"></i>已付款</button>';
+                        return nextString;
                     }
                 }
 			]
