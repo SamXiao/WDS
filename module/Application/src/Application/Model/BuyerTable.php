@@ -8,33 +8,40 @@ use Zend\Db\Sql\Expression;
 class BuyerTable extends AbstractModelMapper
 {
 
-    public $productId = 0;
+    protected $tableName = 'buyer';
 
-    protected $tableName = 'product_buyer';
+    protected $modelClassName = 'Application\\Model\\Buyer';
 
-    protected $modelClassName = 'Application\\Model\\Product\\ProductBuyer';
-
-    public function buildSqlSelect(Select $select){
+    public function buildSqlSelect(Select $select)
+    {
         $select->join('buyer', 'buyer.id=buyer_id', array(
             'buyer_weixin' => 'weixin'
         ));
-        $select->where(array('product_id'=>$this->productId));
+        $select->where(array(
+            'product_id' => $this->productId
+        ));
     }
 
     public function getFetchAllCounts()
     {
-        $select = $this->getTableGateway()->getSql()->select();
+        $select = $this->getTableGateway()
+            ->getSql()
+            ->select();
         $this->buildSqlSelect($select);
-        $select->columns(array('id'));
-        $statement = $this->getTableGateway()->getSql()->prepareStatementForSqlObject($select);
+        $select->columns(array(
+            'id'
+        ));
+        $statement = $this->getTableGateway()
+            ->getSql()
+            ->prepareStatementForSqlObject($select);
         $results = $statement->execute();
         return $results->count();
     }
 
     public function fetchAll($offset = 0, $limit = 1000)
     {
-        $offset = (int)$offset;
-        $limit = (int)$limit;
+        $offset = (int) $offset;
+        $limit = (int) $limit;
 
         $table = $this;
         $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit, $table)
@@ -46,17 +53,28 @@ class BuyerTable extends AbstractModelMapper
         return $resultSet;
     }
 
-
-    public function getProductBuyer($id)
+    public function getBuyer($id)
     {
-        $tableGateway = $this->getTableGateway();
-        $id = (int) $id;
-        $rowset = $tableGateway->select(array(
+        $id  = (int) $id;
+        $rowset =  $this->getTableGateway()->select(array(
             'id' => $id
         ));
         $row = $rowset->current();
         if (! $row) {
             throw new \Exception("Could not find row $id");
+        }
+        return $row;
+    }
+
+    public function getBuyerByWeixin($name)
+    {
+        $tableGateway = $this->getTableGateway();
+        $rowset = $tableGateway->select(array(
+            'weixin' => $name
+        ));
+        $row = $rowset->current();
+        if (! $row) {
+            throw new \Exception("Could not find row $name");
         }
         return $row;
     }
@@ -68,23 +86,22 @@ class BuyerTable extends AbstractModelMapper
         ));
     }
 
-    public function saveProductBuyer(ProductBuyer $category)
+    public function saveBuyer(Buyer $buyer)
     {
         $tableGateway = $this->getTableGateway();
-        $category->user_id = $this->currentUserId;
-        $data = $category->getArrayCopyForSave();
-        $id = (int) $category->id;
+        $data = $buyer->getArrayCopyForSave();
+        $id = (int) $buyer->id;
         if ($id == 0) {
             $tableGateway->insert($data);
-            $category->id = $this->getTableGateway()->getLastInsertValue();
+            $buyer->id = $this->getTableGateway()->getLastInsertValue();
         } else {
-            if ($this->getCategory($id)) {
+            if ($this->getBuyer($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id
                 ));
             }
         }
-        return $category;
+        return $buyer;
     }
 }
 

@@ -14,27 +14,36 @@ class ProductBuyerTable extends AbstractModelMapper
 
     protected $modelClassName = 'Application\\Model\\Product\\ProductBuyer';
 
-    public function buildSqlSelect(Select $select){
+    public function buildSqlSelect(Select $select)
+    {
         $select->join('buyer', 'buyer.id=buyer_id', array(
             'buyer_weixin' => 'weixin'
         ));
-        $select->where(array('product_id'=>$this->productId));
+        $select->where(array(
+            'product_id' => $this->productId
+        ));
     }
 
     public function getFetchAllCounts()
     {
-        $select = $this->getTableGateway()->getSql()->select();
+        $select = $this->getTableGateway()
+            ->getSql()
+            ->select();
         $this->buildSqlSelect($select);
-        $select->columns(array('id'));
-        $statement = $this->getTableGateway()->getSql()->prepareStatementForSqlObject($select);
+        $select->columns(array(
+            'id'
+        ));
+        $statement = $this->getTableGateway()
+            ->getSql()
+            ->prepareStatementForSqlObject($select);
         $results = $statement->execute();
         return $results->count();
     }
 
     public function fetchAll($offset = 0, $limit = 1000)
     {
-        $offset = (int)$offset;
-        $limit = (int)$limit;
+        $offset = (int) $offset;
+        $limit = (int) $limit;
 
         $table = $this;
         $resultSet = $this->getTableGateway()->select(function (Select $select) use($offset, $limit, $table)
@@ -46,8 +55,7 @@ class ProductBuyerTable extends AbstractModelMapper
         return $resultSet;
     }
 
-
-    public function getProductBuyer($id)
+    public function getOrder($id)
     {
         $tableGateway = $this->getTableGateway();
         $id = (int) $id;
@@ -68,23 +76,22 @@ class ProductBuyerTable extends AbstractModelMapper
         ));
     }
 
-    public function saveProductBuyer(ProductBuyer $category)
+    public function saveOrder(ProductBuyer $order)
     {
         $tableGateway = $this->getTableGateway();
-        $category->user_id = $this->currentUserId;
-        $data = $category->getArrayCopyForSave();
-        $id = (int) $category->id;
+        $data = $order->getArrayCopyForSave();
+        $id = (int) $order->id;
         if ($id == 0) {
             $tableGateway->insert($data);
-            $category->id = $this->getTableGateway()->getLastInsertValue();
+            $order->id = $this->getTableGateway()->getLastInsertValue();
         } else {
-            if ($this->getCategory($id)) {
+            if ($this->getOrder($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id
                 ));
             }
         }
-        return $category;
+        return $order;
     }
 }
 

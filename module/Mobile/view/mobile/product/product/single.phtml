@@ -4,7 +4,13 @@ $this->layout()->headerTitle = $product->title;
 echo $this->partial('mobile/layout/breadcrumbs', array( 'category' => $category));
 $this->inlinescript()->appendFile( $this->basePath('js/wds/mobile/imageswitcher.js') );
 ?>
-
+<p>
+<?php foreach ($flashMessage as $message)
+{
+    echo $message;
+}
+?>
+</p>
 <div class="ui-corner-all product-single-info">
   <div class="ui-bar ui-bar-a ui-first-bar">
     <h3>商品信息</h3>
