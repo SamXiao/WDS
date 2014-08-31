@@ -52,10 +52,7 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
-        $viewModel = new ViewModel(array(
-            'products' => $this->getProductTable()->fetchAll()
-        ));
-        return $viewModel;
+        return array();
     }
 
     public function getProcustsListDataAction()
