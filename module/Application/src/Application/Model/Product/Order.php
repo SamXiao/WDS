@@ -10,7 +10,7 @@ class Order extends AbstractModel
 
     public $quantity = 1;
 
-    public $status = '';
+    public $status = 'pending';
 
     public $product_id = 'custome';
 
