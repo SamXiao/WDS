@@ -2,15 +2,17 @@
 namespace SamFramework\Core;
 
 use Zend\Authentication\AuthenticationService;
+use Zend\XmlRpc\Client\Exception\HttpException;
+
 class App
 {
-    protected static $AuthenticationService;
 
+    protected static $AuthenticationService;
 
     public static function getAuthenticationService()
     {
-        if (!self::$AuthenticationService) {
-        	self::$AuthenticationService = new AuthenticationService();
+        if (! self::$AuthenticationService) {
+            self::$AuthenticationService = new AuthenticationService();
         }
         return self::$AuthenticationService;
     }
@@ -22,7 +24,13 @@ class App
 
     public static function getUser()
     {
-        return self::getAuthenticationService()->getIdentity();
+        $authenticationService = self::getAuthenticationService();
+
+        if ($authenticationService->hasIdentity()) {
+            return $authenticationService->getIdentity();
+        } else {
+        	throw new HttpException('You should login first', 403);
+        }
     }
 }
 

@@ -3,7 +3,11 @@ namespace Application\Model\Product;
 
 use SamFramework\Model\AbstractModel;
 use Zend\InputFilter\InputFilter;
-
+/**
+ *
+ * @property string priceString
+ *
+ */
 class Product extends AbstractModel
 {
 
@@ -32,6 +36,7 @@ class Product extends AbstractModel
     public $recommend = 0;
 
     public $product_thumbnail = '';
+
 
 
 
@@ -95,7 +100,10 @@ class Product extends AbstractModel
         return $data;
     }
 
-
+    public function getPriceString()
+    {
+        return $this->price . ' / ' . $this->unit;
+    }
 
 
 }
