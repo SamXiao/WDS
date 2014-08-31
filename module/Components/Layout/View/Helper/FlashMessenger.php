@@ -61,7 +61,7 @@ class FlashMessenger extends ZVHFlashMessenger
         $this->setMessageOpenFormat($this->messageOpenFormatTemplate . $this->infoIconTemplate);
         $return .= $this->renderMessages($namespace, $messages, array(
             'alert',
-            'alert-warning'
+            'alert-info'
         ));
 
         // Render WARNING
@@ -69,7 +69,7 @@ class FlashMessenger extends ZVHFlashMessenger
         $this->setMessageOpenFormat($this->messageOpenFormatTemplate . $this->warningIconTemplate);
         $return .= $this->renderMessages($namespace, $messages, array(
             'alert',
-            'alert-info'
+            'alert-warning'
         ));
 
         return $return;

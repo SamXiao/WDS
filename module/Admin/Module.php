@@ -11,6 +11,7 @@ namespace Admin;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ResponseInterface as Response;
 
 class Module
 {
@@ -23,6 +24,10 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array(
             $this,
             'setLayout'
+        ));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array(
+            $this,
+            'onCatchApplicationException'
         ));
         $eventManager->attach(MvcEvent::EVENT_RENDER, array(
             $this,
@@ -82,6 +87,29 @@ class Module
 
         // Attach strategy, which is a listener aggregate, at high priority
         $view->getEventManager()->attach($jsonStrategy, 100);
+    }
+
+    public function onCatchApplicationException(MvcEvent $e)
+    {
+        // Do nothing if no error in the event
+        $error = $e->getError();
+        if (empty($error)) {
+            return;
+        }
+
+        // Do nothing if the result is a response object
+        $result = $e->getResult();
+        if ($result instanceof Response) {
+            return;
+        }
+
+        $exception = $e->getParam('exception');
+
+        if ($exception->getCode() == 403) {
+            $response = $e->getResponse();
+            $response->getHeaders()->addHeaderLine('Location', '/admin/user/login');
+            $response->setStatusCode(302);
+        }
     }
 
     public function getConfig()

@@ -57,9 +57,10 @@ return array(
                     'p' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => 'p/:productId',
+                            'route'    => 'p[/:action]/:productId',
                             'constraints' => array(
-                                'productId' => '[0-9]+'
+                                'productId' => '[0-9]+',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                                 'controller' => 'product',
