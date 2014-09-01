@@ -1,7 +1,7 @@
 <?php
 $menus = array(
-	'分类管理' => array(
-	    'title' =>'分类管理',
+	'商品类别管理' => array(
+	    'title' =>'商品类别管理',
 	    'icon' => 'fa fa-tachometer',
 	    'url' => '/admin/product/category'
     ),
@@ -14,14 +14,6 @@ $menus = array(
 	    'url' => '/admin/product/category'
     ),
     '购买记录' => array(
-	    'title' =>'购买记录',
-	    'url' => '/admin/product/category'
-    ),
-    '未发货商品1' => array(
-	    'title' =>'未发货商品',
-	    'url' => '/admin/product/category'
-    ),
-    '购买记录1' => array(
 	    'title' =>'购买记录',
 	    'url' => '/admin/product/category'
     ),
@@ -43,7 +35,7 @@ $menus = array(
     <!-- #sidebar-shortcuts -->
     <ul class="nav nav-list">
     <?php foreach ($menus as $key => $item):?>
-        <li>
+        <li class="<?=($currentItem == $key)?'active':''?>">
             <a href="<?=$item['url']?>">
                 <i class=""></i>
                 <span class="menu-text">

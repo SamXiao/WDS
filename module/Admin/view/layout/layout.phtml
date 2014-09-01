@@ -1,4 +1,6 @@
-<?php echo $this->doctype(); ?>
+<?php
+echo $this->doctype();
+?>
 
 <html lang="en">
     <head>
@@ -67,7 +69,7 @@
         		try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         	</script>
 
-        	<?=$this->partial('/layout/sidebar.phtml')?>
+        	<?=$this->partial('/layout/sidebar.phtml', array('currentItem' => $currentItem))?>
 
 
         	<div class="main-content">
