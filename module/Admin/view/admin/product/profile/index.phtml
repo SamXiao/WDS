@@ -7,6 +7,7 @@ $this->inlinescript()->appendScript( 'wds_admin_product_profile.options.productI
 $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'))
                      ->appendFile( $this->basePath('js/jquery.dataTables.bootstrap.js'));
 ?>
+<?=$this->flashMessenger()->render();?>
 <div class="widget-box">
     <div class="widget-header widget-header-flat">
     	<h4 class="widget-title"><?=$this->escapehtml($product->title)?></h4>
@@ -22,7 +23,7 @@ $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'
     		     <small class="text-primary">
     				<b>推荐到首页</b>
     			</small>
-    			<input type="checkbox" class="ace ace-switch ace-switch-3">
+    			<input id='recommend' name="recommend" type="checkbox" class="ace ace-switch ace-switch-3" <?= $product->recommend?'checked="checked"':'';?> >
     			<span class="lbl middle"></span>
     		</label>
     	</div>

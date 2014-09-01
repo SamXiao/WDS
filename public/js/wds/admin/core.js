@@ -4,6 +4,7 @@ var core = {
     },
     ajaxWithFlashMessager : function(url, data) {
         $.post(url, data, function(html) {
+            $('.flash-messager-container').html('');
             $('.flash-messager-container').prepend(html);
         });
     },

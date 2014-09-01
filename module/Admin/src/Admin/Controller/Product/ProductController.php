@@ -144,8 +144,8 @@ class ProductController extends AbstractActionController
     {
         $table = $this->getProductTable();
         $id = (int) $this->params()->fromPost('id');
-        $product->recommend = (int) $this->params()->fromPost('recommend');
         $product = $table->getProduct($id);
+        $product->recommend = (int) $this->params()->fromPost('recommend');
 
         $table->saveProduct($product);
         $this->flashmessenger()->addSuccessMessage($product->title . ($product->recommend == 1 ? ' 已推荐' : ' 已取消推荐'));
