@@ -17,7 +17,8 @@ return array(
             'Admin\Controller\User' => 'Admin\Controller\UserController',
             'Admin\Controller\Product\Product' => 'Admin\Controller\Product\ProductController',
             'Admin\Controller\Product\Category' => 'Admin\Controller\Product\CategoryController',
-            'Admin\Controller\Product\Profile' => 'Admin\Controller\Product\ProfileController'
+            'Admin\Controller\Product\Profile' => 'Admin\Controller\Product\ProfileController',
+            'Admin\Controller\Product\Order' => 'Admin\Controller\Product\OrderController'
         ),
     ),
     'view_manager' => array(
