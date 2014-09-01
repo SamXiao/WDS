@@ -12,6 +12,7 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ResponseInterface as Response;
+use Zend\Mvc\Application;
 
 class Module
 {
@@ -93,7 +94,7 @@ class Module
     {
         // Do nothing if no error in the event
         $error = $e->getError();
-        if (empty($error)) {
+        if (empty($error) || $error != Application::ERROR_EXCEPTION) {
             return;
         }
 
@@ -104,7 +105,6 @@ class Module
         }
 
         $exception = $e->getParam('exception');
-
         if ($exception->getCode() == 403) {
             $response = $e->getResponse();
             $response->getHeaders()->addHeaderLine('Location', '/admin/user/login');

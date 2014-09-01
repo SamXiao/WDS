@@ -37,6 +37,8 @@ class Product extends AbstractModel
 
     public $product_thumbnail = '';
 
+    public $countOfOrders = 0;
+
 
 
 
@@ -81,6 +83,7 @@ class Product extends AbstractModel
         $this->price = (isset($array['price'])) ? $array['price'] : $this->price;
         $this->unit = (isset($array['unit'])) ? $array['unit'] : $this->unit;
         $this->recommend = (isset($array['recommend'])) ? $array['recommend'] : $this->recommend;
+        $this->countOfOrders = (isset($array['countOfOrders'])) ? $array['countOfOrders'] : $this->countOfOrders;
     }
 
     public function getArrayCopy()
