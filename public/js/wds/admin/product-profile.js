@@ -23,7 +23,7 @@ var wds_admin_product_profile = {
                     "data": null,
                     "orderable": false,
                     "render": function ( data, type, row ) {
-                        var nextString = '<button class="btn btn-xs btn-info"><i class="ace-icon fa fa-usd"></i>已付款</button>';
+                        var nextString = '<button class="btn btn-xs btn-danger"><i class="ace-icon fa fa-usd"></i>未付款</button>';
                         return nextString;
                     }
                 }
