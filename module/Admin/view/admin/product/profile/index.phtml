@@ -1,5 +1,6 @@
 <?php
 $title = '商品详情';
+$this->layout()->currentItem = '商品管理';
 $this->headTitle($title);
 $this->inlinescript()->appendFile( $this->basePath('js/wds/admin/product-profile.js'));
 $this->inlinescript()->appendScript( 'wds_admin_product_profile.options.productId = ' . $product->id );

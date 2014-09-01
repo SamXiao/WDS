@@ -38,7 +38,7 @@ class FlashMessenger extends ZVHFlashMessenger
     public function render($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = array())
     {
         $flashMessenger = $this->getPluginFlashMessenger();
-        $return = '';
+        $return = "<div class='flash-messager-container'>";
 
         // Render SUCCESS
         $messages = $flashMessenger->getMessagesFromNamespace(PluginFlashMessenger::NAMESPACE_SUCCESS);
@@ -71,6 +71,8 @@ class FlashMessenger extends ZVHFlashMessenger
             'alert',
             'alert-warning'
         ));
+
+        $return .= '</div>';
 
         return $return;
     }

@@ -1,5 +1,6 @@
 <?php
 $title = '商品管理';
+$this->layout()->currentItem = $title;
 $this->headTitle($title);
 $this->inlinescript()->appendFile( $this->basePath('js/jquery.dataTables.min.js'))
                      ->appendFile( $this->basePath('js/jquery.dataTables.bootstrap.js'))
