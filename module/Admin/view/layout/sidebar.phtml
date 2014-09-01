@@ -1,3 +1,33 @@
+<?php
+$menus = array(
+	'分类管理' => array(
+	    'title' =>'分类管理',
+	    'icon' => 'fa fa-tachometer',
+	    'url' => '/admin/product/category'
+    ),
+    '商品管理' => array(
+	    'title' =>'商品管理',
+	    'url' => '/admin/product'
+    ),
+    '未发货商品' => array(
+	    'title' =>'未发货商品',
+	    'url' => '/admin/product/category'
+    ),
+    '购买记录' => array(
+	    'title' =>'购买记录',
+	    'url' => '/admin/product/category'
+    ),
+    '未发货商品1' => array(
+	    'title' =>'未发货商品',
+	    'url' => '/admin/product/category'
+    ),
+    '购买记录1' => array(
+	    'title' =>'购买记录',
+	    'url' => '/admin/product/category'
+    ),
+);
+
+?>
 <div class="sidebar responsive" id="sidebar">
     <script type="text/javascript">
         try {
@@ -12,24 +42,16 @@
     </div><!-- /.sidebar-shortcuts -->
     <!-- #sidebar-shortcuts -->
     <ul class="nav nav-list">
-<!--         <li class="active"> -->
+    <?php foreach ($menus as $key => $item):?>
         <li>
-            <a href="/admin/product/category">
-                <i class="icon-dashboard"></i>
+            <a href="<?=$item['url']?>">
+                <i class=""></i>
                 <span class="menu-text">
-                    分类管理
-                </span>
-            </a>
-            <b class="arrow"></b>
-        </li>
-        <li>
-            <a href="/admin/product">
-                <i class="icon-youtube-sign"></i>
-                <span class="menu-text">
-                    产品管理
+                    <?=$item['title']?>
                 </span>
             </a>
         </li>
+    <?php endforeach;?>
     </ul>
     <!-- /.nav-list -->
 
