@@ -4,6 +4,7 @@ var wds_admin_product_profile = {
     },    
 	init : function() {
 		this.initTable();
+		this.bindEvent();
 	},
 	initTable: function() {
 	    var self = this;
@@ -30,7 +31,17 @@ var wds_admin_product_profile = {
 			]
 		} );
 	},
-
+	bindEvent: function(){
+        var self = this;
+	    $('#recommend').on('change', function(){
+	        var data = {
+	            id: self.options.productId,
+	            recommend: $(this).prop('checked')?1:0
+	        };
+	        core.ajaxWithFlashMessager('/admin/product/product/recommend', data)
+	    });
+	}
+	
 
 };
 
