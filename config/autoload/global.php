@@ -16,7 +16,7 @@ return array(
         'dsn' => 'mysql:dbname=test;host=localhost',
         'database' => 'wds',
         'username' => 'root',
-        'password' => '',
+        'password' => '1qaz!QAZ',
         'hostname' => 'localhost',
         'driver_options' => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
