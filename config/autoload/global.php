@@ -13,7 +13,7 @@
 return array(
     'db' => array(
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=test;host=localhost',
+        'dsn' => 'mysql:dbname=wds;host=localhost',
         'database' => 'wds',
         'username' => 'root',
         'password' => '1qaz!QAZ',
