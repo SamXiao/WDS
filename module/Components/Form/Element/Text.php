@@ -12,7 +12,7 @@ class Text extends ZFEText
      */
     protected $attributes = array(
         'type' => 'text',
-        'class' => 'col-xs-10 col-sm-5'
+        'class' => 'form-control'
     );
 }
 

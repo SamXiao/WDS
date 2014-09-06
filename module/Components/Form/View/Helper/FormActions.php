@@ -24,7 +24,7 @@ class FormActions extends AbstractHelper
      */
     public function openTag()
     {
-        return '<div class="clearfix form-actions"><div class="col-md-offset-3 col-md-9">';
+        return '';
     }
 
     /**
@@ -34,7 +34,7 @@ class FormActions extends AbstractHelper
      */
     public function closeTag()
     {
-        return '</div></div>';
+        return '';
     }
 
     /**

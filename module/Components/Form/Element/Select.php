@@ -12,7 +12,7 @@ class Select extends ZFESelect
      */
     protected $attributes = array(
         'type' => 'select',
-        'class' => 'col-xs-10 col-sm-5'
+        'class' => 'form-control'
     );
 }
 

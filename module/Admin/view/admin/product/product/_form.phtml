@@ -5,7 +5,6 @@ $this->inlinescript()->appendFile( $this->basePath('js/dropzone.min.js') )
                      ->appendFile( $this->basePath('js/wds/admin/product.js') );
 
 
-$form->setAttribute('class', 'form-horizontal');
 $form->setAttribute('role', 'form');
 $form->prepare();
 
@@ -21,8 +20,8 @@ $product_images = $form->get('product_images')->getValue();
 
 ?>
 <div class="form-group">
-    <label class="col-sm-3 control-label no-padding-right"><span>商品图片</span></label>
-    <div class="col-sm-9">
+    <label class="control-label no-padding-right"><span>商品图片</span></label>
+    <div >
         <div class="dropzone">
     		<div class="fallback">
     			<input name="file" type="file" multiple="" />
@@ -31,7 +30,7 @@ $product_images = $form->get('product_images')->getValue();
     </div>
 </div>
 <?php
-echo $this->formActions( $form->get('cancel'), $form->get('submit'));
+echo $this->formActions($form->get('submit'));
 echo $this->form()->closeTag();
 ?>
 

@@ -3,16 +3,10 @@ namespace Admin\Controller\Product;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Model\Product\Product;
-use Admin\Form\Product\ProductForm;
-use Application\Model\Product\ProductImage;
 use Zend\View\Model\JsonModel;
-use Zend\Filter\File\RenameUpload;
-use PHPThumb\GD;
-use Components\Layout\View\Model\FlashMessagerModel;
-use Zend\Barcode\Barcode;
 use Admin\Form\Product\CategoryForm;
 use Application\Model\Product\Category;
+use SamFramework\Core\App;
 
 class CategoryController extends AbstractActionController
 {
@@ -33,10 +27,8 @@ class CategoryController extends AbstractActionController
 
     public function indexAction()
     {
-        $viewModel = new ViewModel(array(
-            'products' => $this->getCategoryTable()->fetchAll()
-        ));
-        return $viewModel;
+        $user = App::getUser();
+        return array();
     }
 
     public function getCategoriesListDataAction()

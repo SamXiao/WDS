@@ -11,6 +11,7 @@ use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
 use Components\Layout\View\Model\FlashMessagerModel;
 use Zend\Barcode\Barcode;
+use SamFramework\Core\App;
 
 class ProductController extends AbstractActionController
 {
@@ -52,6 +53,7 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
+        $user = App::getUser();
         return array();
     }
 

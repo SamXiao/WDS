@@ -81,10 +81,12 @@ echo $this->doctype();
                 </div>
         	</div>
 
-        	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        		<i class="icon-double-angle-up icon-only bigger-110"></i>
-        	</a>
+            <?=$this->partial('/layout/footer.phtml')?>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse display">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
         </div><!-- /.main-container -->
+
         <?php $this->inlinescript()->appendFile($this->basepath('js/wds/admin/core.js'))?>
         <?php echo $this->inlineScript() ?>
     </body>

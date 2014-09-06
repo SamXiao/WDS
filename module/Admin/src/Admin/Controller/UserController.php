@@ -15,6 +15,7 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthDbTableAdapter;
 use Zend\Authentication\Result;
 use Admin\Form\LoginForm;
+use SamFramework\Core\App;
 
 class UserController extends AbstractActionController
 {
@@ -70,5 +71,9 @@ class UserController extends AbstractActionController
         $storage = $auth->getStorage();
         $storage->write($authAdapter->getResultRowObject(null, 'password'));
         return $result;
+    }
+    public function logoutAction()
+    {
+
     }
 }
