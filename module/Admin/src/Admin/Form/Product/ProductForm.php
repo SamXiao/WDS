@@ -34,6 +34,9 @@ class ProductForm extends Form
         $this->add(array(
             'name' => 'title',
             'type' => 'Text',
+            'attributes' => array(
+                'id' => 'product-title',
+            ),
             'options' => array(
                 'label' => '商品名称'
             )

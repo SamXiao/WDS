@@ -26,7 +26,7 @@ class ProductController extends AbstractActionController
     {
         if (! $this->projectTable) {
             $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
-            $this->projectTable->currentUserId = $this->identity()->id;
+            $this->projectTable->currentUserId = App::getUser()->id;
         }
 
         return $this->projectTable;
@@ -45,7 +45,7 @@ class ProductController extends AbstractActionController
     {
         if (! $this->categoryTable) {
             $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
-            $this->categoryTable->currentUserId = $this->identity()->id;
+            $this->categoryTable->currentUserId = App::getUser()->id;
         }
 
         return $this->categoryTable;
