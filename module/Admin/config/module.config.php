@@ -14,11 +14,12 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
-            'Admin\Controller\User' => 'Admin\Controller\UserController',
+            'Admin\Controller\Account' => 'Admin\Controller\AccountController',
             'Admin\Controller\Product\Product' => 'Admin\Controller\Product\ProductController',
             'Admin\Controller\Product\Category' => 'Admin\Controller\Product\CategoryController',
             'Admin\Controller\Product\Profile' => 'Admin\Controller\Product\ProfileController',
-            'Admin\Controller\Product\Order' => 'Admin\Controller\Product\OrderController'
+            'Admin\Controller\Product\Order' => 'Admin\Controller\Product\OrderController',
+            'Admin\Controller\TestController' => 'Admin\Controller\TestController'
         ),
     ),
     'view_manager' => array(
@@ -46,11 +47,6 @@ return array(
     	   'upload_file_path' => '/asserts/product/images',
     	   'hostname' => 'http://182.92.180.124/'
         )
-    ),
-    'service_manager' => array(
-        'invokables' => array(
-            'Zend\Authentication\AuthenticationService' => 'Zend\Authentication\AuthenticationService',
-        ),
     ),
 
 );
