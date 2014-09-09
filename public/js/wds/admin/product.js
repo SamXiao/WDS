@@ -14,6 +14,15 @@ var wds_admin_product = {
 				$(form).append(input);
 			} )
 		});
+		
+		$('.btn-modal-form-submit').on('click', function(e){
+		    var form = $('#' + $(this).data('submit'));
+		    var url = $(form).attr('action');
+		    var data = $(form).serialize();
+		    $.post(url, data, function(){
+		        window.location.reload();
+		    })
+		});
 	},
 	
 	initDropZone: function(){

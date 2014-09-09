@@ -50,7 +50,28 @@ class CategoryController extends AbstractActionController
         $viewModel = new JsonModel($listData);
         return $viewModel;
     }
+    public function addByAjaxAction()
+    {
 
+        $form = CategoryForm::getInstance($this->getServiceLocator());
+        $request = $this->getRequest();
+        $id = 0;
+        if ($request->isPost()) {
+            $category = new Category();
+            $form->setInputFilter($category->getInputFilter());
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $category->exchangeArray($form->getData());
+                $categoryTable = $this->getCategoryTable();
+                $category = $categoryTable->saveCategory($category);
+                $id = $category->id;
+                $this->flashMessenger()->addSuccessMessage($category->title . ' 已添加');
+            }
+        }
+        return new JsonModel(array(
+        	'id' => $id
+        ));
+    }
     public function addAction()
     {
         $form = CategoryForm::getInstance($this->getServiceLocator());
