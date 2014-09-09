@@ -32,5 +32,10 @@ class App
         	throw new HttpException('You should login first', 403);
         }
     }
+    public static function clearUser()
+    {
+        $authenticationService = self::getAuthenticationService();
+        $authenticationService->clearIdentity();
+    }
 }
 

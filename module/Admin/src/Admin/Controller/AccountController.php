@@ -74,6 +74,7 @@ class AccountController extends AbstractActionController
     }
     public function logoutAction()
     {
-
+        App::clearUser();
+        App::getUser(); // For goto login page
     }
 }

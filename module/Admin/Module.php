@@ -107,7 +107,7 @@ class Module
         $exception = $e->getParam('exception');
         if ($exception->getCode() == 403) {
             $response = $e->getResponse();
-            $response->getHeaders()->addHeaderLine('Location', '/admin/user/login');
+            $response->getHeaders()->addHeaderLine('Location', '/admin/account/login');
             $response->setStatusCode(302);
         }
     }
