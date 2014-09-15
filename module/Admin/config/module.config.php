@@ -19,7 +19,8 @@ return array(
             'Admin\Controller\Product\Category' => 'Admin\Controller\Product\CategoryController',
             'Admin\Controller\Product\Profile' => 'Admin\Controller\Product\ProfileController',
             'Admin\Controller\Product\Order' => 'Admin\Controller\Product\OrderController',
-            'Admin\Controller\Test' => 'Admin\Controller\TestController'
+            'Admin\Controller\Test' => 'Admin\Controller\TestController',
+            'Admin\Controller\OAuth' => 'Admin\Controller\OAuthController'
         ),
     ),
     'view_manager' => array(

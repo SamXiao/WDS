@@ -35,7 +35,21 @@ return array(
                 '__NAMESPACE__' => 'Admin\Controller\Product'
             )
         )
-    )
+    ),
+    'oauth' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route' => '/oauth[/:action][/:channel]',
+            'constraints' => array(
+                'channel' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+            ),
+            'defaults' => array(
+                'controller' => 'oauth',
+                '__NAMESPACE__' => 'Admin\Controller'
+            )
+        )
+    ),
 )
 ;
 
