@@ -9,7 +9,7 @@ return array(
         'Components',
         'SamFramework',
         'Mobile',
-        'Admin',
+//         'Admin',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

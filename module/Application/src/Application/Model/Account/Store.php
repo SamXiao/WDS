@@ -1,17 +1,17 @@
 <?php
-namespace Application\Model;
+namespace Application\Model\Account;
 
 use SamFramework\Model\AbstractModel;
 use Zend\InputFilter\InputFilter;
 
-class Buyer extends AbstractModel
+class Store extends AbstractModel
 {
 
     public $id = 0;
 
     public $title = '';
 
-    public $weixin = '';
+    public $user_id = '';
 
 
 
@@ -19,7 +19,7 @@ class Buyer extends AbstractModel
     {
         $this->id = (isset($array['id'])) ? $array['id'] : $this->id;
         $this->title = (isset($array['title'])) ? $array['title'] : $this->title;
-        $this->weixin = (isset($array['weixin'])) ? $array['weixin'] : $this->weixin;
+        $this->user_id = (isset($array['user_id'])) ? $array['user_id'] : $this->user_id;
     }
 
     public function getArrayCopy()
@@ -27,7 +27,7 @@ class Buyer extends AbstractModel
         $data = array(
             'id' => $this->id,
             'title' => $this->title,
-            'weixin' => $this->weixin,
+            'user_id' => $this->user_id,
         );
         return $data;
     }
@@ -38,7 +38,7 @@ class Buyer extends AbstractModel
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
-                'name' => 'weixin',
+                'name' => 'title',
                 'required' => true,
                 'filters' => array(
                     array(

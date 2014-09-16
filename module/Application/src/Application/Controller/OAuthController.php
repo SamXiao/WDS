@@ -11,16 +11,18 @@ namespace Admin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use SamFramework\Core\App;
 
-class IndexController extends AbstractActionController
+
+class OAuthController extends AbstractActionController
 {
 
-    public function indexAction()
+    public function loginAction()
     {
-        $user = App::getUser();
-        if ($user) {
-            $this->redirect()->toUrl('/admin/product');
-        }else{
-            $this->redirect()->toUrl('/admin/user/login');
+        $channel = $this->params('channel', '');
+
+        if (!isset($_GET['code'])) {
+        	return $this->notFoundAction();
         }
+        $code = $_GET['code'];
+        echo $code;
     }
 }

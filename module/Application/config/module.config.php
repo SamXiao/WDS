@@ -6,97 +6,70 @@
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
-        'routes' => array(
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'home' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'index',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'module' => 'Application',
-                                'action' => 'index',
-                                '__NAMESPACE__' => 'Application\Controller'
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-
-        ),
+        'routes' => require (__DIR__ . "/router.config.php")
     ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
+            'Zend\Log\LoggerAbstractServiceFactory'
         ),
         'aliases' => array(
-            'translator' => 'MvcTranslator',
-        ),
+            'translator' => 'MvcTranslator'
+        )
     ),
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
-        ),
+                'pattern' => '%s.mo'
+            )
+        )
     ),
+
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Project' => 'Application\Controller\ProjectController',
-            'Application\Controller\User' => 'Application\Controller\UserController',
-            'Application\Controller\Product' => 'Application\Controller\Product\ProductController'
-        ),
+            'Application\Controller\Account' => 'Application\Controller\AccountController',
+            'Application\Controller\Product\Product' => 'Application\Controller\Product\ProductController',
+            'Application\Controller\Product\Category' => 'Application\Controller\Product\CategoryController',
+            'Application\Controller\Product\Profile' => 'Application\Controller\Product\ProfileController',
+            'Application\Controller\Product\Order' => 'Application\Controller\Product\OrderController',
+            'Application\Controller\Test' => 'Application\Controller\TestController',
+            'Application\Controller\OAuth' => 'Application\Controller\OAuthController'
+        )
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/login'            => __DIR__ . '/../view/layout/login.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/login' => __DIR__ . '/../view/layout/login.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml'
         ),
         'template_path_stack' => array(
-            'application' => __DIR__ . '/../view',
-        ),
+            'application' => __DIR__ . '/../view'
+        )
     ),
-
+    'system_params' => array(
+        'upload' => array(
+            'upload_file_path' => '/asserts/product/images',
+            'hostname' => 'http://182.92.180.124/'
+        )
+    ),
 
     // Placeholder for console routes
     'console' => array(
         'router' => array(
-            'routes' => array(
-            ),
-        ),
-    ),
+            'routes' => array()
+        )
+    )
 );

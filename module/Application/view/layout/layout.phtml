@@ -1,4 +1,6 @@
-<?php echo $this->doctype(); ?>
+<?php
+echo $this->doctype();
+?>
 
 <html lang="en">
     <head>
@@ -11,6 +13,14 @@
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
+
+        <?php $this->headscript()->appendFile($this->basepath('js/jquery.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/bootstrap.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/bootstrap-wysiwyg.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/ace.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/ace-elements.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/ace-extra.min.js'))?>
+        <?php $this->headscript()->appendFile($this->basepath('js/jquery.qrcode.min.js'))?>
 
 
 		<!-- bootstrap & fontawesome -->
@@ -30,6 +40,12 @@
 		<![endif]-->
 		<link rel="stylesheet" href="/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="/css/admin-site/admin.css" />
+
+
+		<?php echo $this->headscript();?>
+		<?php echo $this->headLink() ?>
+        <?php echo $this->headTitle('捷店')->setSeparator(' - ')->setAutoEscape(false) ?>
 
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/css/ace-ie.min.css" />
@@ -37,8 +53,6 @@
 
 		<!-- inline styles related to this page -->
 
-		<!-- ace settings handler -->
-		<script src="/js/ace-extra.min.js"></script>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -46,8 +60,7 @@
 		<script src="/js/html5shiv.js"></script>
 		<script src="/js/respond.min.js"></script>
 		<![endif]-->
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
-<meta property="wb:webmaster" content="176d06dc51ce9a74" />
+        <meta property="wb:webmaster" content="176d06dc51ce9a74" />
     </head>
     <body class="no-skin">
 		<?=$this->partial('/layout/nav.phtml')?>
@@ -56,21 +69,25 @@
         		try{ace.settings.check('main-container' , 'fixed')}catch(e){}
         	</script>
 
-        	<?=$this->partial('/layout/sidebar.phtml')?>
+        	<?=$this->partial('/layout/sidebar.phtml', array('currentItem' => $currentItem))?>
 
 
         	<div class="main-content">
                 <?=$this->partial('/layout/breadcrumbs.phtml')?>
                 <div class="page-content">
-        		  <?php echo $this->content; ?>
+                    <div class="page-content-area">
+                        <?php echo $this->content; ?>
+            		</div>
                 </div>
         	</div>
 
-        	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        		<i class="icon-double-angle-up icon-only bigger-110"></i>
-        	</a>
+            <?=$this->partial('/layout/footer.phtml')?>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse display">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
         </div><!-- /.main-container -->
 
+        <?php $this->inlinescript()->appendFile($this->basepath('js/wds/admin/core.js'))?>
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

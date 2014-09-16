@@ -1,16 +1,16 @@
 <?php
-namespace Application\Model;
+namespace Application\Model\Account;
 
 use SamFramework\Model\AbstractModelMapper;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 
-class BuyerTable extends AbstractModelMapper
+class UserTable extends AbstractModelMapper
 {
 
-    protected $tableName = 'buyer';
+    protected $tableName = 'user';
 
-    protected $modelClassName = 'Application\\Model\\Buyer';
+    protected $modelClassName = 'Application\\Model\\User';
 
     public function buildSqlSelect(Select $select)
     {
@@ -53,7 +53,7 @@ class BuyerTable extends AbstractModelMapper
         return $resultSet;
     }
 
-    public function getBuyer($id)
+    public function getUser($id)
     {
         $id  = (int) $id;
         $rowset =  $this->getTableGateway()->select(array(
@@ -66,7 +66,7 @@ class BuyerTable extends AbstractModelMapper
         return $row;
     }
 
-    public function getBuyerByWeixin($name)
+    public function getUserByWeixin($name)
     {
         $tableGateway = $this->getTableGateway();
         $rowset = $tableGateway->select(array(
@@ -79,14 +79,14 @@ class BuyerTable extends AbstractModelMapper
         return $row;
     }
 
-    public function deleteProductBuyer($id)
+    public function deleteProductUser($id)
     {
         $this->tableGateway->delete(array(
             'id' => (int) $id
         ));
     }
 
-    public function saveBuyer(Buyer $buyer)
+    public function saveUser(User $buyer)
     {
         $tableGateway = $this->getTableGateway();
         $data = $buyer->getArrayCopyForSave();
@@ -95,7 +95,7 @@ class BuyerTable extends AbstractModelMapper
             $tableGateway->insert($data);
             $buyer->id = $this->getTableGateway()->getLastInsertValue();
         } else {
-            if ($this->getBuyer($id)) {
+            if ($this->getUser($id)) {
                 $tableGateway->update($data, array(
                     'id' => $id
                 ));
