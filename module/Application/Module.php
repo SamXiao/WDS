@@ -21,10 +21,10 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array(
-            $this,
-            'setLayout'
-        ));
+//         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array(
+//             $this,
+//             'setLayout'
+//         ));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array(
             $this,
             'onCatchApplicationException'
@@ -41,21 +41,21 @@ class Module
      *            The MvcEvent instance
      * @return void
      */
-    public function setLayout($e)
-    {
-        $matches = $e->getRouteMatch();
-        $controller = $matches->getParam('controller');
-        $viewModel = $e->getViewModel();
+//     public function setLayout($e)
+//     {
+//         $matches = $e->getRouteMatch();
+//         $controller = $matches->getParam('controller');
+//         $viewModel = $e->getViewModel();
 
-        $oldTemplate = $viewModel->getTemplate();
+//         $oldTemplate = $viewModel->getTemplate();
 
-        if (false === strpos($controller, __NAMESPACE__) || $viewModel->terminate() || strpos($oldTemplate, 'admin') === 0) {
-            // not a controller from this module
-            return;
-        }
+//         if (false === strpos($controller, __NAMESPACE__) || $viewModel->terminate() || strpos($oldTemplate, 'admin') === 0) {
+//             // not a controller from this module
+//             return;
+//         }
 
-        $viewModel->setTemplate('admin/layout/layout');
-    }
+//         $viewModel->setTemplate('admin/layout/layout');
+//     }
 
     /**
      *
