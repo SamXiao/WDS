@@ -16,9 +16,8 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-//         exit();
-//         $this->layout('layout/login/withoutSideBar');
-//         return array();
+        $this->layout('layout/layout/withoutSideBar');
+        return array();
     }
 
 }

@@ -19,7 +19,7 @@ class App
 
     public static function isGuest()
     {
-        return self::getAuthenticationService()->hasIdentity();
+        return !self::getAuthenticationService()->hasIdentity();
     }
 
     public static function getUser()

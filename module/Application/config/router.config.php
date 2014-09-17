@@ -16,8 +16,9 @@ return array(
                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
             ),
             'defaults' => array(
-                'controller' => 'index',
-                '__NAMESPACE__' => 'Application\Controller'
+                '__NAMESPACE__' => 'Application\Controller',
+                'controller'    => 'index',
+                'action'        => 'index',
             )
         )
     ),
