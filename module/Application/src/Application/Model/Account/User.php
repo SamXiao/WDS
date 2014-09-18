@@ -24,11 +24,13 @@ class User extends AbstractModel
 
     public $update_time = '';
 
-    public $weibo_code = '';
+    public $weibo_token = '';
 
     public $weibo_name = '';
 
-    public $weibo_expiry = '';
+    public $weibo_token_expiry = '';
+
+    public $weibo_id = '';
 
 
 
@@ -40,9 +42,10 @@ class User extends AbstractModel
         $this->name = (isset($array['name'])) ? $array['name'] : $this->name;
         $this->email = (isset($array['email'])) ? $array['email'] : $this->email;
         $this->password = (isset($array['password'])) ? $array['password'] : $this->password;
-        $this->weibo_code = (isset($array['weibo_code'])) ? $array['weibo_code'] : $this->weibo_code;
+        $this->weibo_token = (isset($array['weibo_token'])) ? $array['weibo_token'] : $this->weibo_token;
         $this->weibo_name  = (isset($array['weibo_name'])) ? $array['weibo_name'] : $this->weibo_name;
-        $this->weibo_expiry  = (isset($array['weibo_expiry'])) ? $array['weibo_expiry'] : $this->weibo_expiry;
+        $this->weibo_token_expiry  = (isset($array['weibo_token_expiry'])) ? $array['weibo_token_expiry'] : $this->weibo_token_expiry;
+        $this->weibo_id  = (isset($array['weibo_id'])) ? $array['weibo_id'] : $this->weibo_id;
     }
 
     public function getArrayCopy()
@@ -52,9 +55,10 @@ class User extends AbstractModel
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
-            'weibo_code' => $this->weibo_code,
+            'weibo_token' => $this->weibo_token,
             'weibo_name' => $this->weibo_name,
-            'weibo_expiry' => $this->weibo_expiry,
+            'weibo_token_expiry' => $this->weibo_token_expiry,
+            'weibo_id' => $this->weibo_id,
         );
         return $data;
     }
@@ -80,21 +84,9 @@ class User extends AbstractModel
         return $this->inputFilter;
     }
 
-    public static function doAuthenticate($username, $password)
-    {
-        $auth = new AuthenticationService();
 
-        $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $authAdapter = new AuthDbTableAdapter($dbAdapter, 'user', 'username', 'password', "MD5(CONCAT('staticSalt', ?, create_time))");
-        $authAdapter->setIdentity($username);
-        $authAdapter->setCredential($password);
 
-        // Attempt authentication, saving the result
-        $result = $auth->authenticate($authAdapter);
-        $storage = $auth->getStorage();
-        $storage->write($authAdapter->getResultRowObject(null, 'password'));
-        return $result;
-    }
+
 
 }
 

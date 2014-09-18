@@ -10,7 +10,7 @@ class UserTable extends AbstractModelMapper
 
     protected $tableName = 'user';
 
-    protected $modelClassName = 'Application\\Model\\User';
+    protected $modelClassName = 'Application\Model\Account\User';
 
     public function buildSqlSelect(Select $select)
     {
@@ -55,8 +55,8 @@ class UserTable extends AbstractModelMapper
 
     public function getUser($id)
     {
-        $id  = (int) $id;
-        $rowset =  $this->getTableGateway()->select(array(
+        $id = (int) $id;
+        $rowset = $this->getTableGateway()->select(array(
             'id' => $id
         ));
         $row = $rowset->current();
@@ -66,34 +66,27 @@ class UserTable extends AbstractModelMapper
         return $row;
     }
 
-    public function getUserByWeiBo($code)
+    public function getUserByWeiBoToken($token)
     {
         $tableGateway = $this->getTableGateway();
         $rowset = $tableGateway->select(array(
-            'weibo_code' => $name
+            'weibo_token' => $token
         ));
         $row = $rowset->current();
         if (! $row) {
-            throw new \Exception("Could not find row $name");
+            throw new \Exception("Could not find row by token: $token");
         }
         return $row;
     }
 
-    public function deleteProductUser($id)
-    {
-        $this->tableGateway->delete(array(
-            'id' => (int) $id
-        ));
-    }
-
-    public function saveUser(User $buyer)
+    public function saveUser(User $user)
     {
         $tableGateway = $this->getTableGateway();
-        $data = $buyer->getArrayCopyForSave();
-        $id = (int) $buyer->id;
+        $data = $user->getArrayCopyForSave();
+        $id = (int) $user->id;
         if ($id == 0) {
             $tableGateway->insert($data);
-            $buyer->id = $this->getTableGateway()->getLastInsertValue();
+            $user->id = $this->getTableGateway()->getLastInsertValue();
         } else {
             if ($this->getUser($id)) {
                 $tableGateway->update($data, array(
@@ -101,7 +94,7 @@ class UserTable extends AbstractModelMapper
                 ));
             }
         }
-        return $buyer;
+        return $user;
     }
 }
 

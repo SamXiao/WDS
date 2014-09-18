@@ -10,24 +10,52 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\Account\Social\Weibo;
+use Application\Model\Account\User;
 
 class OAuthController extends AbstractActionController
 {
+    protected $userTable;
+
+    public function getUserTable()
+    {
+        if (! $this->userTable) {
+            $this->userTable = $this->getServiceLocator()->get('Application\Model\Account\UserTable');
+        }
+
+        return $this->userTable;
+    }
 
     public function loginAction()
     {
 
         $channel = $this->params('channel', '');
-        $model = $this->getSocialModel($channel);
+        $socialModel = $this->getSocialModel($channel);
         if (! isset($_GET['code'])) {
             return $this->notFoundAction();
         }
-        $tokenArr = $model->getToken($_GET['code']);
+        $tokenArr = $socialModel->getToken($_GET['code']);
+        var_dump($tokenArr);
         if (isset($tokenArr['access_token'])){
+            $table = $this->getUserTable();
+            try {
+                $user = $table->getUserByWeiBoToken($tokenArr['access_token']);
 
+
+
+            }catch (\Exception $e){
+                $user = new User();
+                $expiryAt = time() + $tokenArr['expires_in'];
+                $user->weibo_token = $tokenArr['access_token'];
+                $user->weibo_id = $tokenArr['uid'];
+                $user->weibo_token_expiry = date('Y-m-d H:i:s', $expiryAt);
+                $userInfo = $socialModel->getUserInfo($user->weibo_token, $user->weibo_id);
+                $user->weibo_name = $userInfo['name'];
+                $table->saveUser($user);
+            }
         }else{
             throw new \Exception(json_encode($tokenArr));
         }
+        exit();
     }
 
    /**
@@ -47,4 +75,8 @@ class OAuthController extends AbstractActionController
 
     protected function getToken()
     {}
+
+    public function testAction()
+    {
+    }
 }

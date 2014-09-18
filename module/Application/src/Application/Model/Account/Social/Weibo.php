@@ -66,7 +66,15 @@ class Weibo extends AbstractSocial
         return $this->http($url, http_build_query($data), 'POST');
     }
 
-
-
+    public function getUserInfo($token, $uid)
+    {
+        $url = 'https://api.weibo.com/2/users/show.json?';
+        $data = array(
+            'access_token' => $token,
+            'uid' => $uid
+        );
+        $url .= http_build_query($data);
+        return $this->http($url);
+    }
 }
 

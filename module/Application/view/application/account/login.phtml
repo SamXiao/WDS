@@ -5,10 +5,7 @@ $this->headTitle($title);
 <?= $this->pageHeader( $title )?>
 <?php
 
-$form->setAttribute('action', $this->url('home/default', array(
-    'controller' => 'user',
-    'action' => 'login'
-)));
+$form->setAttribute('action', 'account/login');
 $form->setAttribute('class', 'form-horizontal');
 $form->setAttribute('role', 'form');
 $form->prepare();

@@ -9,7 +9,7 @@ use Zend\Authentication\Result;
 use Application\Form\LoginForm;
 use SamFramework\Core\App;
 
-class User extends AbstractModel
+class UserAuth extends AbstractModel
 {
 
 

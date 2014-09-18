@@ -34,7 +34,7 @@ class AccountController extends AbstractActionController
 
                     case Result::SUCCESS:
                         /** do stuff for successful authentication **/
-                        $this->redirect()->toUrl('/admin/product');
+                        $this->redirect()->toUrl('/product');
                         break;
 
                     case Result::FAILURE_IDENTITY_NOT_FOUND:
