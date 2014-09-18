@@ -57,21 +57,7 @@ class AccountController extends AbstractActionController
         );
     }
 
-    protected function doAuthenticate($username, $password)
-    {
-        $auth = new AuthenticationService();
 
-        $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $authAdapter = new AuthDbTableAdapter($dbAdapter, 'user', 'username', 'password');
-        $authAdapter->setIdentity($username);
-        $authAdapter->setCredential($password);
-
-        // Attempt authentication, saving the result
-        $result = $auth->authenticate($authAdapter);
-        $storage = $auth->getStorage();
-        $storage->write($authAdapter->getResultRowObject(null, 'password'));
-        return $result;
-    }
     public function logoutAction()
     {
         App::clearUser();

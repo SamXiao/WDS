@@ -12,7 +12,6 @@ use SamFramework\Core\App;
 class User extends AbstractModel
 {
 
-    public $id = 0;
 
     public $name = '';
 
@@ -59,26 +58,6 @@ class User extends AbstractModel
         return $data;
     }
 
-    public function getInputFilter()
-    {
-        if (! $this->inputFilter) {
-            $inputFilter = new InputFilter();
-
-            $inputFilter->add(array(
-                'name' => 'email',
-                'required' => true,
-                'filters' => array(
-                    array(
-                        'name' => 'StringTrim'
-                    )
-                )
-            ));
-
-            $this->inputFilter = $inputFilter;
-        }
-
-        return $this->inputFilter;
-    }
 
     public static function doAuthenticate($username, $password)
     {

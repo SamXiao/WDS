@@ -9,7 +9,6 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use SamFramework\Core\App;
 use Application\Model\Account\Social\Weibo;
 
 class OAuthController extends AbstractActionController
@@ -17,15 +16,33 @@ class OAuthController extends AbstractActionController
 
     public function loginAction()
     {
+
         $channel = $this->params('channel', '');
-//         $model = $this->getServiceLocator()->get('Application\Model\Account\Social\Weibo');
-        $model = new Weibo();
+        $model = $this->getSocialModel($channel);
         if (! isset($_GET['code'])) {
             return $this->notFoundAction();
         }
-        $model->getToken($_GET['code']);
-        exit();
-//         echo $code;
+        $tokenArr = $model->getToken($_GET['code']);
+        if (isset($tokenArr['access_token'])){
+
+        }else{
+            throw new \Exception(json_encode($tokenArr));
+        }
+    }
+
+   /**
+    *
+    * @param string $channel
+    * @return AbstractSocial
+    */
+    protected function getSocialModel($channel){
+        $model = '';
+        switch ($channel){
+        	case 'weibo':
+        	    $model = new Weibo();
+        	    break;
+        }
+        return $model;
     }
 
     protected function getToken()
