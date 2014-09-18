@@ -28,7 +28,11 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array(
             $this,
             'onCatchApplicationException'
-        ));
+        ), -100);
+        $eventManager->attach(MvcEvent::EVENT_RENDER_ERROR, array(
+            $this,
+            'onCatchApplicationException'
+        ), -100);
         $eventManager->attach(MvcEvent::EVENT_RENDER, array(
             $this,
             'registerJsonStrategy'
@@ -91,6 +95,7 @@ class Module
 
     public function onCatchApplicationException(MvcEvent $e)
     {
+
         // Do nothing if no error in the event
         $error = $e->getError();
         if (empty($error) || $error != Application::ERROR_EXCEPTION) {
@@ -104,11 +109,16 @@ class Module
         }
 
         $exception = $e->getParam('exception');
-        if ($exception->getCode() == 403) {
-            $response = $e->getResponse();
-            $response->getHeaders()->addHeaderLine('Location', '/admin/account/login');
-            $response->setStatusCode(302);
+        $response = $e->getResponse();
+        switch ($exception->getCode())
+        {
+        	case 403:
+        	    $response->getHeaders()->addHeaderLine('Location', '/layout/account/login');
+        	    $response->setStatusCode(302);
+        	    break;
         }
+
+
     }
 
     public function getConfig()

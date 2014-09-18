@@ -66,11 +66,11 @@ class UserTable extends AbstractModelMapper
         return $row;
     }
 
-    public function getUserByWeixin($name)
+    public function getUserByWeiBo($code)
     {
         $tableGateway = $this->getTableGateway();
         $rowset = $tableGateway->select(array(
-            'weixin' => $name
+            'weibo_code' => $name
         ));
         $row = $rowset->current();
         if (! $row) {

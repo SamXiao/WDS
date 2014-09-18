@@ -1,0 +1,62 @@
+<?php
+namespace Application\Model\Account\Social;
+
+class Weibo extends AbstractSocial
+{
+
+    protected $clientId = '3208831613';
+
+    protected $clientSecret = '46b6ba88abec3ca1cabb56afdb0a3204';
+
+    protected $redirectUrl = 'http://jd.rx-tech.cn/oauth/login/weibo';
+
+    protected $loginUrl = 'https://api.weibo.com/oauth2/authorize';
+
+    protected $tokenUrl = 'https://api.weibo.com/oauth2/access_token';
+
+    protected $code;
+
+    /**
+     *
+     * @return the $loginUrl
+     */
+    public function getLoginUrl()
+    {
+        return $this->loginUrl . '?client_id=' . $this->clientId . '&response_type=code&redirect_uri=' . $this->redirectUrl;
+    }
+
+    /**
+     *
+     * @return the $tokenUrl
+     */
+    public function getTokenUrl()
+    {
+        return $this->tokenUrl . '?client_id=' . $this->clientId . '&client_secret=' . $this->clientSecret . '&grant_type=authorization_code&code=' . $this->getCode() . '&redirect_uri=' . $this->redirectUrl;
+    }
+
+    /**
+     *
+     * @return the $code
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     *
+     * @param field_type $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    public function getToken($code)
+    {
+        $this->setCode($code);
+        $url = $this->getTokenUrl();
+        print_r($this->curl($url));
+    }
+}
+

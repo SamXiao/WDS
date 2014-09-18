@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Form;
+namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -10,7 +10,7 @@ class LoginForm extends Form
 
     public static function getInstance(ServiceLocatorInterface $sl)
     {
-        return $sl->get('FormElementManager')->get('\Admin\Form\LoginForm');
+        return $sl->get('FormElementManager')->get('\Application\Form\LoginForm');
     }
 
 

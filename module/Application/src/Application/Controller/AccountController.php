@@ -14,7 +14,7 @@ use Application\Model\Member;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthDbTableAdapter;
 use Zend\Authentication\Result;
-use Admin\Form\LoginForm;
+use Application\Form\LoginForm;
 use SamFramework\Core\App;
 
 class AccountController extends AbstractActionController
@@ -22,7 +22,7 @@ class AccountController extends AbstractActionController
 
     public function loginAction()
     {
-        $this->layout('admin/layout/login');
+        $this->layout('layout/login');
         $form = LoginForm::getInstance($this->getServiceLocator());
 
         $request = $this->getRequest();
