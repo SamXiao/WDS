@@ -11,9 +11,11 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\Account\Social\Weibo;
 use Application\Model\Account\User;
+use Application\Model\Account\UserAuthenticator;
 
 class OAuthController extends AbstractActionController
 {
+
     protected $userTable;
 
     public function getUserTable()
@@ -25,24 +27,31 @@ class OAuthController extends AbstractActionController
         return $this->userTable;
     }
 
+
     public function loginAction()
     {
-
         $channel = $this->params('channel', '');
-        $socialModel = $this->getSocialModel($channel);
+        $model = '';
+        switch ($channel){
+        	case 'weibo':
+        	    $this->doWeibo();
+        	    break;
+        }
+        return $model;
+    }
+
+
+    public function doWeibo()
+    {
+        $authenticator = new UserAuthenticator();
+        $socialModel = new Weibo();
         if (! isset($_GET['code'])) {
             return $this->notFoundAction();
         }
         $tokenArr = $socialModel->getToken($_GET['code']);
-        var_dump($tokenArr);
         if (isset($tokenArr['access_token'])){
-            $table = $this->getUserTable();
-            try {
-                $user = $table->getUserByWeiBoToken($tokenArr['access_token']);
-
-
-
-            }catch (\Exception $e){
+            if(!$authenticator->existWeiboAccount($tokenArr['access_token']))
+            {
                 $user = new User();
                 $expiryAt = time() + $tokenArr['expires_in'];
                 $user->weibo_token = $tokenArr['access_token'];
@@ -50,27 +59,15 @@ class OAuthController extends AbstractActionController
                 $user->weibo_token_expiry = date('Y-m-d H:i:s', $expiryAt);
                 $userInfo = $socialModel->getUserInfo($user->weibo_token, $user->weibo_id);
                 $user->weibo_name = $userInfo['name'];
-                $table->saveUser($user);
+                $user = $this->getUserTable()->saveUser($user);
+
             }
+            $authenticator->doWeiboAuth($tokenArr['access_token']);
+            $this->redirect()->toUrl('/store');
         }else{
             throw new \Exception(json_encode($tokenArr));
         }
         exit();
-    }
-
-   /**
-    *
-    * @param string $channel
-    * @return AbstractSocial
-    */
-    protected function getSocialModel($channel){
-        $model = '';
-        switch ($channel){
-        	case 'weibo':
-        	    $model = new Weibo();
-        	    break;
-        }
-        return $model;
     }
 
     protected function getToken()
