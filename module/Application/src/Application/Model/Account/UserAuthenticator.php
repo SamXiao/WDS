@@ -5,6 +5,7 @@ use SamFramework\Model\AbstractModelMapper;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthDbTableAdapter;
 use SamFramework\Core\App;
+use Application\Model\Account\Social\Weibo;
 
 class UserAuthenticator extends AbstractModelMapper
 {
@@ -49,16 +50,29 @@ class UserAuthenticator extends AbstractModelMapper
      * @param unknown $token
      * @return boolean
      */
-    public function doWeiboAuth($token)
+    public function doWeiboAuth($tokenArr)
     {
         $table = $this->getUserTable();
         try {
-            $user = $table->getUserByWeiBoToken($token);
+            $user = $table->getUserByWeiBoToken($tokenArr['access_token']);
+            $this->saveTokenToUser($tokenArr, $user);
             return $this->setIdentity($user);
-            ;
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    public function saveTokenToUser($tokenArr, User $user)
+    {
+        $socialModel = new Weibo();
+        $table = $this->getUserTable();
+        $expiryAt = time() + $tokenArr['expires_in'];
+        $user->weibo_token_expiry = date('Y-m-d H:i:s', $expiryAt);
+        $user->weibo_token = $tokenArr['access_token'];
+        $user->weibo_id = $tokenArr['uid'];
+        $userInfo = $socialModel->getUserInfo($user->weibo_token, $user->weibo_id);
+        $user->weibo_name = $userInfo['name'];
+        return $table->saveUser($user);
     }
 
     protected function setIdentity(User $user)

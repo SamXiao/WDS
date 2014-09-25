@@ -66,6 +66,12 @@ class UserTable extends AbstractModelMapper
         return $row;
     }
 
+    /**
+     *
+     * @param unknown $token
+     * @throws \Exception
+     * @return User
+     */
     public function getUserByWeiBoToken($token)
     {
         $tableGateway = $this->getTableGateway();
