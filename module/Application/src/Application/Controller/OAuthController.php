@@ -43,7 +43,7 @@ class OAuthController extends AbstractActionController
                 $authenticator->saveTokenToUser($tokenArr, $user);
             }
             $authenticator->doWeiboAuth($tokenArr);
-            $this->redirect()->toUrl('/product');
+            $this->redirect()->toUrl('/store');
         } else {
             throw new \Exception(json_encode($tokenArr));
         }

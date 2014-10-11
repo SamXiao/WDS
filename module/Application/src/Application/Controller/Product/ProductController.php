@@ -10,7 +10,6 @@ use Zend\View\Model\JsonModel;
 use Zend\Filter\File\RenameUpload;
 use PHPThumb\GD;
 use Components\Layout\View\Model\FlashMessagerModel;
-use Zend\Barcode\Barcode;
 use SamFramework\Core\App;
 
 class ProductController extends AbstractActionController

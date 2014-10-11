@@ -32,8 +32,9 @@ return array(
                 'id' => '[0-9]+'
             ),
             'defaults' => array(
-                'controller' => 'product',
-                '__NAMESPACE__' => 'Application\Controller\Product'
+                '__NAMESPACE__' => 'Application\Controller\Product',
+                'controller'    => 'product',
+                'action'        => 'index'
             )
         )
     ),
@@ -42,11 +43,11 @@ return array(
         'options' => array(
             'route' => '/oauth[/:action][/:channel]',
             'constraints' => array(
-                'channel' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                'channel'   => '[a-zA-Z][a-zA-Z0-9_-]*',
+                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*'
             ),
             'defaults' => array(
-                'controller' => 'oauth',
+                'controller'    => 'oauth',
                 '__NAMESPACE__' => 'Application\Controller'
             )
         )
