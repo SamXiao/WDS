@@ -15,7 +15,7 @@ var wds_admin_product_profile = {
 	    	searching: false,
 			lengthChange: false,
 			info: false,
-			ajax: "/admin/product/profile/getBuyerData/" + self.options.productId,
+			ajax: "/product/profile/getBuyerData/" + self.options.productId,
 			columns: [
 				{ "data": "buyer_weixin" },
                 { "data": "quantity" },
@@ -38,7 +38,7 @@ var wds_admin_product_profile = {
 	            id: self.options.productId,
 	            recommend: $(this).prop('checked')?1:0
 	        };
-	        core.ajaxWithFlashMessager('/admin/product/product/recommend', data)
+	        core.ajaxWithFlashMessager('/product/product/recommend', data)
 	    });
 	}
 	

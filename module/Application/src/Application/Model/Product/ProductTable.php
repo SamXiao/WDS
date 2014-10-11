@@ -8,7 +8,7 @@ use Zend\Db\Sql\Expression;
 
 class ProductTable extends AbstractModelMapper
 {
-    public $currentUserId = 0;
+    public $currentStoreId = 0;
 
     protected $tableName = 'product';
 
@@ -33,8 +33,8 @@ class ProductTable extends AbstractModelMapper
             'product_thumbnail' => 'thumbnail_uri'
         ), Select::JOIN_LEFT);
         $select->where('product.id!=0');
-        if($this->currentUserId){
-            $select->where('product.user_id='.$this->currentUserId);
+        if($this->currentStoreId){
+            $select->where('product.store_id='.$this->currentStoreId);
         }
     }
 
@@ -104,7 +104,7 @@ class ProductTable extends AbstractModelMapper
     {
         $tableGateway = $this->getTableGateway();
         $product->update_time = date('YmdHis');
-        $product->user_id = $this->currentUserId;
+        $product->user_id = $this->currentStoreId;
         $data = $product->getArrayCopyForSave();
         $id = (int) $product->id;
         if ($id == 0) {
@@ -149,7 +149,7 @@ class ProductTable extends AbstractModelMapper
         $resultSet = $this->getTableGateway()->select(array(
             'recommend' => 1,
             'enable' => 1,
-            'user_id' => $this->currentUserId
+            'store_id' => $this->currentStoreId
         ));
         return $resultSet;
     }

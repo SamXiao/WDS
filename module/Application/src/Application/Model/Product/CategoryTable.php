@@ -7,14 +7,14 @@ use Zend\Db\Sql\Select;
 class CategoryTable extends AbstractModelMapper
 {
 
-    public $currentUserId = 0;
+    public $currentStoreId = 0;
 
     protected $tableName = 'category';
 
     protected $modelClassName = 'Application\\Model\\Product\\Category';
 
     public function buildSqlSelect(Select $select){
-        $select->where('user_id='.$this->currentUserId);
+        $select->where('store_id='.$this->currentStoreId);
     }
 
     public function getFetchAllCounts()
@@ -71,7 +71,7 @@ class CategoryTable extends AbstractModelMapper
     public function saveCategory(Category $category)
     {
         $tableGateway = $this->getTableGateway();
-        $category->user_id = $this->currentUserId;
+        $category->store_id = $this->currentStoreId;
         $data = $category->getArrayCopyForSave();
         $id = (int) $category->id;
         if ($id == 0) {

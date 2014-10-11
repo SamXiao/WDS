@@ -19,12 +19,20 @@ class IndexController extends AbstractActionController
 
     protected $categoryTable;
 
-    public function indexAction()
+    /**
+     * @param field_type $storeId
+     */
+    public function setStoreId($storeId)
     {
-        $this->storeId = $this->params('storeId',0);
+        $this->storeId = $storeId;
         if ($this->storeId ==0) {
-        	throw new \Exception('您访问的店铺暂不存在');
+            throw new \Exception('您访问的店铺暂不存在');
         }
+    }
+
+	public function indexAction()
+    {
+        $this->setStoreId($this->params('storeId',0));
         $categoryTable = $this->getCategoryTable();
         $categories = $categoryTable->fetchAll();
         $products = $this->getProductTable()->getRecommendedProducts();
@@ -38,17 +46,18 @@ class IndexController extends AbstractActionController
     {
         if (! $this->projectTable) {
             $this->projectTable = $this->getServiceLocator()->get('Application\Model\Product\ProductTable');
-            $this->projectTable->currentUserId = $this->storeId;
+            $this->projectTable->currentStoreId = $this->storeId;
         }
 
         return $this->projectTable;
     }
 
+
     protected function getCategoryTable()
     {
         if (! $this->categoryTable) {
             $this->categoryTable = $this->getServiceLocator()->get('Application\Model\Product\CategoryTable');
-            $this->categoryTable->currentUserId = $this->storeId;
+            $this->categoryTable->currentStoreId = $this->storeId;
         }
 
         return $this->categoryTable;

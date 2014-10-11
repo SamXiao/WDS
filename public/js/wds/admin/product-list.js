@@ -10,7 +10,7 @@ var wds_admin_product_list = {
 	    	searching: false,
 			lengthChange: false,
 			info: false,
-			ajax: "/admin/product/product/getProcustsListData",
+			ajax: "/product/product/getProcustsListData",
 			order: [[ 1, "desc" ]],
 			columnDefs: [
 				{
@@ -39,7 +39,7 @@ var wds_admin_product_list = {
 					"render": function ( data, type, row ) {
 					    var shareStringLarge = '<p class="hidden-xs"><a data-target="#qrcodeModal" data-method="modal-qrcode" data-toggle="modal" data-text="http://115.29.19.195:9001/p/' + row.DT_RowId + '"><i class="ace-icon fa fa-comments"></i>分享</a></p>';
 					    var shareStringSmall = '<p class="visible-xs"><a href="http://115.29.19.195:9001/p/' + row.DT_RowId + '"><i class="ace-icon fa fa-comments"></i>分享</a></p>';
-					    var profileString = '<p><a href="/admin/product/profile/index/' + row.DT_RowId + '"><i class="ace-icon fa fa-file"></i>详细</a></p>';
+					    var profileString = '<p><a href="/product/profile/index/' + row.DT_RowId + '"><i class="ace-icon fa fa-file"></i>详细</a></p>';
 //						var recommendString = '';
 //						if(row.recommend == 1){
 //						    recommendString = '<p><a data-target="/admin/product/product/recommend" data-method="ajax" data-id="' + row.DT_RowId + '" data-recommend="0" ><i class="ace-icon fa fa-heart-o"></i>取消推荐</a></p>';

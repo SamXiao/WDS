@@ -9,7 +9,7 @@ class Category extends AbstractModel
 
     public $id = 0;
 
-    public $user_id = 1;
+    public $store_id = 1;
 
     public $title = '';
 
@@ -44,7 +44,7 @@ class Category extends AbstractModel
     public function exchangeArray(array $array)
     {
         $this->id = (isset($array['id'])) ? $array['id'] : $this->id;
-        $this->user_id = (isset($array['user_id'])) ? $array['user_id'] : $this->user_id;
+        $this->store_id = (isset($array['store_id'])) ? $array['store_id'] : $this->store_id;
         $this->title = (isset($array['title'])) ? $array['title'] : $this->title;
         $this->type = (isset($array['type'])) ? $array['type'] : $this->type;
         $this->parent_id = (isset($array['parent_id'])) ? $array['parent_id'] : $this->parent_id;
@@ -55,7 +55,7 @@ class Category extends AbstractModel
         $data = array(
             'id' => $this->id,
             'title' => $this->title,
-            'user_id' => $this->user_id,
+            'store_id' => $this->store_id,
             'type' => $this->type,
             'parent_id' => $this->parent_id
         );
